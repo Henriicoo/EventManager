@@ -1,0 +1,20 @@
+# Prefixo do plugin
+prefix: '&8[&6&lEventManager&8]'
+
+# Mensagem que anuncia o evento
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {evento} - nome do evento
+# {prize} - prêmio do evento
+anunciar-mensagem: '{prefix} &eEntre no &6Evento {evento}&e valendo &eR${prize}'
+
+# Texto do botão que será usado para entrar no evento
+button: '&a&l[Clique para entrar]'
+
+# Valor máximo de dinheiro para o vencedor
+max-premio: 10000
+
+# Se o plugin irá anunciar o evento automaticamente
+auto-anunciar: true
+# Tempo de intervalo entre os anúncios (em segundos)
+anunciar-intervalo: 120

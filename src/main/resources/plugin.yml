@@ -1,0 +1,26 @@
+name: EventManager
+version: '${project.version}'
+main: com.henriquenapimo1.eventmanager.Main
+api-version: 1.17
+prefix: EventManager
+author: HenriqueNapimo1
+description: Plugin para a criação de eventos
+depend: [Vault]
+commands:
+  evento:
+    aliases: [em]
+    description: Comando principal
+
+permissions:
+  eventmanager.entrar:
+    description: Dá a permissão de entrar num evento à um jogador
+    default: true
+  eventmanager.staff:
+    description: Marca um jogador como staff, ele não pode entrar em eventos como player ou ser ganhador de um
+    default: op
+  eventmanager.mod:
+    description: Dá as permissões de moderador à uma pessoa
+    default: op
+  eventmanager.admin:
+    description: Dá as permissões de administrador do evento à uma pessoa
+    default: op
