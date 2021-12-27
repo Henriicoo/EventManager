@@ -103,6 +103,9 @@ public class CommandListener implements CommandExecutor {
                 case "gamemode": {
                     new GamemodeCommand(ctx); return false;
                 }
+                case "flags": {
+                    new FlagCommand(ctx); return false;
+                }
             }
         } else {
             sender.sendMessage("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.admin §cpara poder fazer isso.");

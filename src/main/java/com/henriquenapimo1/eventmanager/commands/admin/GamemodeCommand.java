@@ -52,7 +52,7 @@ public class GamemodeCommand {
             }
         }
 
-        evento.setGamemode(gm);
+        evento.getFlags().setGamemode(gm);
         ctx.reply("§aGamemode dos jogadores alterado com sucesso!");
     }
 }

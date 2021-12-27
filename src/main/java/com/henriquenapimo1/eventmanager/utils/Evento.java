@@ -26,6 +26,8 @@ public class Evento {
     private final List<ItemStack> itens = new ArrayList<>();
     private final List<PotionEffect> effects = new ArrayList<>();
 
+    private final Flags flags = new Flags(this);
+
     private int bcTaskId;
 
     public Evento(String nome, Location spawn, int prize) {
@@ -67,6 +69,8 @@ public class Evento {
 
     public void addPlayer(Player p) {
         players.add(p);
+        flags.addPlayerFlags(p);
+
         p.teleport(spawn);
 
         // salva o inv
@@ -74,6 +78,7 @@ public class Evento {
         p.getInventory().clear();
 
         // adiciona os itens especiais
+        p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
         p.getInventory().setItem(8,Utils.getBarrier());
         itens.forEach(p.getInventory()::addItem);
         effects.forEach(p::addPotionEffect);
@@ -83,6 +88,20 @@ public class Evento {
         p.sendTitle("§6Evento " + name,"§eSeja bem-vindo(a) ao evento!",5,30,5);
 
         broadcast("§a" + p.getDisplayName() + "§e entrou no evento!");
+        playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
+    }
+
+    public void addDeadPlayer(Player p) {
+        flags.addPlayerFlags(p);
+        p.teleport(spawn);
+
+        p.getInventory().clear();
+        p.getInventory().setItem(8,Utils.getBarrier());
+
+        itens.forEach(p.getInventory()::addItem);
+        effects.forEach(p::addPotionEffect);
+
+        p.sendMessage("§aVocê reespawnou!");
         playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
 
@@ -180,7 +199,7 @@ public class Evento {
         playerOldSettings.remove(p);
     }
 
-    public void setGamemode(GameMode gm) {
+    void setGamemode(GameMode gm) {
         players.forEach(p -> p.setGameMode(gm));
         broadcast("§aSeu modo de jogo foi alterado!");
         playsound(Sound.BLOCK_NOTE_BLOCK_BIT);
@@ -206,7 +225,6 @@ public class Evento {
                     s.teleport(playerOldSettings.get(s).getValue());
 
                     playerOldSettings.remove(s);
-                    System.out.println("spec removido");
 
                     if(i.get()==size.get()) {
                         Main.getMain().removeEvento();
@@ -234,9 +252,7 @@ public class Evento {
 
             playerOldSettings.remove(p);
 
-            System.out.println("removendo players");
             if(i.get()==size.get()) {
-                System.out.println("é do mesom tamanho! começando spec");
                 size.set(spectators.size());
                 i.set(0);
 
@@ -250,10 +266,8 @@ public class Evento {
                     s.teleport(playerOldSettings.get(s).getValue());
 
                     playerOldSettings.remove(s);
-                    System.out.println("spec removido");
 
                     if(i.get()==size.get()) {
-                        System.out.println("é do mesmo tamanho! resetando");
                         Main.getMain().removeEvento();
                     }
 
@@ -287,6 +301,10 @@ public class Evento {
 
     public int getPrize() {
         return prize;
+    }
+
+    public Flags getFlags() {
+        return flags;
     }
 
     public List<Player> getPlayers() {

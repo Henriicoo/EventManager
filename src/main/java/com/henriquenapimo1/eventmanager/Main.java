@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager;
 
 import com.henriquenapimo1.eventmanager.listeners.CommandListener;
 import com.henriquenapimo1.eventmanager.listeners.EventListener;
+import com.henriquenapimo1.eventmanager.listeners.MenuListener;
 import com.henriquenapimo1.eventmanager.utils.Evento;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public final class Main extends JavaPlugin {
         cmd.setTabCompleter(this);
 
         getServer().getPluginManager().registerEvents(new EventListener(),this);
+        getServer().getPluginManager().registerEvents(new MenuListener(),this);
 
         saveDefaultConfig();
 
@@ -54,12 +56,12 @@ public final class Main extends JavaPlugin {
 
             if(sender.hasPermission("eventmanager.admin"))
                 tab.addAll(Arrays.asList("cancelar","criar","darefeito","daritem","effectclear","finalizar",
-                        "gamemode","itemclear","reload","setpremio","setspawn", "tphere","trancar"));
+                        "flags","gamemode","itemclear","reload","setpremio","setspawn", "tphere","trancar"));
 
             return tab;
         }
 
-        if(args.length == 1) {
+        if(args.length <= 2) {
             switch (args[0]) {
                 case "ban": {
                     List<String> st = new ArrayList<>();

@@ -33,7 +33,8 @@ public class HelpCommand {
         } else if(ctx.getArg(1).equals("2") && ctx.getSender().hasPermission("eventmanager.admin")) {
             ComponentBuilder b = new ComponentBuilder("§7Página 2 | " + Utils.getPref() + " §c§lComandos de Administração§7:");
             b.append("\n§a/evento criar [nome] [prêmio] §7- §eCria um evento com o nome e prêmio definidos;");
-            b.append("\n§a/evento trancar §7- §eTranca ou destranca o evento");
+            b.append("\n§a/evento flags §7- §eAbre o menu de flags do evento;");
+            b.append("\n§a/evento trancar §7- §eTranca ou destranca o evento;");
             b.append("\n§a/evento cancelar §7- §eCancela o evento sem dar prêmio à ninguém;");
             b.append("\n§a/evento finalizar [ganhador] [ganhador]... §7- §eFinaliza o evento e dá a vitória à um ou mais jogadores separados por espaço;");
             b.append("\n§a/evento reload §7- §eRecarrega as configurações do plugin;");
@@ -46,9 +47,11 @@ public class HelpCommand {
             ctx.getSender().spigot().sendMessage(b.create());
         } else if(ctx.getArg(1).equals("3") && ctx.getSender().hasPermission("eventmanager.admin"))  {
             StringBuilder b = new StringBuilder("§7Página 3 | " + Utils.getPref() + " §c§lComandos de Administração§7:");
+            b.append("\n§a/evento gamemode [gamemode] §7- §eMuda o gamemode de todos os jogadores;");
             b.append("\n§a/evento itemclear §7- §eLimpa todos os itens dados aos jogadores;");
             b.append("\n§a/evento effectclear §7- §eLimpa todos os efeitos de poção dados aos jogadores;");
             b.append("\n§a/evento setspawn §7- §eSeta o spawn do evento na sua posição atual;");
+            b.append("\n§a/evento setpremio [prêmio] §7- §eTroca o valor do prêmio inicial");
             b.append("\n§a/evento tphere §7- §eTeletransporta todos os jogadores na sua posição atual;");
 
             ctx.getSender().sendMessage(b.toString());
