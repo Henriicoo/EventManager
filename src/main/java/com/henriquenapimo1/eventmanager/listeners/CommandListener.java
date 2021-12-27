@@ -1,5 +1,6 @@
 package com.henriquenapimo1.eventmanager.listeners;
 
+import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.commands.EntrarCommand;
 import com.henriquenapimo1.eventmanager.commands.HelpCommand;
 import com.henriquenapimo1.eventmanager.commands.SairCommand;

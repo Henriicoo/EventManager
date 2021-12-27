@@ -1,6 +1,8 @@
 package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
+import com.henriquenapimo1.eventmanager.utils.gui.Itens;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -79,7 +81,8 @@ public class Evento {
 
         // adiciona os itens especiais
         p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
-        p.getInventory().setItem(8,Utils.getBarrier());
+        p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
+
         itens.forEach(p.getInventory()::addItem);
         effects.forEach(p::addPotionEffect);
 
@@ -96,7 +99,7 @@ public class Evento {
         p.teleport(spawn);
 
         p.getInventory().clear();
-        p.getInventory().setItem(8,Utils.getBarrier());
+        p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
 
         itens.forEach(p.getInventory()::addItem);
         effects.forEach(p::addPotionEffect);
@@ -148,8 +151,8 @@ public class Evento {
         itens.clear();
         players.forEach(p -> {
             p.getInventory().clear();
-            p.getInventory().setItem(8,Utils.getBarrier());}
-        );
+            p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
+        });
     }
 
     public void darEfeito(List<PotionEffect> effects) {
@@ -184,10 +187,10 @@ public class Evento {
         this.playerOldSettings.put(p,new AbstractMap.SimpleEntry<>(null,p.getLocation()));
 
         p.teleport(spawn);
+        p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
 
         p.sendMessage("§7 \n §7Você entrou no evento como um espectador!\n§7 ");
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,100000,1,false,false));
-        p.getInventory().setItem(8,Utils.getBarrier());
     }
 
     public void removeSpectator(Player p) {
@@ -195,6 +198,8 @@ public class Evento {
 
         p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
         p.teleport(playerOldSettings.get(p).getValue());
+
+        InventoryGUIs.clearHotbar(p);
 
         playerOldSettings.remove(p);
     }

@@ -3,6 +3,7 @@ package com.henriquenapimo1.eventmanager.commands;
 import com.henriquenapimo1.eventmanager.utils.CmdContext;
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.Evento;
+import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 
 public class EntrarCommand {
 
@@ -36,7 +37,11 @@ public class EntrarCommand {
         }
 
         // se é staff, vai entrar como espectador
-        if(ctx.getSender().hasPermission("eventmanager.admin") || ctx.getSender().hasPermission("eventmanager.mod")) {
+        if(ctx.getSender().hasPermission("eventmanager.staff") || ctx.getSender().hasPermission("eventmanager.admin") || ctx.getSender().hasPermission("eventmanager.mod")) {
+            if(ctx.getSender().hasPermission("eventmanager.admin") || ctx.getSender().hasPermission("eventmanager.mod")) {
+                InventoryGUIs.setStaffHotbar(ctx.getSender());
+            }
+
             evento.addSpectator(ctx.getSender());
             return;
         }

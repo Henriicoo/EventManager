@@ -5,7 +5,13 @@ import com.henriquenapimo1.eventmanager.utils.Evento;
 import com.henriquenapimo1.eventmanager.utils.Flags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class InventoryGUIs {
 
@@ -14,7 +20,7 @@ public class InventoryGUIs {
 
         Flags f = e.getFlags();
 
-        Inventory i = Bukkit.createInventory(null,9*4,"§8Flags de Evento");
+        Inventory i = Bukkit.createInventory(null,9*4,"§0Flags de Evento");
 
         for (int a = 0; a < i.getSize(); a++) {
             i.setItem(a,Itens.getItem(Material.GRAY_STAINED_GLASS_PANE,"§7 "));
@@ -32,5 +38,79 @@ public class InventoryGUIs {
         i.setItem(24,Itens.getBoolItem(f.getInvul()));
         i.setItem(25,Itens.getBoolItem(f.getRespawn()));
         return i;
+    }
+
+    public static void setStaffHotbar(Player p) {
+        p.getInventory().setItem(0,Itens.getItem(Material.COMPASS,"§a§lMenu de Jogadores","§7Clique direito para abrir o menu de players"));
+        p.getInventory().setItem(4,Itens.getItem(Material.COMPARATOR,"§e§lMenu de Flags","§7Clique direito para abrir o menu de flags"));
+        p.getInventory().setItem(8,Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
+    }
+
+    public static Inventory getPlayersInventory(int pag) {
+        Evento e = Main.getMain().getEvento();
+        pag = pag-1;
+
+        double paginas = 0;
+        double s = e.getPlayers().size();
+        int slots;
+
+        if(s <= 9) {
+            slots = 9;
+        } else if(s <= 9*2) {
+            slots = 9*2;
+        } else if(s <= 9*3) {
+            slots = 9*3;
+        } else if(s <= 9*4) {
+            slots = 9*4;
+        } else if(s <= 9*5) {
+            slots = 9*5;
+        } else {
+            slots = 9*6;
+            paginas = s/9*5;
+        }
+
+        Inventory inv = Bukkit.createInventory(null,slots,"§0Lista de Jogadores");
+
+        if(paginas == 0) {
+            e.getPlayers().forEach(p -> {
+                ItemStack i = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta m = (SkullMeta) i.getItemMeta();
+
+                assert m != null;
+
+                m.setDisplayName(p.getDisplayName());
+                m.setLore(Arrays.asList("§7Vida: §f" + p.getHealthScale()+"%",
+                        "§7","§7Clique esquerdo para teletransportar","§7Clique direito para §cbanir§7!"));
+
+                i.setItemMeta(m);
+                inv.addItem(i);
+            });
+            return inv;
+        } else {
+            e.getPlayers().stream().skip((9*5)*pag).limit(9*5).collect(Collectors.toList()).forEach(p -> {
+                ItemStack i = new ItemStack(Material.PLAYER_HEAD);
+                SkullMeta m = (SkullMeta) i.getItemMeta();
+
+                assert m != null;
+
+                m.setDisplayName(p.getDisplayName());
+                m.setLore(Arrays.asList("§7Vida: §f" + p.getHealthScale()+"%",
+                        "§7","§7Clique esquerdo para teletransportar","§7Clique direito para §cbanir§7!"));
+
+                i.setItemMeta(m);
+                inv.addItem(i);
+            });
+            if(pag != 0)
+                inv.setItem(45,Itens.getItem(Material.ARROW,"§7Página "+Integer.parseInt(String.valueOf(pag))));
+
+            inv.setItem(53,Itens.getItem(Material.ARROW,"§7Página "+Integer.parseInt(String.valueOf(pag+2))));
+        }
+        return inv;
+    }
+
+    public static void clearHotbar(Player p) {
+        p.getInventory().setItem(0,new ItemStack(Material.AIR));
+        p.getInventory().setItem(4,new ItemStack(Material.AIR));
+        p.getInventory().setItem(8,new ItemStack(Material.AIR));
     }
 }

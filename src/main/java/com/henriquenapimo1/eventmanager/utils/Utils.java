@@ -6,14 +6,11 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
@@ -41,11 +38,12 @@ public class Utils {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("anunciar-mensagem")
                 .replace("{evento}",e.getName())
                 .replace("{prize}",String.valueOf(e.getPrize()))
-                .replace("{prefix}", Utils.getString("prefix")) + "\n§7 ");
+                .replace("{prefix}", Utils.getString("prefix")));
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("button"))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/evento entrar"))
                 .create());
+        msg.append("\n§7 ");
         return msg;
     }
 
@@ -141,15 +139,5 @@ public class Utils {
         }
 
         return c;
-    }
-
-    public static ItemStack getBarrier() {
-        ItemStack b = new ItemStack(Material.BARRIER);
-        ItemMeta m = b.getItemMeta();
-
-        m.setDisplayName("§cSair");
-        b.setItemMeta(m);
-
-        return b;
     }
 }

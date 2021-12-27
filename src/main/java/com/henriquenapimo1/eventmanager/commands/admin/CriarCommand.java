@@ -4,6 +4,7 @@ import com.henriquenapimo1.eventmanager.utils.CmdContext;
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.Evento;
 import com.henriquenapimo1.eventmanager.utils.Utils;
+import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 import org.bukkit.Bukkit;
 
 public class CriarCommand {
@@ -37,9 +38,11 @@ public class CriarCommand {
         Evento evento = new Evento(String.join(" ",ctx.getArgs())
                 .replace(String.valueOf(i),"")
                 .replace("criar ","")
+                .replaceAll(".$", "")
                 ,ctx.getSender().getLocation(),i);
 
         Main.getMain().setEvento(evento);
+        InventoryGUIs.setStaffHotbar(ctx.getSender());
         evento.addSpectator(ctx.getSender());
 
         ctx.reply("§6Evento criado com sucesso! §eUse /evento anunciar para anunciar o evento à todos.");
