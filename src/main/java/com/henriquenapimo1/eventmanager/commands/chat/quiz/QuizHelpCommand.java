@@ -14,7 +14,7 @@ public class QuizHelpCommand {
         if(ctx.getSender().hasPermission("eventmanager.quiz.criar")) {
             b.append("\n§a§lComandos de Criação§7:");
             b.append("\n§a/quiz criar [pergunta] [prêmio] §7- §eCria um Quiz com a pergunta e o prêmio inseridos;");
-            b.append("\n§a/vouf setresposta [resposta] §7- §eSeta a resposta do quiz para a resposta inserida.");
+            b.append("\n§a/quiz setresposta [resposta] §7- §eSeta a resposta do quiz para a resposta inserida.");
         }
 
         ctx.getSender().spigot().sendMessage(b.create());
