@@ -72,7 +72,7 @@ public final class Main extends JavaPlugin {
 
                 if (sender.hasPermission("eventmanager.admin"))
                     tab.addAll(Arrays.asList("cancelar", "criar", "darefeito", "daritem", "effectclear", "finalizar",
-                            "flags", "gamemode", "itemclear", "setpremio", "setspawn", "tphere", "trancar"));
+                            "flags", "gamemode","iniciar", "itemclear", "setpremio", "setspawn", "tphere", "trancar"));
 
                 return tab;
             }

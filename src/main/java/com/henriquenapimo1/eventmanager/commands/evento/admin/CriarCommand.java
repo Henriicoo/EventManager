@@ -30,7 +30,7 @@ public class CriarCommand {
             return;
         }
 
-        if(i > Utils.getInt("max-premio")) {
+        if(i > Utils.getInt("max-premio-evento")) {
             ctx.reply("§cErro! O prêmio excede o valor máximo ("+Utils.getInt("max-premio-evento")+")");
             return;
         }

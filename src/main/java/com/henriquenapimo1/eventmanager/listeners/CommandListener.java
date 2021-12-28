@@ -152,7 +152,10 @@ public class CommandListener implements CommandExecutor {
                     new GamemodeCommand(ctx); return;
                 }
                 case "flags": {
-                    new FlagCommand(ctx);
+                    new FlagCommand(ctx); return;
+                }
+                case "iniciar": {
+                    new IniciarCommand(ctx); break;
                 }
             }
         } else {

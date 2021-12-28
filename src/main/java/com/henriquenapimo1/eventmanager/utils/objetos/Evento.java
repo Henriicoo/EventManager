@@ -179,6 +179,10 @@ public class Evento {
         this.spawn = loc;
     }
 
+    public Location getSpawn() {
+        return spawn;
+    }
+
     public void lockEvent(boolean locked) {
         this.locked = locked;
         if(locked) {

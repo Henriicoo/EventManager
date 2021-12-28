@@ -18,6 +18,11 @@ public class AnunciarCommand {
             return;
         }
 
+        if(e.isLocked()) {
+            ctx.reply("§7Você não pode anunciar um evento trancado!");
+            return;
+        }
+
         ComponentBuilder msg = Utils.getAnuncio(e);
 
         Bukkit.getOnlinePlayers().forEach(p -> {
