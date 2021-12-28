@@ -1,5 +1,8 @@
 package com.henriquenapimo1.eventmanager.listeners;
 
+import com.henriquenapimo1.eventmanager.commands.HelpCommand;
+import com.henriquenapimo1.eventmanager.commands.InfoCommand;
+import com.henriquenapimo1.eventmanager.commands.ReloadCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizRespostaCommand;
@@ -9,7 +12,7 @@ import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufFinalizarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufRespostaCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.EntrarCommand;
-import com.henriquenapimo1.eventmanager.commands.evento.HelpCommand;
+import com.henriquenapimo1.eventmanager.commands.evento.EventoHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.SairCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.admin.*;
 import com.henriquenapimo1.eventmanager.commands.evento.mod.AnunciarCommand;
@@ -31,12 +34,31 @@ public class CommandListener implements CommandExecutor {
 
         CmdContext ctx = new CmdContext(sender, command, args);
         switch (command.getName().toLowerCase()) {
-            case "evento": eventoCommands(ctx); return false;
-            case "quiz": quizCommands(ctx); return false;
-            case "vouf": voufCommands(ctx); return false;
+            case "evento": eventoCommands(ctx); return true;
+            case "quiz": quizCommands(ctx); return true;
+            case "vouf": voufCommands(ctx); return true;
+            case "eventmanager": eventManagerCommands(ctx); return true;
         }
 
         return false;
+    }
+
+    private void eventManagerCommands(CmdContext ctx) {
+        if(ctx.getArgs().length==0) {
+            new HelpCommand(ctx);
+            return;
+        }
+        switch (ctx.getArg(0)) {
+            case "help": new HelpCommand(ctx); return;
+            case "reload": {
+                if(ctx.getSender().hasPermission("eventmanager.admin")) {
+                    new ReloadCommand(ctx);
+                    return;
+                }
+                ctx.getSender().sendMessage("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.admin §cpara poder fazer isso.");
+            } return;
+            case "info": new InfoCommand(ctx);
+        }
     }
 
     private void eventoCommands(CmdContext ctx) {
@@ -44,7 +66,7 @@ public class CommandListener implements CommandExecutor {
         Player sender = ctx.getSender();
 
         if(args.length==0) {
-            new HelpCommand(ctx);
+            new EventoHelpCommand(ctx);
             return;
         }
 
@@ -57,7 +79,7 @@ public class CommandListener implements CommandExecutor {
                 new SairCommand(ctx); return;
             }
             case "help": {
-                new HelpCommand(ctx); return;
+                new EventoHelpCommand(ctx); return;
             }
         }
 
@@ -181,7 +203,6 @@ public class CommandListener implements CommandExecutor {
             }
         } else {
             ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.vouf.criar §cpara poder fazer isso.");
-
         }
     }
 }

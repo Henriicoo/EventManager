@@ -7,9 +7,10 @@ author: HenriqueNapimo1
 description: Plugin para a criação de eventos
 depend: [Vault]
 commands:
+  eventmanager:
+    description: Comando principal do Plugin
   evento:
-    aliases: [em]
-    description: Comando principal
+    description: Comando para a criação de Eventos
   quiz:
     description: Comando para a criação de Quiz
   vouf:
@@ -20,19 +21,19 @@ permissions:
     description: Dá a permissão de entrar num evento à um jogador
     default: true
   eventmanager.staff:
-    description: Marca um jogador como staff, ele não pode entrar em eventos como player ou ser ganhador de um
+    description: Marca um jogador como staff, ele não pode participar de eventos ou ser ganhador de um
     default: op
   eventmanager.mod:
-    description: Dá as permissões de moderador à uma pessoa
+    description: Dá as permissões de moderador do plugin à uma pessoa
     default: op
   eventmanager.admin:
-    description: Dá as permissões de administrador do evento à uma pessoa
+    description: Dá as permissões de administrador do plugin à uma pessoa
     default: op
   eventmanager.quiz.responder:
-    description: Dá a permissão de responder quizes à um jogador
+    description: Dá a permissão de responder quizzes à um jogador
     default: true
   eventmanager.quiz.criar:
-    description: Permissão de criar quizes
+    description: Permissão de criar quizzes
     default: op
   eventmanager.vouf.responder:
     description: Dá a permissão de participar em Verdadeiros ou Falsos à um jogador

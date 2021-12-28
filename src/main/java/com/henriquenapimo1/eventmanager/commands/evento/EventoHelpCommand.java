@@ -4,10 +4,12 @@ import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 
-public class HelpCommand {
+public class EventoHelpCommand {
 
-    public HelpCommand(CmdContext ctx) {
+    public EventoHelpCommand(CmdContext ctx) {
 
         if(ctx.getArgs().length <= 1 || ctx.getArg(1).equals("1")) {
             ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda");
@@ -25,6 +27,7 @@ public class HelpCommand {
 
             if (ctx.getSender().hasPermission("eventmanager.admin")) {
                 b.append(new ComponentBuilder("\n§7§lPágina 2 >>")
+                        .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para mudar de página")))
                         .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/evento help 2")).create());
 
             }
@@ -42,6 +45,7 @@ public class HelpCommand {
             b.append("\n§a/evento daritem §7§o(Segure o item na mão)§r §7- §eDá o item selecionado aos jogadores;");
 
             b.append(new ComponentBuilder("\n§7§lPágina 3 >>")
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para mudar de página")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/evento help 3")).create());
 
             ctx.getSender().spigot().sendMessage(b.create());

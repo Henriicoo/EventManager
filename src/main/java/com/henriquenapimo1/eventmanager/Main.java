@@ -36,17 +36,21 @@ public final class Main extends JavaPlugin {
             return;
         }
 
+        PluginCommand em = getCommand("eventmanager");
         PluginCommand evento = getCommand("evento");
         PluginCommand quiz = getCommand("quiz");
         PluginCommand vouf = getCommand("vouf");
+        assert em != null;
         assert evento != null;
         assert quiz != null;
         assert vouf != null;
 
+        em.setExecutor(new CommandListener());
         evento.setExecutor(new CommandListener());
         quiz.setExecutor(new CommandListener());
         vouf.setExecutor(new CommandListener());
 
+        em.setTabCompleter(this);
         evento.setTabCompleter(this);
         quiz.setTabCompleter(this);
         vouf.setTabCompleter(this);
@@ -71,7 +75,7 @@ public final class Main extends JavaPlugin {
 
                 if (sender.hasPermission("eventmanager.admin"))
                     tab.addAll(Arrays.asList("cancelar", "criar", "darefeito", "daritem", "effectclear", "finalizar",
-                            "flags", "gamemode", "itemclear", "reload", "setpremio", "setspawn", "tphere", "trancar"));
+                            "flags", "gamemode", "itemclear", "setpremio", "setspawn", "tphere", "trancar"));
 
                 return tab;
             }
@@ -94,7 +98,7 @@ public final class Main extends JavaPlugin {
             }
         }
 
-        // Comando de quiz
+        // Comando de Quiz
         if(command.getName().equalsIgnoreCase("quiz")) {
             if(args.length <= 1) {
                 List<String> tab = new ArrayList<>(Arrays.asList("help", "resposta"));
@@ -118,6 +122,28 @@ public final class Main extends JavaPlugin {
             }
         }
 
+        // Comando Eventmanager
+        if(command.getName().equalsIgnoreCase("eventmanager")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "info"));
+
+                if (sender.hasPermission("eventmanager.staff"))
+                    tab.addAll(Collections.singletonList("reload"));
+
+                return tab;
+            }
+            if(args.length <= 2) {
+                switch (args[0]) {
+                    case "reload": {
+                        return Collections.singletonList("confirm");
+                    }
+                    case "help": {
+                        return Arrays.asList("evento","quiz","vouf","perms");
+                    }
+                }
+            }
+        }
+
         return Collections.emptyList();
     }
 
@@ -126,6 +152,9 @@ public final class Main extends JavaPlugin {
         if(evento != null) {
             evento.finalizar();
         }
+
+        quiz = null;
+        vouf = null;
 
         log.info(String.format("[%s] Desabilitando o plugin.",getDescription().getName()));
     }
