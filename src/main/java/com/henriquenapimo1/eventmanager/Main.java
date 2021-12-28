@@ -3,6 +3,9 @@ package com.henriquenapimo1.eventmanager;
 import com.henriquenapimo1.eventmanager.listeners.CommandListener;
 import com.henriquenapimo1.eventmanager.listeners.EventListener;
 import com.henriquenapimo1.eventmanager.listeners.MenuListener;
+import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.Utils;
+import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
 import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
@@ -25,9 +28,11 @@ public final class Main extends JavaPlugin {
     public Evento evento;
     public Quiz quiz;
     public Vouf vouf;
+    public Bolao bolao;
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
         if (!setupEconomy()) {
@@ -36,27 +41,19 @@ public final class Main extends JavaPlugin {
             return;
         }
 
-        PluginCommand em = getCommand("eventmanager");
-        PluginCommand evento = getCommand("evento");
-        PluginCommand quiz = getCommand("quiz");
-        PluginCommand vouf = getCommand("vouf");
-        assert em != null;
-        assert evento != null;
-        assert quiz != null;
-        assert vouf != null;
+        List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao");
 
-        em.setExecutor(new CommandListener());
-        evento.setExecutor(new CommandListener());
-        quiz.setExecutor(new CommandListener());
-        vouf.setExecutor(new CommandListener());
-
-        em.setTabCompleter(this);
-        evento.setTabCompleter(this);
-        quiz.setTabCompleter(this);
-        vouf.setTabCompleter(this);
+        cmds.forEach(c -> {
+            PluginCommand cmd = getCommand(c);
+            cmd.setExecutor(new CommandListener());
+            cmd.setTabCompleter(this);
+        });
 
         getServer().getPluginManager().registerEvents(new EventListener(),this);
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
+
+        if(Utils.getBool("bolao-ativo"))
+            ChatEventManager.startBolaoScheduler();
 
         saveDefaultConfig();
 
@@ -144,6 +141,18 @@ public final class Main extends JavaPlugin {
             }
         }
 
+        // Comando Bolão
+        if(command.getName().equalsIgnoreCase("bolao")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "apostar"));
+
+                if (sender.hasPermission("eventmanager.bolao.criar"))
+                    tab.addAll(Arrays.asList("criar","finalizar"));
+
+                return tab;
+            }
+        }
+
         return Collections.emptyList();
     }
 
@@ -152,6 +161,8 @@ public final class Main extends JavaPlugin {
         if(evento != null) {
             evento.finalizar();
         }
+
+        ChatEventManager.cancelBolao();
 
         quiz = null;
         vouf = null;

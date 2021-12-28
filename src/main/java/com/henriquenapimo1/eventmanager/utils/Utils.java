@@ -1,11 +1,14 @@
 package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
 import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -15,6 +18,7 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -25,16 +29,20 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('&', config.getString("prefix"));
     }
 
-    public static String getString(String name) {
-        return ChatColor.translateAlternateColorCodes('&', config.getString(name));
+    public static String getString(String path) {
+        return ChatColor.translateAlternateColorCodes('&', config.getString(path));
     }
 
-    public static int getInt(String name) {
-        return config.getInt(name);
+    public static int getInt(String path) {
+        return config.getInt(path);
     }
 
-    public static boolean getBool(String name) {
-        return config.getBoolean(name);
+    public static boolean getBool(String path) {
+        return config.getBoolean(path);
+    }
+
+    public static List<?> getList(String path) {
+        return config.getList(path);
     }
 
     // anúncio Evento
@@ -45,6 +53,7 @@ public class Utils {
                 .replace("{prefix}", Utils.getPref()));
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("evento-button"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para entrar no evento")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/evento entrar"))
                 .create());
         msg.append("\n§7 ");
@@ -60,6 +69,7 @@ public class Utils {
         msg.append("\n§7"+q.getPergunta());
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("quiz-button"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para responder")))
                 .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/quiz resposta "))
                 .create());
         msg.append("\n§7 ");
@@ -75,10 +85,27 @@ public class Utils {
         msg.append("\n§7"+v.getPergunta());
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("vouf-true"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para marcar como VERDADEIRO")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta true"))
                 .create());
         msg.append(new ComponentBuilder(" " + Utils.getString("vouf-false"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para marcar como FALSO")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta false"))
+                .create());
+        msg.append("\n§7 ");
+        return msg;
+    }
+
+    // anúncio Bolão
+    public static ComponentBuilder getAnuncio(Bolao b) {
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("bolao-mensagem")
+                .replace("{acumulado}",String.valueOf(b.getValorAcumulado()))
+                .replace("{prefix}", Utils.getPref()));
+
+        msg.append(new ComponentBuilder("\n" + Utils.getString("bolao-button")
+                .replace("{valor}",String.valueOf(b.getValorInicial())))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para apostar no bolão")))
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/bolao apostar"))
                 .create());
         msg.append("\n§7 ");
         return msg;

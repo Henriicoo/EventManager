@@ -20,11 +20,22 @@ quiz-mensagem: '&8[&6&lQuiz&8] &8Quiz iniciado! Valendo &7R${prize}&8:'
 # Texto do botão que será usado para responder o quiz
 quiz-button: '&a[Clique para responder]'
 
-# Mensagem de anúncio vouf
+# Mensagem de anúncio do vouf
 # Placeholders disponíveis:
 # {prefix} - prefixo do plugin
 # {prize} - prêmio do quiz
 vouf-mensagem: '§8[§6§lVouF§8] §8Vouf iniciado! Valendo &7R${prize}&8:'
+
+# Mensagem de anúncio do bolão
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {acumulado} - valor acumulado
+bolao-mensagem: '§7O Bolão está acumulado em R${acumulado} Clique aqui para apostar:'
+
+# Botão de apostar
+# Placeholders disponíveis:
+# {valor} - valor que o usuário terá que pagar para participar
+bolao-button: '§a[Clique para apostar R${valor}]'
 
 # Texto do botão verdadeiro do vouf
 vouf-true: '&2&l[Verdadeiro]'
@@ -48,3 +59,19 @@ anunciar-evento: 120
 anunciar-quiz: 60
 # Do VOUF
 anunciar-vouf: 60
+
+# BOLÃO
+bolao-ativo: true
+# De quanto em quanto tempo ocorrerá um bolão (em minutos)
+bolao-intervalo: 30
+# Tempo de intervalo entre anúncios de um bolão já criado (em segundos)
+anunciar-bolao: 60
+# Quantidade de vezes que o bolão será anunciado antes de finalizar
+bolao-anuncios: 5
+# Se staff pode ou não apostar no bolão
+staff-apostar: true
+# Valores possíveis de ser o valor inicial de um bolão
+bolao-valores:
+  - 500
+  - 1000
+  - 2000

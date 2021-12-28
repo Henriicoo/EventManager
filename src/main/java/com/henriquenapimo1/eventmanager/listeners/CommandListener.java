@@ -3,6 +3,10 @@ package com.henriquenapimo1.eventmanager.listeners;
 import com.henriquenapimo1.eventmanager.commands.HelpCommand;
 import com.henriquenapimo1.eventmanager.commands.InfoCommand;
 import com.henriquenapimo1.eventmanager.commands.ReloadCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.ApostarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoCriarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoFinalizarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizRespostaCommand;
@@ -38,6 +42,7 @@ public class CommandListener implements CommandExecutor {
             case "quiz": quizCommands(ctx); return true;
             case "vouf": voufCommands(ctx); return true;
             case "eventmanager": eventManagerCommands(ctx); return true;
+            case "bolao": bolaoCommands(ctx); return true;
         }
 
         return false;
@@ -203,6 +208,31 @@ public class CommandListener implements CommandExecutor {
             }
         } else {
             ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.vouf.criar §cpara poder fazer isso.");
+        }
+    }
+
+    private void bolaoCommands(CmdContext ctx) {
+        if(ctx.getArgs().length == 0) {
+            new BolaoHelpCommand(ctx);
+            return;
+        }
+
+        switch (ctx.getArg(0).toLowerCase()) {
+            case "help": new BolaoHelpCommand(ctx); return;
+            case "apostar": new ApostarCommand(ctx); return;
+        }
+
+        if(ctx.getSender().hasPermission("eventmanager.bolao.criar")) {
+            switch (ctx.getArg(0).toLowerCase()) {
+                case "criar":
+                    new BolaoCriarCommand(ctx);
+                    break;
+                case "finalizar":
+                    new BolaoFinalizarCommand(ctx);
+                    break;
+            }
+        } else {
+            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.bolao.criar §cpara poder fazer isso.");
         }
     }
 }
