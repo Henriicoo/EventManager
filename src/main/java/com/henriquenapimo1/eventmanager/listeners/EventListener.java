@@ -40,11 +40,10 @@ public class EventListener implements Listener {
         Evento e = Main.getMain().evento;
         if(e == null || !e.getFlags().getPvp()) return;
 
-        if(!event.getEntityType().equals(EntityType.PLAYER) || !event.getDamager().getType().equals(EntityType.PLAYER)) return;
+        if(!event.getEntity().getType().equals(EntityType.PLAYER) || !event.getDamager().getType().equals(EntityType.PLAYER)) return;
 
-        Player p = (Player) event.getEntity();
-
-        if(e.getPlayers().contains(p)) {
+        if(e.getPlayers().contains((Player) event.getEntity())
+                && e.getPlayers().contains((Player) event.getDamager())) {
             event.setCancelled(true);
         }
     }

@@ -31,7 +31,7 @@ public class Evento {
 
     private final Flags flags = new Flags(this);
 
-    private int bcTaskId;
+    private int TaskId;
 
     public Evento(String nome, Location spawn, int prize) {
         this.name = nome;
@@ -181,6 +181,11 @@ public class Evento {
 
     public void lockEvent(boolean locked) {
         this.locked = locked;
+        if(locked) {
+            Bukkit.getScheduler().cancelTask(TaskId);
+        } else {
+            anunciar();
+        }
     }
 
     public void addSpectator(Player p) {
@@ -212,82 +217,61 @@ public class Evento {
     }
 
     public void finalizar() {
-        Bukkit.getScheduler().cancelTask(bcTaskId);
+        Bukkit.getScheduler().cancelTask(TaskId);
 
         if(players.isEmpty()) {
             if(spectators.isEmpty()) {
                 Main.getMain().evento = null;
             } else {
                 AtomicInteger i = new AtomicInteger();
-                AtomicInteger size = new AtomicInteger(spectators.size());
-
                 spectators.forEach(s -> {
-                    spectators.remove(s);
-
-                    // dá clear nos efeitos
                     s.getInventory().clear();
                     s.getActivePotionEffects().forEach(e -> s.removePotionEffect(e.getType()));
 
                     s.teleport(playerOldSettings.get(s).getValue());
 
-                    playerOldSettings.remove(s);
-
-                    if(i.get()==size.get()) {
+                    if(i.get()==spectators.size()) {
                         Main.getMain().evento = null;
+                        return;
                     }
-
                     i.getAndIncrement();
-                    });
-
+                });
             }
             return;
         }
 
         AtomicInteger i = new AtomicInteger();
-        AtomicInteger size = new AtomicInteger(players.size());
 
         players.forEach(p -> {
-            players.remove(p);
-
-            // restaura o inv e dá clear nos efeitos
             p.getInventory().clear();
             p.getInventory().setContents(playerOldSettings.get(p).getKey().getContents());
             p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
 
             p.teleport(playerOldSettings.get(p).getValue());
 
-            playerOldSettings.remove(p);
-
-            if(i.get()==size.get()) {
-                size.set(spectators.size());
+            if(i.get()==players.size()) {
                 i.set(0);
 
                 spectators.forEach(s -> {
-                    spectators.remove(s);
-
-                    // dá clear nos efeitos
                     s.getInventory().clear();
                     s.getActivePotionEffects().forEach(e -> s.removePotionEffect(e.getType()));
 
                     s.teleport(playerOldSettings.get(s).getValue());
 
-                    playerOldSettings.remove(s);
-
-                    if(i.get()==size.get()) {
+                    if(i.get()==spectators.size()) {
                         Main.getMain().evento = null;
+                        return;
                     }
-
                     i.getAndIncrement();
                 });
                 return;
             }
-
             i.getAndIncrement();
         });
     }
 
     private void anunciar() {
-        this.bcTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), () ->
+        this.TaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getMain(), () ->
                 Bukkit.getOnlinePlayers().forEach(p ->
                         p.spigot().sendMessage(Utils.getAnuncio(this).create())),
                 0, Utils.getInt("anunciar-evento")* 20L);

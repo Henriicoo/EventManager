@@ -79,6 +79,7 @@ public class InventoryGUIs {
                 assert m != null;
 
                 m.setDisplayName(p.getDisplayName());
+                m.setOwningPlayer(p);
                 m.setLore(Arrays.asList("§7Vida: §f" + p.getHealthScale()+"%",
                         "§7","§7Clique esquerdo para teletransportar","§7Clique direito para §cbanir§7!"));
 
