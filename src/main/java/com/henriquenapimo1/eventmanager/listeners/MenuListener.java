@@ -1,8 +1,8 @@
 package com.henriquenapimo1.eventmanager.listeners;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.Evento;
-import com.henriquenapimo1.eventmanager.utils.Flags;
+import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Flags;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 import org.bukkit.Bukkit;
@@ -30,9 +30,9 @@ public class MenuListener implements Listener {
     }
 
     private void flagInvClick(InventoryClickEvent event) {
-        if (Main.getMain().getEvento() == null) return;
+        if (Main.getMain().evento == null) return;
 
-        Flags fl = Main.getMain().getEvento().getFlags();
+        Flags fl = Main.getMain().evento.getFlags();
         event.setCancelled(true);
 
         switch (event.getRawSlot()) {
@@ -68,7 +68,7 @@ public class MenuListener implements Listener {
     }
 
     private void playerInvClick(InventoryClickEvent event) {
-        if (Main.getMain().getEvento() == null) return;
+        if (Main.getMain().evento == null) return;
         event.setCancelled(true);
 
         switch (event.getRawSlot()) {
@@ -97,7 +97,7 @@ public class MenuListener implements Listener {
             event.getWhoClicked().closeInventory();
             event.getWhoClicked().sendMessage(Utils.getPref()+" §7Teletransportado à " + p.getName() + " com sucesso.");
         } else if(event.getClick().isRightClick()) {
-            Main.getMain().getEvento().banPlayer(p);
+            Main.getMain().evento.banPlayer(p);
             event.getWhoClicked().closeInventory();
         }
     }
@@ -130,7 +130,7 @@ public class MenuListener implements Listener {
             if(event.getItem() == null) return;
             assert event.getItem().getItemMeta() != null;
 
-            Evento evento = Main.getMain().getEvento();
+            Evento evento = Main.getMain().evento;
             if(evento == null) return;
 
             switch (event.getItem().getItemMeta().getDisplayName()) {

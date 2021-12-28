@@ -1,8 +1,8 @@
 package com.henriquenapimo1.eventmanager.utils.gui;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.Evento;
-import com.henriquenapimo1.eventmanager.utils.Flags;
+import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Flags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class InventoryGUIs {
 
     public static Inventory getFlagsGUI() {
-        Evento e = Main.getMain().getEvento();
+        Evento e = Main.getMain().evento;
 
         Flags f = e.getFlags();
 
@@ -47,7 +47,7 @@ public class InventoryGUIs {
     }
 
     public static Inventory getPlayersInventory(int pag) {
-        Evento e = Main.getMain().getEvento();
+        Evento e = Main.getMain().evento;
         pag = pag-1;
 
         double paginas = 0;

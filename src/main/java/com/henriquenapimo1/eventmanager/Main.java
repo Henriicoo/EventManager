@@ -3,7 +3,9 @@ package com.henriquenapimo1.eventmanager;
 import com.henriquenapimo1.eventmanager.listeners.CommandListener;
 import com.henriquenapimo1.eventmanager.listeners.EventListener;
 import com.henriquenapimo1.eventmanager.listeners.MenuListener;
-import com.henriquenapimo1.eventmanager.utils.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
+import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,7 +22,9 @@ import java.util.logging.Logger;
 
 public final class Main extends JavaPlugin {
 
-    private Evento evento;
+    public Evento evento;
+    public Quiz quiz;
+    public Vouf vouf;
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
 
@@ -32,11 +36,20 @@ public final class Main extends JavaPlugin {
             return;
         }
 
-        PluginCommand cmd = getCommand("evento");
-        assert cmd != null;
+        PluginCommand evento = getCommand("evento");
+        PluginCommand quiz = getCommand("quiz");
+        PluginCommand vouf = getCommand("vouf");
+        assert evento != null;
+        assert quiz != null;
+        assert vouf != null;
 
-        cmd.setExecutor(new CommandListener());
-        cmd.setTabCompleter(this);
+        evento.setExecutor(new CommandListener());
+        quiz.setExecutor(new CommandListener());
+        vouf.setExecutor(new CommandListener());
+
+        evento.setTabCompleter(this);
+        quiz.setTabCompleter(this);
+        vouf.setTabCompleter(this);
 
         getServer().getPluginManager().registerEvents(new EventListener(),this);
         getServer().getPluginManager().registerEvents(new MenuListener(),this);
@@ -48,58 +61,73 @@ public final class Main extends JavaPlugin {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if(command.getName().equals("evento") && args.length <= 1) {
-            List<String> tab = new ArrayList<>(Arrays.asList("entrar", "sair","help"));
+        // Comando de Evento
+        if(command.getName().equals("evento")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("entrar", "sair", "help"));
 
-            if(sender.hasPermission("eventmanager.mod"))
-                tab.addAll(Arrays.asList("anunciar","ban","bc","unban"));
+                if (sender.hasPermission("eventmanager.mod"))
+                    tab.addAll(Arrays.asList("anunciar", "ban", "bc", "unban"));
 
-            if(sender.hasPermission("eventmanager.admin"))
-                tab.addAll(Arrays.asList("cancelar","criar","darefeito","daritem","effectclear","finalizar",
-                        "flags","gamemode","itemclear","reload","setpremio","setspawn", "tphere","trancar"));
+                if (sender.hasPermission("eventmanager.admin"))
+                    tab.addAll(Arrays.asList("cancelar", "criar", "darefeito", "daritem", "effectclear", "finalizar",
+                            "flags", "gamemode", "itemclear", "reload", "setpremio", "setspawn", "tphere", "trancar"));
 
-            return tab;
-        }
-
-        if(args.length <= 2) {
-            switch (args[0]) {
-                case "ban": {
-                    List<String> st = new ArrayList<>();
-                    evento.getPlayers().forEach(p -> st.add(p.getName()));
-                    return st;
-                }
-                case "unban": {
-                    List<String> st = new ArrayList<>();
-                    evento.getBannedPlayers().forEach(p -> st.add(Bukkit.getPlayer(p).getName()));
-                    return st;
-                }
-                case "gamemode": {
-                    return Arrays.asList("survival","creative","adventure","spectator");
+                return tab;
+            }
+            if(args.length <= 2) {
+                switch (args[0]) {
+                    case "ban": {
+                        List<String> st = new ArrayList<>();
+                        evento.getPlayers().forEach(p -> st.add(p.getName()));
+                        return st;
+                    }
+                    case "unban": {
+                        List<String> st = new ArrayList<>();
+                        evento.getBannedPlayers().forEach(p -> st.add(Bukkit.getPlayer(p).getName()));
+                        return st;
+                    }
+                    case "gamemode": {
+                        return Arrays.asList("survival","creative","adventure","spectator");
+                    }
                 }
             }
         }
+
+        // Comando de quiz
+        if(command.getName().equalsIgnoreCase("quiz")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "resposta"));
+
+                if (sender.hasPermission("eventmanager.quiz.criar"))
+                    tab.addAll(Arrays.asList("criar", "setresposta"));
+
+                return tab;
+            }
+        }
+
+        // Comando de VouF
+        if(command.getName().equalsIgnoreCase("vouf")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "resposta"));
+
+                if (sender.hasPermission("eventmanager.vouf.criar"))
+                    tab.addAll(Arrays.asList("criar", "finalizar"));
+
+                return tab;
+            }
+        }
+
         return Collections.emptyList();
     }
 
     @Override
     public void onDisable() {
-        if(getEvento() != null) {
-            getEvento().finalizar();
+        if(evento != null) {
+            evento.finalizar();
         }
 
         log.info(String.format("[%s] Desabilitando o plugin.",getDescription().getName()));
-    }
-
-    public void setEvento(Evento e) {
-        evento = e;
-    }
-
-    public void removeEvento() {
-        evento = null;
-    }
-
-    public Evento getEvento() {
-        return evento;
     }
 
     private boolean setupEconomy() {

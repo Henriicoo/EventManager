@@ -10,6 +10,10 @@ commands:
   evento:
     aliases: [em]
     description: Comando principal
+  quiz:
+    description: Comando para a criação de Quiz
+  vouf:
+    description: Comando para a criação de Verdadeiros ou Falsos
 
 permissions:
   eventmanager.entrar:
@@ -23,4 +27,16 @@ permissions:
     default: op
   eventmanager.admin:
     description: Dá as permissões de administrador do evento à uma pessoa
+    default: op
+  eventmanager.quiz.responder:
+    description: Dá a permissão de responder quizes à um jogador
+    default: true
+  eventmanager.quiz.criar:
+    description: Permissão de criar quizes
+    default: op
+  eventmanager.vouf.responder:
+    description: Dá a permissão de participar em Verdadeiros ou Falsos à um jogador
+    default: true
+  eventmanager.vouf.criar:
+    description: Permissão para criar Verdadeiros ou Falsos
     default: op

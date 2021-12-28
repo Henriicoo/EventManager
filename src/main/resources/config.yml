@@ -6,15 +6,45 @@ prefix: '&8[&6&lEventManager&8]'
 # {prefix} - prefixo do plugin
 # {evento} - nome do evento
 # {prize} - prêmio do evento
-anunciar-mensagem: '{prefix} &eEntre no &6Evento {evento}&e valendo &eR${prize}'
+evento-mensagem: '{prefix} &eEntre no &6Evento {evento}&e valendo &eR${prize}'
 
 # Texto do botão que será usado para entrar no evento
-button: '&a&l[Clique para entrar]'
+evento-button: '&a&l[Clique para entrar]'
+
+# Mensagem de anúncio do quiz
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {prize} - prêmio do quiz
+quiz-mensagem: '&8[&6&lQuiz&8] &8Quiz iniciado! Valendo &7R${prize}&8:'
+
+# Texto do botão que será usado para responder o quiz
+quiz-button: '&a[Clique para responder]'
+
+# Mensagem de anúncio vouf
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {prize} - prêmio do quiz
+vouf-mensagem: '§8[§6§lVouF§8] §8Vouf iniciado! Valendo &7R${prize}&8:'
+
+# Texto do botão verdadeiro do vouf
+vouf-true: '&2&l[Verdadeiro]'
+# Texto do botão falso do vouf
+vouf-false: '&4&l[Falso]'
 
 # Valor máximo de dinheiro para o vencedor
-max-premio: 10000
+# Do evento
+max-premio-evento: 10000
+# Do quiz
+max-premio-quiz: 1000
+# Do VOUF
+max-premio-vouf: 500
 
 # Se o plugin irá anunciar o evento automaticamente
 auto-anunciar: true
 # Tempo de intervalo entre os anúncios (em segundos)
-anunciar-intervalo: 120
+# Do evento
+anunciar-evento: 120
+# Do quiz
+anunciar-quiz: 60
+# Do VOUF
+anunciar-vouf: 60

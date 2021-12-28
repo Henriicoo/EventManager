@@ -1,7 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.gui;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -57,7 +57,7 @@ public class Itens {
     }
 
     public static ItemStack getGamemode() {
-        Evento e = Main.getMain().getEvento();
+        Evento e = Main.getMain().evento;
 
         Material mt;
         List<String> lr = new ArrayList<>(Arrays.asList("§8Opções:","   §7Survival", "   §bCreative", "   §3Adventure", "   §9Spectator","§8Clique para alterar"));

@@ -1,6 +1,9 @@
 package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
+import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.ChatColor;
@@ -34,14 +37,48 @@ public class Utils {
         return config.getBoolean(name);
     }
 
+    // anúncio Evento
     public static ComponentBuilder getAnuncio(Evento e) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("anunciar-mensagem")
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("evento-mensagem")
                 .replace("{evento}",e.getName())
                 .replace("{prize}",String.valueOf(e.getPrize()))
-                .replace("{prefix}", Utils.getString("prefix")));
+                .replace("{prefix}", Utils.getPref()));
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("button"))
+        msg.append(new ComponentBuilder("\n" + Utils.getString("evento-button"))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/evento entrar"))
+                .create());
+        msg.append("\n§7 ");
+        return msg;
+    }
+
+    // anúncio Quiz
+    public static ComponentBuilder getAnuncio(Quiz q) {
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("quiz-mensagem")
+                .replace("{prize}",String.valueOf(q.getPremio()))
+                .replace("{prefix}", Utils.getPref()));
+
+        msg.append("\n§7"+q.getPergunta());
+
+        msg.append(new ComponentBuilder("\n" + Utils.getString("quiz-button"))
+                .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/quiz resposta "))
+                .create());
+        msg.append("\n§7 ");
+        return msg;
+    }
+
+    // anúncio VouF
+    public static ComponentBuilder getAnuncio(Vouf v) {
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("vouf-mensagem")
+                .replace("{prize}",String.valueOf(v.getPremio()))
+                .replace("{prefix}", Utils.getPref()));
+
+        msg.append("\n§7"+v.getPergunta());
+
+        msg.append(new ComponentBuilder("\n" + Utils.getString("vouf-true"))
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta true"))
+                .create());
+        msg.append(new ComponentBuilder(" " + Utils.getString("vouf-false"))
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta false"))
                 .create());
         msg.append("\n§7 ");
         return msg;
