@@ -71,6 +71,7 @@ public class Bolao {
 
         if(getApostadores().isEmpty()) {
             Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6Bolão§8] §7Bolão cancelado! Não houve apostadores nesse bolão."));
+            Main.getMain().bolao = null;
             return;
         }
         OfflinePlayer ganhador;
