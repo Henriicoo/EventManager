@@ -17,7 +17,7 @@ public class EntrarCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("evento");
+            ctx.reply("§7Não há nenhum evento acontecendo no momento.");
             return;
         }
 
