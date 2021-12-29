@@ -3,10 +3,13 @@ package com.henriquenapimo1.eventmanager.listeners;
 import com.henriquenapimo1.eventmanager.commands.HelpCommand;
 import com.henriquenapimo1.eventmanager.commands.InfoCommand;
 import com.henriquenapimo1.eventmanager.commands.ReloadCommand;
-import com.henriquenapimo1.eventmanager.commands.chat.bolao.ApostarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoApostarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoFinalizarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoHelpCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaApostarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaCriarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizRespostaCommand;
@@ -43,6 +46,7 @@ public class CommandListener implements CommandExecutor {
             case "vouf": voufCommands(ctx); return true;
             case "eventmanager": eventManagerCommands(ctx); return true;
             case "bolao": bolaoCommands(ctx); return true;
+            case "loteria": loteriaCommands(ctx); return true;
         }
 
         return false;
@@ -222,7 +226,7 @@ public class CommandListener implements CommandExecutor {
 
         switch (ctx.getArg(0).toLowerCase()) {
             case "help": new BolaoHelpCommand(ctx); return;
-            case "apostar": new ApostarCommand(ctx); return;
+            case "apostar": new BolaoApostarCommand(ctx); return;
         }
 
         if(ctx.getSender().hasPermission("eventmanager.bolao.criar")) {
@@ -236,6 +240,26 @@ public class CommandListener implements CommandExecutor {
             }
         } else {
             ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.bolao.criar §cpara poder fazer isso.");
+        }
+    }
+
+    private void loteriaCommands(CmdContext ctx) {
+        if(ctx.getArgs().length == 0) {
+            new LoteriaHelpCommand(ctx);
+            return;
+        }
+
+        switch (ctx.getArg(0).toLowerCase()) {
+            case "help": new LoteriaHelpCommand(ctx); return;
+            case "apostar": new LoteriaApostarCommand(ctx); return;
+        }
+
+        if(ctx.getSender().hasPermission("eventmanager.bolao.criar")) {
+            if ("criar".equalsIgnoreCase(ctx.getArg(0))) {
+                new LoteriaCriarCommand(ctx);
+            }
+        } else {
+            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.loteria.criar §cpara poder fazer isso.");
         }
     }
 }

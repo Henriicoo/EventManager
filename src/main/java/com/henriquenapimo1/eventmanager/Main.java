@@ -5,10 +5,7 @@ import com.henriquenapimo1.eventmanager.listeners.EventListener;
 import com.henriquenapimo1.eventmanager.listeners.MenuListener;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
 import com.henriquenapimo1.eventmanager.utils.Utils;
-import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
-import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
-import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
+import com.henriquenapimo1.eventmanager.utils.objetos.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -29,10 +26,10 @@ public final class Main extends JavaPlugin {
     public Quiz quiz;
     public Vouf vouf;
     public Bolao bolao;
+    public Loteria loteria;
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void onEnable() {
         if (!setupEconomy()) {
@@ -41,10 +38,12 @@ public final class Main extends JavaPlugin {
             return;
         }
 
-        List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao");
+        List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao","loteria");
 
         cmds.forEach(c -> {
             PluginCommand cmd = getCommand(c);
+            assert cmd != null;
+
             cmd.setExecutor(new CommandListener());
             cmd.setTabCompleter(this);
         });
@@ -54,6 +53,8 @@ public final class Main extends JavaPlugin {
 
         if(Utils.getBool("bolao-ativo"))
             ChatEventManager.startBolaoScheduler();
+        if(Utils.getBool("loteria-ativo"))
+            ChatEventManager.startLoteriaScheduler();
 
         saveDefaultConfig();
 
@@ -85,6 +86,7 @@ public final class Main extends JavaPlugin {
                     }
                     case "unban": {
                         List<String> st = new ArrayList<>();
+                        //noinspection ConstantConditions
                         evento.getBannedPlayers().forEach(p -> st.add(Bukkit.getPlayer(p).getName()));
                         return st;
                     }
@@ -122,20 +124,22 @@ public final class Main extends JavaPlugin {
         // Comando Eventmanager
         if(command.getName().equalsIgnoreCase("eventmanager")) {
             if(args.length <= 1) {
-                List<String> tab = new ArrayList<>(Arrays.asList("help", "info"));
+                List<String> tab = new ArrayList<>(Collections.singletonList("info"));
 
                 if (sender.hasPermission("eventmanager.staff"))
-                    tab.addAll(Collections.singletonList("reload"));
+                    tab.addAll(Arrays.asList("help","reload"));
 
                 return tab;
             }
             if(args.length <= 2) {
                 switch (args[0]) {
                     case "reload": {
-                        return Collections.singletonList("confirm");
+                        if (sender.hasPermission("eventmanager.staff"))
+                            return Collections.singletonList("confirm");
                     }
                     case "help": {
-                        return Arrays.asList("evento","quiz","vouf","perms");
+                        if (sender.hasPermission("eventmanager.staff"))
+                            return Arrays.asList("evento","quiz","vouf","perms");
                     }
                 }
             }
@@ -153,6 +157,28 @@ public final class Main extends JavaPlugin {
             }
         }
 
+        // Comando Loteria
+        if(command.getName().equalsIgnoreCase("loteria")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "apostar"));
+
+                if (sender.hasPermission("eventmanager.loteria.criar"))
+                    tab.addAll(Collections.singletonList("criar"));
+
+                return tab;
+            }
+            if(args.length == 3 && args[0].equalsIgnoreCase("criar")) {
+                try {
+                    //noinspection unused
+                    int i = Integer.parseInt(args[2]);
+                    return Collections.emptyList();
+                } catch (Exception e) {
+                    //
+                }
+                return Collections.singletonList("random");
+            }
+        }
+
         return Collections.emptyList();
     }
 
@@ -166,6 +192,8 @@ public final class Main extends JavaPlugin {
 
         quiz = null;
         vouf = null;
+        bolao = null;
+        loteria = null;
 
         log.info(String.format("[%s] Desabilitando o plugin.",getDescription().getName()));
     }
@@ -182,11 +210,9 @@ public final class Main extends JavaPlugin {
         return true;
     }
 
-
     public static Economy getEconomy() {
         return econ;
     }
-
 
     public static Main getMain() {
         return (Main) Bukkit.getPluginManager().getPlugin("EventManager");

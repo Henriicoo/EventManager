@@ -1,6 +1,8 @@
 package com.henriquenapimo1.eventmanager.commands;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoHelpCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.EventoHelpCommand;
@@ -33,6 +35,14 @@ public class HelpCommand {
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os VouFs")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help vouf"))
                     .create());
+            b.append(new ComponentBuilder("§e§l[Bolão] ")
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Bolões")))
+                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help bolao"))
+                    .create());
+            b.append(new ComponentBuilder("§e§l[Loteria] ")
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre a Loteria")))
+                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help loteria"))
+                    .create());
             b.append(new ComponentBuilder("§f§l[Perms]")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre as Permissões")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help perms"))
@@ -43,15 +53,16 @@ public class HelpCommand {
         }
 
         List<String> args = new ArrayList<>(Arrays.asList(ctx.getArgs()));
-        args.remove("evento");
-        args.remove("quiz");
-        args.remove("vouf");
+        args.remove(ctx.getArg(1));
+
         CmdContext ctx2 = new CmdContext(ctx.getSender(),ctx.getCommand(), args.toArray(new String[0]));
 
         switch (ctx.getArg(1)) {
             case "evento": new EventoHelpCommand(ctx2); break;
             case "quiz": new QuizHelpCommand(ctx2); break;
             case "vouf": new VoufHelpCommand(ctx2); break;
+            case "bolao": new BolaoHelpCommand(ctx2); break;
+            case "loteria": new LoteriaHelpCommand(ctx2); break;
             case "perms": {
                 if(ctx.getSender().hasPermission("eventmanager.staff")) {
                     ctx.reply("§cVocê não tem permissão!");

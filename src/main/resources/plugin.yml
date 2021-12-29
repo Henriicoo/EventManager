@@ -4,7 +4,7 @@ main: com.henriquenapimo1.eventmanager.Main
 api-version: 1.17
 prefix: EventManager
 author: HenriqueNapimo1
-description: Plugin para a criação de eventos
+description: Plugin para a criação e administração de eventos de chat e eventos ingame
 depend: [Vault]
 commands:
   eventmanager:
@@ -16,7 +16,9 @@ commands:
   vouf:
     description: Comando para a criação de Verdadeiros ou Falsos
   bolao:
-    description: Comando de bolões
+    description: Comando de criação de Bolões
+  loteria:
+    description: Comando de criação de Loteria
 
 permissions:
   eventmanager.entrar:
@@ -48,4 +50,10 @@ permissions:
     default: true
   eventmanager.bolao.criar:
     description: Permissão para criar bolões
+    default: op
+  eventmanager.loteria.apostar:
+    description: Permissão para apostar na loteria
+    default: true
+  eventmanager.loteria.criar:
+    description: Permissão para criar uma Loteria
     default: op

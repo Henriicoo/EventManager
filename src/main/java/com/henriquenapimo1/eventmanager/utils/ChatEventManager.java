@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
+import com.henriquenapimo1.eventmanager.utils.objetos.Loteria;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ChatEventManager {
 
     private static int bolaoTaskId = 0;
+    private static int loteriaTaskId = 0;
 
     public static void startBolaoScheduler() {
         long intervalo = Utils.getInt("bolao-intervalo")*60*20L;
@@ -76,5 +78,52 @@ public class ChatEventManager {
             }
             i.getAndIncrement();
         });
+    }
+
+    public static void startLoteriaScheduler() {
+        long intervalo = (Utils.getInt("bolao-intervalo")*60*20L)/2+(Utils.getInt("loteria-intervalo")*60*20L);
+        loteriaTaskId = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), () -> {
+            if(Main.getMain().loteria != null) {
+                restartLoteria(false);
+                return;
+            }
+            if(Bukkit.getServer().getOnlinePlayers().size() < 3) {
+                restartLoteria(true);
+                return;
+            }
+            //noinspection unchecked
+            List<Integer> valores = (List<Integer>) Utils.getList("loteria-premios");
+            Collections.shuffle(valores);
+
+            Main.getMain().loteria = new Loteria(valores.get(0),0,true);
+        },intervalo);
+    }
+
+    private static void restartLoteria(boolean cancel) {
+        if(cancel) {
+            cancelLoteria();
+        } else {
+            if(loteriaTaskId != 0)
+                Bukkit.getScheduler().cancelTask(loteriaTaskId);
+        }
+
+        startLoteriaScheduler();
+    }
+
+    public static void iniciarLoteria(int premio, int valorInicial) {
+        cancelLoteria();
+        Main.getMain().loteria = new Loteria(premio,valorInicial,false);
+    }
+
+    public static void cancelLoteria() {
+        if(loteriaTaskId != 0)
+            Bukkit.getScheduler().cancelTask(loteriaTaskId);
+
+        Loteria l = Main.getMain().loteria;
+
+        if(l == null)
+            return;
+
+        Main.getMain().loteria = null;
     }
 }

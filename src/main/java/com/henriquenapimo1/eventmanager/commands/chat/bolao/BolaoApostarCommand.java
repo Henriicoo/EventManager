@@ -5,9 +5,9 @@ import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 
-public class ApostarCommand {
+public class BolaoApostarCommand {
 
-    public ApostarCommand(CmdContext ctx) {
+    public BolaoApostarCommand(CmdContext ctx) {
         Bolao b = Main.getMain().bolao;
 
         if(b == null) {

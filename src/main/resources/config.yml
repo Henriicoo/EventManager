@@ -1,5 +1,10 @@
+# Não mexa! Isso serve para funções internas do plugin
+config-version: 1.2
+
 # Prefixo do plugin
 prefix: '&8[&6&lEventManager&8]'
+
+# EVENTO
 
 # Mensagem que anuncia o evento
 # Placeholders disponíveis:
@@ -11,6 +16,16 @@ evento-mensagem: '{prefix} &eEntre no &6Evento {evento}&e valendo &eR${prize}'
 # Texto do botão que será usado para entrar no evento
 evento-button: '&a&l[Clique para entrar]'
 
+# Valor máximo de dinheiro para o vencedor
+max-premio-evento: 10000
+
+# Se o plugin irá anunciar o evento automaticamente
+auto-anunciar: true
+# Tempo de intervalo entre os anúncios (em segundos)
+anunciar-evento: 120
+
+# QUIZ
+
 # Mensagem de anúncio do quiz
 # Placeholders disponíveis:
 # {prefix} - prefixo do plugin
@@ -20,22 +35,18 @@ quiz-mensagem: '&8[&6&lQuiz&8] &8Quiz iniciado! Valendo &7R${prize}&8:'
 # Texto do botão que será usado para responder o quiz
 quiz-button: '&a[Clique para responder]'
 
+# Valor máximo de dinheiro para o vencedor
+max-premio-quiz: 1000
+# Tempo de intervalo entre os anúncios (em segundos)
+anunciar-quiz: 60
+
+# VOUF
+
 # Mensagem de anúncio do vouf
 # Placeholders disponíveis:
 # {prefix} - prefixo do plugin
 # {prize} - prêmio do quiz
-vouf-mensagem: '§8[§6§lVouF§8] §8Vouf iniciado! Valendo &7R${prize}&8:'
-
-# Mensagem de anúncio do bolão
-# Placeholders disponíveis:
-# {prefix} - prefixo do plugin
-# {acumulado} - valor acumulado
-bolao-mensagem: '§7O Bolão está acumulado em R${acumulado} Clique aqui para apostar:'
-
-# Botão de apostar
-# Placeholders disponíveis:
-# {valor} - valor que o usuário terá que pagar para participar
-bolao-button: '§a[Clique para apostar R${valor}]'
+vouf-mensagem: '&8[&6&lVouF&8] &8Vouf iniciado! Valendo &7R${prize}&8:'
 
 # Texto do botão verdadeiro do vouf
 vouf-true: '&2&l[Verdadeiro]'
@@ -43,25 +54,26 @@ vouf-true: '&2&l[Verdadeiro]'
 vouf-false: '&4&l[Falso]'
 
 # Valor máximo de dinheiro para o vencedor
-# Do evento
-max-premio-evento: 10000
-# Do quiz
-max-premio-quiz: 1000
-# Do VOUF
 max-premio-vouf: 500
-
-# Se o plugin irá anunciar o evento automaticamente
-auto-anunciar: true
 # Tempo de intervalo entre os anúncios (em segundos)
-# Do evento
-anunciar-evento: 120
-# Do quiz
-anunciar-quiz: 60
-# Do VOUF
 anunciar-vouf: 60
 
 # BOLÃO
+
+# Se o bolão vai ser ativo automaticamente no servidor
 bolao-ativo: true
+
+# Mensagem de anúncio do bolão
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {acumulado} - valor acumulado
+bolao-mensagem: '&7O Bolão está acumulado em R${acumulado} Clique aqui para apostar:'
+
+# Botão de apostar
+# Placeholders disponíveis:
+# {valor} - valor que o usuário terá que pagar para participar
+bolao-button: '&a[Clique para apostar R${valor}]'
+
 # De quanto em quanto tempo ocorrerá um bolão (em minutos)
 bolao-intervalo: 30
 # Tempo de intervalo entre anúncios de um bolão já criado (em segundos)
@@ -70,8 +82,41 @@ anunciar-bolao: 60
 bolao-anuncios: 5
 # Se staff pode ou não apostar no bolão
 staff-apostar: true
-# Valores possíveis de ser o valor inicial de um bolão
+# Valores possíveis de serem o valor inicial de um bolão automático
 bolao-valores:
   - 500
   - 1000
   - 2000
+
+
+# LOTERIA
+
+# Se a loteria vai ser ativa automaticamente no servidor
+loteria-ativo: true
+
+# Mensagem de anúncio da loteria
+# Placeholders disponíveis:
+# {prefix} - prefixo do plugin
+# {prize} - prêmio
+# {maxnumero} - o número máximo
+loteria-mensagem: '&8[&6&lLoteria&8] &7Loteria iniciada! Valendo &fR${prize} &7Descubra o número entre &f0 &7à &f{maxnumero}'
+
+# Botão de apostar
+loteria-button: '&a[Clique para tentar a sorte]'
+
+# De quanto em quanto tempo ocorrerá uma loteria (em minutos)
+loteria-intervalo: 60
+# Tempo de intervalo entre anúncios de uma loteria já criada (em segundos)
+loteria-anunciar: 60
+# O número máximo que a loteria pode sortear
+loteria-max-numero: 60
+# O número máximo de vezes de anúncios da loteria automática (em segundos)
+loteria-anuncios: 5
+# O número máximo de vezes que um jogador pode apostar (-1 para infinito)
+loteria-max-apostas: 5
+# Valores possíveis de serem o prêmio da loteria automática
+loteria-premios:
+  - 500
+  - 1000
+  - 2000
+  - 3000

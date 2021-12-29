@@ -1,10 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
-import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
-import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
+import com.henriquenapimo1.eventmanager.utils.objetos.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -114,13 +111,28 @@ public class Utils {
         return msg;
     }
 
+    // anúncio Loteria
+    public static ComponentBuilder getAnuncio(Loteria l) {
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("loteria-mensagem")
+                .replace("{prize}",String.valueOf(l.getPremio()))
+                .replace("{maxnumero}",String.valueOf(l.getMaxNumero()))
+                .replace("{prefix}", Utils.getPref()));
+
+        msg.append(new ComponentBuilder("\n" + Utils.getString("loteria-button"))
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para fazer uma aposta")))
+                .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/loteria apostar "))
+                .create());
+        msg.append("\n§7 ");
+        return msg;
+    }
+
     // https://bukkit.org/threads/spawn-firework.118019/
-    public static void spawnFirework(Player p, int quant) {
+    public static void spawnFirework(Player p, int quanto) {
         new BukkitRunnable() {
             int vezes = 0;
             @Override
             public void run() {
-                if(vezes==quant) {
+                if(vezes==quanto) {
                     cancel();
                     return;
                 }
