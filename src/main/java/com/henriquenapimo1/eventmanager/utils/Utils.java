@@ -17,6 +17,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Random;
@@ -26,10 +27,12 @@ public class Utils {
     private final static FileConfiguration config = Main.getMain().getConfig();
 
     public static String getPref() {
+        //noinspection ConstantConditions
         return ChatColor.translateAlternateColorCodes('&', config.getString("prefix"));
     }
 
     public static String getString(String path) {
+        //noinspection ConstantConditions
         return ChatColor.translateAlternateColorCodes('&', config.getString(path));
     }
 
@@ -112,39 +115,42 @@ public class Utils {
     }
 
     // https://bukkit.org/threads/spawn-firework.118019/
-    public static void spawnFirework(Player p) {
-        Firework fw = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
-        FireworkMeta fwm = fw.getFireworkMeta();
+    public static void spawnFirework(Player p, int quant) {
+        new BukkitRunnable() {
+            int vezes = 0;
+            @Override
+            public void run() {
+                if(vezes==quant) {
+                    cancel();
+                    return;
+                }
 
-        //Our random generator
-        Random r = new Random();
+                Firework fw = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
+                FireworkMeta fwm = fw.getFireworkMeta();
 
-        //Get the type
-        int rt = r.nextInt(5) + 1;
-        FireworkEffect.Type type = FireworkEffect.Type.BALL;
-        if (rt == 2) type = FireworkEffect.Type.BALL_LARGE;
-        if (rt == 3) type = FireworkEffect.Type.BURST;
-        if (rt == 4) type = FireworkEffect.Type.CREEPER;
-        if (rt == 5) type = FireworkEffect.Type.STAR;
+                Random r = new Random();
+                int rt = r.nextInt(5) + 1;
+                FireworkEffect.Type type = FireworkEffect.Type.BALL;
+                if (rt == 2) type = FireworkEffect.Type.BALL_LARGE;
+                if (rt == 3) type = FireworkEffect.Type.BURST;
+                if (rt == 4) type = FireworkEffect.Type.CREEPER;
+                if (rt == 5) type = FireworkEffect.Type.STAR;
 
-        //Get our random colours
-        int r1i = r.nextInt(17) + 1;
-        int r2i = r.nextInt(17) + 1;
-        Color c1 = getColor(r1i);
-        Color c2 = getColor(r2i);
+                int r1i = r.nextInt(17) + 1;
+                int r2i = r.nextInt(17) + 1;
+                Color c1 = getColor(r1i);
+                Color c2 = getColor(r2i);
 
-        //Create our effect with this
-        FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(r.nextBoolean()).build();
+                FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(r.nextBoolean()).build();
+                fwm.addEffect(effect);
 
-        //Then apply the effect to the meta
-        fwm.addEffect(effect);
+                int rp = r.nextInt(2) + 1;
+                fwm.setPower(rp);
+                fw.setFireworkMeta(fwm);
 
-        //Generate some random power and set it
-        int rp = r.nextInt(2) + 1;
-        fwm.setPower(rp);
-
-        //Then apply this to our rocket
-        fw.setFireworkMeta(fwm);
+                vezes = vezes+1;
+            }
+        }.runTaskTimer(Main.getMain(),0,10);
     }
 
     // https://bukkit.org/threads/spawn-firework.118019/

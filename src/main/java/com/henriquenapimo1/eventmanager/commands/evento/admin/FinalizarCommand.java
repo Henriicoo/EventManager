@@ -62,9 +62,8 @@ public class FinalizarCommand {
         evento.getPlayers().forEach(p -> {
             if(ganhadores.contains(p)) {
                 p.sendTitle("§6Você ganhou o evento!", "§eParabéns, e obrigado por jogar!",5,30,5);
-                for (int i = 0; i < 5; i++) {
-                    Utils.spawnFirework(p);
-                }
+                Utils.spawnFirework(p,5);
+
                 Main.getEconomy().depositPlayer(p, evento.getPrize());
                 return;
             }

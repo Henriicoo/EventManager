@@ -43,14 +43,13 @@ public class Quiz {
 
     public void finalizar(Player ganhador) {
         Bukkit.getScheduler().cancelTask(taskId);
-        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lQuiz§8] §7O(a) ganhador(a) do quiz foi: §f" + ganhador.getName() + "§7! Parabéns!"));
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lQuiz§8] §7O(a) ganhador(a) do quiz foi: §f" + ganhador.getName() + "§7! \nA resposta era: §f" + resposta));
 
         ganhador.sendMessage("§aVocê ganhou o quiz e recebeu R$"+premio);
         Main.getEconomy().depositPlayer(ganhador,premio);
 
-        for (int i=0; i<5; i++) {
-            Utils.spawnFirework(ganhador);
-        }
+        Utils.spawnFirework(ganhador,5);
+
 
         Main.getMain().quiz = null;
     }

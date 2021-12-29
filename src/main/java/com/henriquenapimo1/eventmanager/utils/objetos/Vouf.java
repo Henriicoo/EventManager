@@ -6,14 +6,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 public class Vouf {
 
     private final String pergunta;
     private final int premio;
 
-    private final HashSet<Player> truePlayers = new HashSet<>();
-    private final HashSet<Player> falsePlayers = new HashSet<>();
+    private final HashSet<UUID> truePlayers = new HashSet<>();
+    private final HashSet<UUID> falsePlayers = new HashSet<>();
 
     private int taskId;
 
@@ -33,16 +34,16 @@ public class Vouf {
     }
 
     public void addPlayer(Player p, boolean bool) {
-        if(truePlayers.contains(p) || falsePlayers.contains(p)) {
+        if(truePlayers.contains(p.getUniqueId()) || falsePlayers.contains(p.getUniqueId())) {
             p.sendMessage("§7Você já respondeu esse VouF e não pode mais mudar!");
             return;
         }
 
         if(bool) {
-            truePlayers.add(p);
+            truePlayers.add(p.getUniqueId());
             p.sendMessage("§7Você marcou esse VouF como "+Utils.getString("vouf-true")+"§7! Agora, espere o resultado sair.");
         } else {
-            falsePlayers.add(p);
+            falsePlayers.add(p.getUniqueId());
             p.sendMessage("§7Você marcou esse VouF como "+Utils.getString("vouf-false")+"§7! Agora, espere o resultado sair.");
         }
     }
@@ -58,16 +59,20 @@ public class Vouf {
 
         if (resposta) {
             Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§e§lVouF§8] §7A resposta correta era "+Utils.getString("vouf-true")+"§7!"));
-            truePlayers.forEach(p -> {
-                p.sendMessage("§aVocê acertou o VouF e recebeu R$"+premio);
-                Main.getEconomy().depositPlayer(p,premio);
-            });
+            truePlayers.forEach(uuid -> {
+                Player p = Bukkit.getPlayer(uuid);
+                if(p != null) {
+                    p.sendMessage("§aVocê acertou o VouF e recebeu R$"+premio);
+                    Main.getEconomy().depositPlayer(p,premio);
+                }});
         } else {
             Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§e§lVouF§8] §7A resposta correta era "+Utils.getString("vouf-false")+"§7!"));
-            falsePlayers.forEach(p -> {
-                p.sendMessage("§aVocê acertou o VouF e recebeu R$"+premio);
-                Main.getEconomy().depositPlayer(p,premio);
-            });
+            falsePlayers.forEach(uuid -> {
+                Player p = Bukkit.getPlayer(uuid);
+                if(p != null) {
+                    p.sendMessage("§aVocê acertou o VouF e recebeu R$" + premio);
+                    Main.getEconomy().depositPlayer(p, premio);
+                }});
         }
 
         Main.getMain().vouf = null;
