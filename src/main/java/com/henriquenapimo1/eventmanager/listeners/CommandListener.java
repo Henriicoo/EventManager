@@ -143,9 +143,6 @@ public class CommandListener implements CommandExecutor {
                 case "finalizar": {
                     new FinalizarCommand(ctx); return;
                 }
-                case "reload": {
-                    new ReloadCommand(ctx); return;
-                }
                 case "cancelar": {
                     new CancelarCommand(ctx); return;
                 }
@@ -254,7 +251,7 @@ public class CommandListener implements CommandExecutor {
             case "apostar": new LoteriaApostarCommand(ctx); return;
         }
 
-        if(ctx.getSender().hasPermission("eventmanager.bolao.criar")) {
+        if(ctx.getSender().hasPermission("eventmanager.loteria.criar")) {
             if ("criar".equalsIgnoreCase(ctx.getArg(0))) {
                 new LoteriaCriarCommand(ctx);
             }
