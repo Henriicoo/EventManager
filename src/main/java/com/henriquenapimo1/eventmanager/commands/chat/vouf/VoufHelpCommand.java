@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 public class VoufHelpCommand {
 
     public VoufHelpCommand(CmdContext ctx) {
-        ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda VouF");
+        ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.VOUF) + " §6§lMenu de ajuda VouF");
         b.append("\n§a/vouf help §7- §eMostra o menu de ajuda;");
         b.append("\n§a/vouf resposta [true/false] §7- §eResponde um VouF como verdadeiro ou falso;");
 

@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.objetos;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 import com.henriquenapimo1.eventmanager.utils.gui.Itens;
@@ -43,8 +44,11 @@ public class Evento {
     }
 
     public void broadcast(String msg) {
-        players.forEach(player -> player.sendMessage("§8[§6" + name + "§8]§f " + ChatColor.translateAlternateColorCodes('&',msg)));
-        spectators.forEach(player -> player.sendMessage("§8[§6" + name + " §7Players §8]§f " + ChatColor.translateAlternateColorCodes('&',msg)));
+        players.forEach(player -> player.sendMessage(
+                CustomMessages.getString("events.evento.broadcast.players",
+                        Utils.getPref(CmdContext.CommandType.EVENTO), ChatColor.translateAlternateColorCodes('&',msg))));
+        spectators.forEach(player -> player.sendMessage(CustomMessages.getString("events.evento.broadcast.players",
+                Utils.getPref(CmdContext.CommandType.EVENTO), ChatColor.translateAlternateColorCodes('&',msg))));
 
         playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
@@ -52,9 +56,9 @@ public class Evento {
     public void broadcastStaff(String msg) {
         Bukkit.getOnlinePlayers().forEach(p -> {
             if(p.hasPermission("eventmanager.admin") || p.hasPermission("eventmanager.mod")) {
-                p.sendMessage("§8[§6EventManager §eStaff§8] §f" + msg);
-            }
-        });
+                p.sendMessage(
+                        CustomMessages.getString("events.anuncio.broadcast.staff",Utils.getPref(CmdContext.CommandType.EVENTO),msg)
+                );}});
         playsoundStaff(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
 
@@ -88,10 +92,11 @@ public class Evento {
         effects.forEach(p::addPotionEffect);
 
         // mensagens
-        p.sendMessage("§7 \n §7Não se preocupe! Seu inventário foi salvo e seus itens não serão perdidos.\n§7 ");
-        p.sendTitle("§6Evento " + name,"§eSeja bem-vindo(a) ao evento!",5,30,5);
+        p.sendMessage("§7 \n"+ CustomMessages.getString("events.evento.join.itens") +"\n§7 ");
+        p.sendTitle(CustomMessages.getString("events.evento.join.title",name),
+                CustomMessages.getString("events.evento.join.subtitle"),5,30,5);
 
-        broadcast("§a" + p.getDisplayName() + "§e entrou no evento!");
+        broadcast(CustomMessages.getString("events.evento.join.message",p.getDisplayName()));
         playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
 
@@ -105,7 +110,7 @@ public class Evento {
         itens.forEach(p.getInventory()::addItem);
         effects.forEach(p::addPotionEffect);
 
-        p.sendMessage("§aVocê reespawnou!");
+        p.sendMessage(CustomMessages.getString("events.evento.respawn"));
         playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
 
@@ -122,29 +127,29 @@ public class Evento {
         playerOldSettings.remove(p);
 
         if(ban) {
-            p.sendMessage("§cVocê foi removido do evento por um staff! Você não poderá entrar novamente.");
+            p.sendMessage(CustomMessages.getString("events.evento.leave.ban"));
             bannedPlayers.add(p.getUniqueId());
         }
 
-        broadcast("§f" + p.getDisplayName() + "§7 saiu do evento");
+        broadcast(CustomMessages.getString("events.evento.leave.message",p.getDisplayName()));
     }
 
     public void banPlayer(Player p) {
         removePlayer(p,true);
-        broadcastStaff("§cO jogador §4" + p.getDisplayName() + " §cfoi banido do evento!");
+        broadcastStaff(CustomMessages.getString("events.evento.ban",p.getDisplayName()));
         playsoundStaff(Sound.BLOCK_NOTE_BLOCK_BASS);
     }
 
     public void unbanPlayer(Player p) {
         bannedPlayers.remove(p.getUniqueId());
-        broadcastStaff("§aO jogador §7" + p.getDisplayName() + " §afoi desbanido do evento!");
+        broadcastStaff(CustomMessages.getString("events.evento.unban",p.getDisplayName()));
         playsoundStaff(Sound.BLOCK_NOTE_BLOCK_BASS);
     }
 
     public void darItem(ItemStack item) {
         itens.add(item);
         players.forEach(p -> p.getInventory().addItem(item));
-        broadcast("§eVocê recebeu um item do evento!");
+        broadcast(CustomMessages.getString("events.evento.recebido","item"));
         playsound(Sound.ENTITY_ITEM_PICKUP);
     }
 
@@ -160,7 +165,7 @@ public class Evento {
         this.effects.addAll(effects);
 
         players.forEach(p -> p.addPotionEffects(effects));
-        broadcast("§eVocê recebeu um efeito de poção do evento!");
+        broadcast(CustomMessages.getString("events.evento.recebido","efeito de poção"));
         playsound(Sound.ENTITY_ITEM_PICKUP);
     }
 
@@ -171,7 +176,7 @@ public class Evento {
 
     public void teleportAll(Location loc) {
         players.forEach(p -> p.teleport(loc));
-        broadcast("§eVocê foi teletransportado!");
+        broadcast(CustomMessages.getString("events.evento.teleport"));
         playsound(Sound.BLOCK_NOTE_BLOCK_BIT);
     }
 
@@ -199,7 +204,7 @@ public class Evento {
         p.teleport(spawn);
         p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
 
-        p.sendMessage("§7 \n §7Você entrou no evento como um espectador!\n§7 ");
+        p.sendMessage("§7 \n"+ CustomMessages.getString("events.evento.join.spectator") +"\n§7 ");
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,100000,1,false,false));
     }
 
@@ -216,7 +221,7 @@ public class Evento {
 
     void setGamemode(GameMode gm) {
         players.forEach(p -> p.setGameMode(gm));
-        broadcast("§aSeu modo de jogo foi alterado!");
+        broadcast(CustomMessages.getString("events.evento.gamemode"));
         playsound(Sound.BLOCK_NOTE_BLOCK_BIT);
     }
 

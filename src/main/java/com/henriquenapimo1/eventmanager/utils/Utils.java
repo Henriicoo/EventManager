@@ -56,12 +56,11 @@ public class Utils {
 
     // anúncio Evento
     public static ComponentBuilder getAnuncio(Evento e) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("evento-mensagem")
-                .replace("{evento}",e.getName())
-                .replace("{prize}",String.valueOf(e.getPrize()))
-                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.EVENTO)));
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.EVENTO) + " " +
+                CustomMessages.getString("events.evento.anuncio",e.getName(),String.valueOf(e.getPrize())));
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("evento-button"))
+        msg.append(new ComponentBuilder("\n" +
+                CustomMessages.getString("events.evento.button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para entrar no evento")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/evento entrar"))
                 .create());
@@ -71,13 +70,13 @@ public class Utils {
 
     // anúncio Quiz
     public static ComponentBuilder getAnuncio(Quiz q) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("quiz-mensagem")
-                .replace("{prize}",String.valueOf(q.getPremio()))
-                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.QUIZ)));
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.QUIZ) + " " +
+                CustomMessages.getString("events.quiz.anuncio",String.valueOf(q.getPremio())));
 
         msg.append("\n§7"+q.getPergunta());
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("quiz-button"))
+        msg.append(new ComponentBuilder("\n" +
+                CustomMessages.getString("events.quiz.button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para responder")))
                 .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/quiz resposta "))
                 .create());
@@ -87,17 +86,16 @@ public class Utils {
 
     // anúncio VouF
     public static ComponentBuilder getAnuncio(Vouf v) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("vouf-mensagem")
-                .replace("{prize}",String.valueOf(v.getPremio()))
-                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.VOUF)));
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.VOUF) + " " +
+                CustomMessages.getString("events.vouf.anuncio",String.valueOf(v.getPremio())));
 
         msg.append("\n§7"+v.getPergunta());
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("vouf-true"))
+        msg.append(new ComponentBuilder("\n" + CustomMessages.getString("events.vouf.true"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para marcar como VERDADEIRO")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta true"))
                 .create());
-        msg.append(new ComponentBuilder(" " + Utils.getString("vouf-false"))
+        msg.append(new ComponentBuilder(" " + CustomMessages.getString("events.vouf.false"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para marcar como FALSO")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/vouf resposta false"))
                 .create());
@@ -107,12 +105,10 @@ public class Utils {
 
     // anúncio Bolão
     public static ComponentBuilder getAnuncio(Bolao b) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("bolao-mensagem")
-                .replace("{acumulado}",String.valueOf(b.getValorAcumulado()))
-                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.BOLAO)));
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                CustomMessages.getString("events.bolao.anuncio",String.valueOf(b.getValorAcumulado())));
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("bolao-button")
-                .replace("{valor}",String.valueOf(b.getValorInicial())))
+        msg.append(new ComponentBuilder("\n" + CustomMessages.getString("events.bolao.button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para apostar no bolão")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/bolao apostar"))
                 .create());
@@ -122,12 +118,10 @@ public class Utils {
 
     // anúncio Loteria
     public static ComponentBuilder getAnuncio(Loteria l) {
-        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("loteria-mensagem")
-                .replace("{prize}",String.valueOf(l.getPremio()))
-                .replace("{maxnumero}",String.valueOf(l.getMaxNumero()))
-                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.LOTERIA)));
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.LOTERIA) + " " +
+                CustomMessages.getString("events.loteria.anuncio",String.valueOf(l.getPremio()),String.valueOf(l.getMaxNumero())));
 
-        msg.append(new ComponentBuilder("\n" + Utils.getString("loteria-button"))
+        msg.append(new ComponentBuilder("\n" + CustomMessages.getString("events.loteria.button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para fazer uma aposta")))
                 .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/loteria apostar "))
                 .create());

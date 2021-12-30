@@ -147,12 +147,11 @@ events:
       message: '§f{0}§7 saiu do evento'
     ban: '§cO jogador §4{0} §cfoi banido do evento!'
     unban: '§aO jogador §7{0}§a foi desbanido do evento!'
-    item: '§eVocê recebeu um item do evento!'
-    effect: '§eVocê recebeu um efeito de poção do evento!'
+    recebido: '§eVocê recebeu um {0} do evento!'
     teleport: '§eVocê foi teletransportado!'
     gamemode: '§aSeu modo de jogo foi alterado!'
   quiz:
-    anuncio: '&8[&6&lQuiz&8] &8Quiz iniciado! Valendo &7R${prize}&8:'
+    anuncio: '&8Quiz iniciado! Valendo &7R${0}&8:'
     button: '&a[Clique para responder]'
     ganhador: '§7O(a) ganhador(a) do quiz foi: §f{0}§7! A resposta era: §f{1}'
   vouf:
@@ -160,6 +159,7 @@ events:
     true: '&2&l[Verdadeiro]'
     false: '&4&l[Falso]'
     ganhador: '§7VouF finalizado! A resposta correta era {0}§7!'
+    win: '§aVocê acertou o VouF e recebeu R${0}!}'
   bolao:
     anuncio: '&7O Bolão está acumulado em R${0} Clique aqui para apostar:'
     button: '&a[Clique para apostar R${0}]'

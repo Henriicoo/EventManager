@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 public class QuizHelpCommand {
 
     public QuizHelpCommand(CmdContext ctx) {
-        ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda Quiz");
+        ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.QUIZ) + " §6§lMenu de ajuda Quiz");
         b.append("\n§a/quiz help §7- §eMostra o menu de ajuda;");
         b.append("\n§a/quiz resposta [resposta] §7- §eResponde um quiz com a resposta inserida;");
 

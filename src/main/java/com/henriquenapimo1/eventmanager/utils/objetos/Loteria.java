@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager.utils.objetos;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -54,7 +55,8 @@ public class Loteria {
             int i = apostas.get(p.getUniqueId());
 
             if(max == i) {
-                p.sendMessage("§cVocê excedeu o limite máximo de apostas! ("+max+")");
+                p.sendMessage(Utils.getPref(CmdContext.CommandType.LOTERIA) + " " +
+                        CustomMessages.getString("commands.loteria.apostar.error.no-chances",String.valueOf(max)));
                 return false;
             }
 
@@ -112,12 +114,15 @@ public class Loteria {
         Bukkit.getScheduler().cancelTask(taskId);
 
         if(ganhador == null) {
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lLoteria§8] §7Loteria cancelada! Ninguém acertou o número premiado, que era "+numeroFinal));
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.LOTERIA) + " " +
+                    CustomMessages.getString("events.loteria.cancel",String.valueOf(numeroFinal))));
             return;
         }
 
-        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lLoteria§8] §7O(a) ganhador(a) da Loteria foi: §f"+ganhador.getName()+"§7! Ele acertou o número premiado, que era: §f"+numeroFinal+"§7 e ganhou §fR$"+premio));
-        ganhador.sendMessage("§aVocê acertou o número premiado e ganhou R$"+premio+"!");
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.LOTERIA) + " " +
+                CustomMessages.getString("events.loteria.ganhador",ganhador.getName(),String.valueOf(numeroFinal))));
+
+        ganhador.sendMessage(CustomMessages.getString("commands.loteria.apostar.success", String.valueOf(premio)));
 
         Main.getEconomy().depositPlayer(ganhador,premio);
         Utils.spawnFirework(ganhador,5);

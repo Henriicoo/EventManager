@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.listeners;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.Flags;
 import com.henriquenapimo1.eventmanager.utils.Utils;
@@ -19,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.Arrays;
 
+@SuppressWarnings("ConstantConditions")
 public class MenuListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
@@ -88,14 +90,14 @@ public class MenuListener implements Listener {
 
         if(p == null) {
             event.getWhoClicked().closeInventory();
-            event.getWhoClicked().sendMessage(Utils.getPref() + " §7Não foi possível te teletransportar à esse jogador.");
+            event.getWhoClicked().sendMessage(Utils.getPref(CmdContext.CommandType.MAIN) + " §7Não foi possível te teletransportar à esse jogador.");
             return;
         }
 
         if(event.getClick().isLeftClick()) {
             event.getWhoClicked().teleport(p);
             event.getWhoClicked().closeInventory();
-            event.getWhoClicked().sendMessage(Utils.getPref()+" §7Teletransportado à " + p.getName() + " com sucesso.");
+            event.getWhoClicked().sendMessage(Utils.getPref(CmdContext.CommandType.MAIN)+" §7Teletransportado à " + p.getName() + " com sucesso.");
         } else if(event.getClick().isRightClick()) {
             Main.getMain().evento.banPlayer(p);
             event.getWhoClicked().closeInventory();
@@ -158,5 +160,4 @@ public class MenuListener implements Listener {
             }
         }
     }
-
 }

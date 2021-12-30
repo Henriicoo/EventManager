@@ -46,13 +46,13 @@ public class FinalizarCommand {
         ganhadores.forEach(j -> {
             if(!evento.getPlayers().contains(j)) {
                 aviso.append(
-                        CustomMessages.getString("commands.evento.finalizar.error.not-playing").replace("{0}",j.getName())
+                        CustomMessages.getString("commands.evento.finalizar.error.not-playing",j.getName())
                 );
                 ganhadores.remove(j);
             }
             if(j.hasPermission("eventmanager.staff") || j.hasPermission("eventmanager.mod") || j.hasPermission("eventmanager.admin")) {
                 aviso.append(
-                        CustomMessages.getString("commands.evento.finalizar.error.staff").replace("{0}",j.getName())
+                        CustomMessages.getString("commands.evento.finalizar.error.staff",j.getName())
                 );
                 ganhadores.remove(j);
             }

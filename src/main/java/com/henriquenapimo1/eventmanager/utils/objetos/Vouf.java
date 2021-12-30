@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.objetos;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -35,16 +36,19 @@ public class Vouf {
 
     public void addPlayer(Player p, boolean bool) {
         if(truePlayers.contains(p.getUniqueId()) || falsePlayers.contains(p.getUniqueId())) {
-            p.sendMessage("§7Você já respondeu esse VouF e não pode mais mudar!");
+            p.sendMessage(Utils.getPref(CmdContext.CommandType.VOUF) + " " +
+                    CustomMessages.getString("commands.vouf.resposta.error"));
             return;
         }
 
         if(bool) {
             truePlayers.add(p.getUniqueId());
-            p.sendMessage("§7Você marcou esse VouF como "+Utils.getString("vouf-true")+"§7! Agora, espere o resultado sair.");
+            p.sendMessage(CustomMessages.getString("commands.vouf.resposta.success",
+                    CustomMessages.getString("events.vouf.true")));
         } else {
             falsePlayers.add(p.getUniqueId());
-            p.sendMessage("§7Você marcou esse VouF como "+Utils.getString("vouf-false")+"§7! Agora, espere o resultado sair.");
+            p.sendMessage(CustomMessages.getString("commands.vouf.resposta.success",
+                    CustomMessages.getString("events.vouf.false")));
         }
     }
 
@@ -58,19 +62,27 @@ public class Vouf {
         Bukkit.getScheduler().cancelTask(taskId);
 
         if (resposta) {
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§e§lVouF§8] §7A resposta correta era "+Utils.getString("vouf-true")+"§7!"));
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.VOUF) + " " +
+                    CustomMessages.getString("events.vouf.ganhador",
+                            CustomMessages.getString("events.vouf.true"))));
             truePlayers.forEach(uuid -> {
                 Player p = Bukkit.getPlayer(uuid);
                 if(p != null) {
-                    p.sendMessage("§aVocê acertou o VouF e recebeu R$"+premio);
+                    p.sendMessage(
+                            CustomMessages.getString("events.vouf.win",String.valueOf(premio))
+                    );
                     Main.getEconomy().depositPlayer(p,premio);
                 }});
         } else {
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§e§lVouF§8] §7A resposta correta era "+Utils.getString("vouf-false")+"§7!"));
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.VOUF) + " " +
+                    CustomMessages.getString("events.vouf.ganhador",
+                            CustomMessages.getString("events.vouf.false"))));
             falsePlayers.forEach(uuid -> {
                 Player p = Bukkit.getPlayer(uuid);
                 if(p != null) {
-                    p.sendMessage("§aVocê acertou o VouF e recebeu R$" + premio);
+                    p.sendMessage(
+                            CustomMessages.getString("events.vouf.win",String.valueOf(premio))
+                    );
                     Main.getEconomy().depositPlayer(p, premio);
                 }});
         }

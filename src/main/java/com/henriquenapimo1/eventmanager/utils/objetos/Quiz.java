@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.objetos;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -43,9 +44,10 @@ public class Quiz {
 
     public void finalizar(Player ganhador) {
         Bukkit.getScheduler().cancelTask(taskId);
-        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lQuiz§8] §7O(a) ganhador(a) do quiz foi: §f" + ganhador.getName() + "§7! \nA resposta era: §f" + resposta));
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.QUIZ) + " " +
+                        CustomMessages.getString("events.quiz.ganhador",ganhador.getName(),resposta)));
 
-        ganhador.sendMessage("§aVocê ganhou o quiz e recebeu R$"+premio);
+        ganhador.sendMessage(CustomMessages.getString("commands.quiz.resposta.success", String.valueOf(premio)));
         Main.getEconomy().depositPlayer(ganhador,premio);
 
         Utils.spawnFirework(ganhador,5);

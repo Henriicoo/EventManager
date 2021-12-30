@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 public class LoteriaHelpCommand {
 
     public LoteriaHelpCommand(CmdContext ctx) {
-        ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda Loteria");
+        ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.LOTERIA) + " §6§lMenu de ajuda Loteria");
         b.append("\n§a/loteria help §7- §eMostra o menu de ajuda;");
         b.append("\n§a/loteria apostar [número] §7- §eAposta um número na loteria atual;");
 

@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager.utils.objetos;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -28,11 +29,13 @@ public class Bolao {
 
     public void apostar(Player p) {
         if(getApostadores().contains(p.getUniqueId())) {
-            p.sendMessage("§7Você já apostou nesse bolão! Aguarde o resultado.");
+            p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                    CustomMessages.getString("commands.bolao.apostar.error.apostou"));
             return;
         }
         if(Main.getEconomy().getBalance(p) < valorInicial) {
-            p.sendMessage("§cVocê não tem dinheiro suficiente para apostar no bolão!");
+            p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                    CustomMessages.getString("commands.bolao.apostar.error.no-money"));
             return;
         }
 
@@ -40,7 +43,8 @@ public class Bolao {
         getApostadores().add(p.getUniqueId());
         valorAcumulado = valorAcumulado+valorInicial;
 
-        p.sendMessage("§7Você apostou no bolão! Aguarde o resultado. Boa sorte!");
+        p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                CustomMessages.getString("commands.bolao.apostar.success"));
     }
 
     public int getAnuncios() {
@@ -70,7 +74,9 @@ public class Bolao {
         Bukkit.getScheduler().cancelTask(taskId);
 
         if(getApostadores().isEmpty()) {
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6Bolão§8] §7Bolão cancelado! Não houve apostadores nesse bolão."));
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                    CustomMessages.getString("events.bolao.cancel")
+            ));
             Main.getMain().bolao = null;
             return;
         }
@@ -83,15 +89,17 @@ public class Bolao {
                     [(int) Math.floor(Math.random()*(apostadores.size())+0)];
         }
 
-        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage("§8[§6§lBolão§8] §7O(a) ganhador(a) do bolão foi: §f" + ganhador.getName() + "§7! Ele(a) ganhou a quantia total de §6R$" + valorAcumulado + "§7!"));
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
+                CustomMessages.getString("events.bolao.ganhador",ganhador.getName(),String.valueOf(valorAcumulado))));
+
         getApostadores().stream().filter(uuid -> uuid != ganhador.getUniqueId()).forEach(a -> {
             Player p = Bukkit.getPlayer(a);
             if(p != null) {
-                p.sendMessage("§7Você perdeu o bolão e perdeu R$" + valorInicial);
+                p.sendMessage(CustomMessages.getString("events.bolao.lost",String.valueOf(valorInicial)));
             }});
 
         if(ganhador.isOnline() && ganhador.getPlayer() != null) {
-            ganhador.getPlayer().sendMessage("§aVocê ganhou o bolão e ganhou um total de R$" + valorAcumulado);
+            ganhador.getPlayer().sendMessage(CustomMessages.getString("events.bolao.win",String.valueOf(valorAcumulado)));
             Utils.spawnFirework(ganhador.getPlayer(),5);
         }
 

@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 public class BolaoHelpCommand {
 
     public BolaoHelpCommand(CmdContext ctx) {
-        ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda Bolão");
+        ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.BOLAO) + " §6§lMenu de ajuda Bolão");
         b.append("\n§a/bolao help §7- §eMostra o menu de ajuda;");
         b.append("\n§a/bolao apostar §7- §eAposta no bolão atual;");
 

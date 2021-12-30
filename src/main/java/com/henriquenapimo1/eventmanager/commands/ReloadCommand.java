@@ -13,7 +13,7 @@ public class ReloadCommand {
     public ReloadCommand(CmdContext ctx) {
 
         if (ctx.getArgs().length == 1) {
-            ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §cIsso irá reiniciar o plugin e irá recarregar " +
+            ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §cIsso irá reiniciar o plugin e irá recarregar " +
                     "todas as configurações, cancelando todos os eventos ativos no momento.");
             b.append("\n§7Você tem certeza? ");
             b.append(new ComponentBuilder("§c[Confirmar]")
@@ -33,10 +33,10 @@ public class ReloadCommand {
             Main.getMain().reloadConfig();
             Main.getMain().saveConfig();
 
-            ctx.reply("§aConfigurações recarregadas!");
+            ctx.replyText("§aConfigurações recarregadas!", CmdContext.CommandType.MAIN);
             Main.getMain().getLogger().info(String.format("[%s] Plugin recarregado com sucesso.", Main.getMain().getDescription().getName()));
         } else {
-            ctx.reply("§7Argumento inválido!");
+            ctx.replyText("§7Argumento inválido!", CmdContext.CommandType.MAIN);
         }
     }
 }
