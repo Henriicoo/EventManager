@@ -9,12 +9,12 @@ public class VoufCriarCommand {
 
     public VoufCriarCommand(CmdContext ctx) {
         if(ctx.getArgs().length < 3) {
-            ctx.reply("§cErro! Argumentos requeridos: §7/vouf criar [pergunta] [prêmio]");
+            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf criar [pergunta] [prêmio]");
             return;
         }
 
         if(Main.getMain().vouf != null) {
-            ctx.reply("§cErro! Você não pode criar um VouF enquanto já tem um acontecendo.");
+            ctx.reply("vouf.criar.error", CmdContext.CommandType.VOUF);
             return;
         }
 
@@ -23,12 +23,12 @@ public class VoufCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um valor como prêmio.");
+            ctx.reply("not-number", CmdContext.CommandType.VOUF,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio-vouf")) {
-            ctx.reply("§cErro! O prêmio excede o valor máximo ("+Utils.getInt("max-premio-vouf")+")");
+            ctx.reply("max-premio", CmdContext.CommandType.VOUF,String.valueOf(Utils.getInt("max-premio-vouf")));
             return;
         }
 
@@ -38,6 +38,6 @@ public class VoufCriarCommand {
                 .replaceAll(".$", "");
 
         Main.getMain().vouf = new Vouf(pergunta,i);
-        ctx.reply("§aVouf criado com sucesso! Para finalizar, use §7/vouf finalizar [true/false]");
+        ctx.reply("vouf.criar.success", CmdContext.CommandType.VOUF);
     }
 }

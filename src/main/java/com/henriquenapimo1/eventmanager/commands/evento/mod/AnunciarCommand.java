@@ -14,12 +14,12 @@ public class AnunciarCommand {
         Evento e = Main.getMain().evento;
 
         if(e == null) {
-            ctx.reply("§7Não há nenhum evento para anunciar.");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(e.isLocked()) {
-            ctx.reply("§7Você não pode anunciar um evento trancado!");
+            ctx.reply("evento.anunciar.locked", CmdContext.CommandType.EVENTO);
             return;
         }
 

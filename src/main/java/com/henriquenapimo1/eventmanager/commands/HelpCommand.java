@@ -21,7 +21,7 @@ public class HelpCommand {
 
     public HelpCommand(CmdContext ctx) {
         if(ctx.getArgs().length <= 1) {
-            ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6Menu de Ajuda\n");
+            ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §6Menu de Ajuda\n");
 
             b.append(new ComponentBuilder("§e§l[Evento] ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Eventos")))
@@ -65,16 +65,16 @@ public class HelpCommand {
             case "loteria": new LoteriaHelpCommand(ctx2); break;
             case "perms": {
                 if(ctx.getSender().hasPermission("eventmanager.staff")) {
-                    ctx.reply("§cVocê não tem permissão!");
+                    ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.staff");
                     return;
                 }
                 List<String> lista = new ArrayList<>();
                 Main.getMain().getDescription().getPermissions().forEach(p ->
                     lista.add(String.format("§8- §7%s §f| §f%s;\n",p.getName(),p.getDescription())));
 
-                ctx.reply("§6§lLista de Permissões:\n"+String.join("",lista));
+                ctx.replyText("§6§lLista de Permissões:\n"+String.join("",lista), CmdContext.CommandType.MAIN);
             } break;
-            default: ctx.reply("§7Argumento inválido!"); break;
+            default: ctx.replyText("§7Argumento inválido!", CmdContext.CommandType.MAIN); break;
         }
     }
 }

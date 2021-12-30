@@ -2,23 +2,19 @@ package com.henriquenapimo1.eventmanager.commands.chat.loteria;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 
 public class LoteriaCriarCommand {
 
     public LoteriaCriarCommand(CmdContext ctx) {
         if(Main.getMain().loteria != null) {
-            ctx.reply("§7Você não pode criar uma loteria enquanto há outra acontecendo!");
+            ctx.reply("loteria.criar.error", CmdContext.CommandType.LOTERIA);
             return;
         }
 
-        if(ctx.getArgs().length == 1) {
-            ctx.reply("§7Erro! Uso: /loteria criar [prêmio] [valor/random]");
-            return;
-        }
-
-        if(ctx.getArgs().length == 2) {
-            ctx.reply("§7Erro! Se deseja criar uma loteria com um número aleatório, use /loteria criar [prêmio] random");
+        if(ctx.getArgs().length <= 2) {
+            ctx.reply("args", CmdContext.CommandType.LOTERIA,"/loteria criar [prêmio] [valor/random]");
             return;
         }
 
@@ -27,13 +23,13 @@ public class LoteriaCriarCommand {
         try {
             premio = Integer.parseInt(ctx.getArg(1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um número válido como prêmio.");
+            ctx.reply("not-number", CmdContext.CommandType.LOTERIA,"prêmio");
             return;
         }
 
         if(ctx.getArg(2).equalsIgnoreCase("random")) {
             ChatEventManager.iniciarLoteria(premio,0);
-            ctx.reply("§aVocê iniciou uma loteria com o prêmio em R$"+premio+" e com um número aleatório!");
+            ctx.reply("loteria.criar.success.random", CmdContext.CommandType.LOTERIA,String.valueOf(premio));
             return;
         }
 
@@ -42,11 +38,16 @@ public class LoteriaCriarCommand {
         try {
             num = Integer.parseInt(ctx.getArg(2));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um número válido ou criar com um número aleatório usando /loteria criar [prêmio] random");
+            ctx.reply("not-number", CmdContext.CommandType.LOTERIA,"número premiado");
+            return;
+        }
+
+        if(num > Utils.getInt("loteria-max-numero")) {
+            ctx.reply("max-premio", CmdContext.CommandType.LOTERIA,String.valueOf(Utils.getInt("loteria-max-numero")));
             return;
         }
 
         ChatEventManager.iniciarLoteria(premio,num);
-        ctx.reply("§aVocê iniciou uma loteria com o prêmio em R$"+premio+" e com o número premiado "+num+"!");
+        ctx.reply("loteria.criar.success.numero", CmdContext.CommandType.LOTERIA,String.valueOf(premio),String.valueOf(num));
     }
 }

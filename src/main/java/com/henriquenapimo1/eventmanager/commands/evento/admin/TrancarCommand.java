@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.commands.evento.admin;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.utils.Utils;
@@ -12,16 +13,22 @@ public class TrancarCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(evento.isLocked()) {
-            ctx.reply("§aEvento §ndestrancado§r§a com sucesso!");
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref() + " §aO evento foi destrancado! Use §f/evento entrar §apara entrar no evento"));
+            ctx.reply("evento.trancar.success", CmdContext.CommandType.EVENTO,"destrancado");
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(
+                    CustomMessages.getString("prefix.evento") + " " +
+                            CustomMessages.getString("commands.evento.trancar.unlock")
+            ));
         } else {
-            ctx.reply("§cEvento §ntrancado§r§c com sucesso!");
-            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref() + " §cO evento foi trancado! Novos jogadores não poderão entrar no evento."));
+            ctx.reply("evento.trancar.success", CmdContext.CommandType.EVENTO,"trancado");
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(
+                    CustomMessages.getString("prefix.evento") + " " +
+                            CustomMessages.getString("commands.evento.trancar.lock")
+            ));
         }
 
         evento.lockEvent(!evento.isLocked());

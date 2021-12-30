@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.commands.evento.admin;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 
@@ -10,13 +11,13 @@ public class CancelarCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
-        evento.broadcast("§cO evento foi cancelado!");
+        evento.broadcast(CustomMessages.getString("commands.evento.cancelar.broadcast"));
         evento.finalizar();
 
-        ctx.reply("§7Evento cancelado com sucesso!");
+        ctx.reply("evento.cancelar.success", CmdContext.CommandType.EVENTO);
     }
 }

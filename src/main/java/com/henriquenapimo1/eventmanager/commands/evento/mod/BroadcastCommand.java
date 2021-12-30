@@ -11,12 +11,12 @@ public class BroadcastCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("§cUso: /evento bc [mensagem]");
+            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento bc [mensagem]");
         }
 
         String msg = String.join(" ", ctx.getArgs());

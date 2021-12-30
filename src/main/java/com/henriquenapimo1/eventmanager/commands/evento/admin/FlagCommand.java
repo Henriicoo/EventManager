@@ -13,7 +13,7 @@ public class FlagCommand {
         Evento e = Main.getMain().evento;
 
         if(e == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 

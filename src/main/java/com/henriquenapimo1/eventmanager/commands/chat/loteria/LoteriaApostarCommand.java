@@ -10,22 +10,22 @@ public class LoteriaApostarCommand {
         Loteria l = Main.getMain().loteria;
 
         if(l == null) {
-            ctx.reply("§7Não há nenhuma loteria acontecendo no momento!");
+            ctx.reply("loteria.no-loteria", CmdContext.CommandType.LOTERIA);
             return;
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.loteria.apostar")) {
-            ctx.reply("§cVocê não tem permissão para apostar na Loteria!");
+            ctx.reply("no-permission", CmdContext.CommandType.LOTERIA,"eventmanager.loteria.apostar");
             return;
         }
 
         if(ctx.getSender().hasPermission("eventmanager.staff") || ctx.getSender().hasPermission("eventmanager.mod") || ctx.getSender().hasPermission("eventmanager.admin")) {
-            ctx.reply("§7Você é um staff, portanto, não pode apostar na loteria!");
+            ctx.reply("loteria.apostar.staff", CmdContext.CommandType.LOTERIA);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§cErro! Você precisa apostar em um número. /loteria apostar [número]");
+            ctx.reply("args", CmdContext.CommandType.LOTERIA,"/loteria apostar [número]");
             return;
         }
 
@@ -34,7 +34,7 @@ public class LoteriaApostarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa apostar em um número. /loteria apostar [número]");
+            ctx.reply("not-number", CmdContext.CommandType.LOTERIA,"aposta");
             return;
         }
 
@@ -42,12 +42,12 @@ public class LoteriaApostarCommand {
             if(l.getMaxApostas() != -1) {
                 int a = l.getMaxApostas()-l.getApostas(ctx.getSender());
                 if(a == 0) {
-                    ctx.reply("§7Não foi dessa vez! Você não tem mais chances para apostar.");
+                    ctx.reply("loteria.apostar.error.no-chances", CmdContext.CommandType.LOTERIA);
                 } else {
-                    ctx.reply("§7Não foi dessa vez! Tente novamente. (Você ainda tem " + a + " chances)");
+                    ctx.reply("loteria.apostar.error.has-hances", CmdContext.CommandType.LOTERIA,String.valueOf(a));
                 }
             } else {
-                ctx.reply("§7Não foi dessa vez! Tente novamente");
+                ctx.reply("loteria.apostar.error.simple", CmdContext.CommandType.LOTERIA);
             }
         }
     }

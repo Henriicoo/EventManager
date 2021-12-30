@@ -11,22 +11,22 @@ public class QuizRespostaCommand {
         Quiz q = Main.getMain().quiz;
 
         if(q == null) {
-            ctx.reply("§7Não há nenhum quiz acontecendo no momento!");
+            ctx.reply("quiz.no-quiz", CmdContext.CommandType.QUIZ);
             return;
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.quiz.responder")) {
-            ctx.reply("§cVocê não tem permissão para responder o quiz!");
+            ctx.reply("no-permission", CmdContext.CommandType.QUIZ,"eventmanager.quiz.responder");
             return;
         }
 
         if(ctx.getSender().hasPermission("eventmanager.staff") || ctx.getSender().hasPermission("eventmanager.mod") || ctx.getSender().hasPermission("eventmanager.admin")) {
-            ctx.reply("§7Você é um staff, portanto, não pode responder o quiz!");
+            ctx.reply("quiz.resposta.staff", CmdContext.CommandType.QUIZ);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§7Você precisa colocar uma resposta válida! §f/quiz responder [resposta]");
+            ctx.reply("args", CmdContext.CommandType.QUIZ,"/quiz responder [resposta]");
             return;
         }
 
@@ -37,7 +37,7 @@ public class QuizRespostaCommand {
         if(resp.equalsIgnoreCase(q.getResposta())) {
             q.finalizar(ctx.getSender());
         } else {
-            ctx.reply("§cResposta incorreta! Tente novamente");
+            ctx.reply("quiz.resposta.incorreta", CmdContext.CommandType.QUIZ);
         }
     }
 }

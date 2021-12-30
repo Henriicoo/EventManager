@@ -9,12 +9,12 @@ public class QuizCriarCommand {
 
     public QuizCriarCommand(CmdContext ctx) {
         if(ctx.getArgs().length < 3) {
-            ctx.reply("§cErro! Argumentos requeridos: §7/quiz criar [pergunta] [prêmio]");
+            ctx.reply("args", CmdContext.CommandType.QUIZ,"/quiz criar [pergunta] [prêmio]");
             return;
         }
 
         if(Main.getMain().quiz != null) {
-            ctx.reply("§cErro! Você não pode criar um quiz enquanto já tem um acontecendo.");
+            ctx.reply("quiz.criar.error", CmdContext.CommandType.QUIZ);
             return;
         }
 
@@ -23,12 +23,12 @@ public class QuizCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um valor como prêmio.");
+            ctx.reply("not-number", CmdContext.CommandType.QUIZ,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio-quiz")) {
-            ctx.reply("§cErro! O prêmio excede o valor máximo ("+Utils.getInt("max-premio-quiz")+")");
+            ctx.reply("max-premio", CmdContext.CommandType.QUIZ,String.valueOf(Utils.getInt("max-premio-quiz")));
             return;
         }
 
@@ -38,6 +38,6 @@ public class QuizCriarCommand {
                 .replaceAll(".$", "");
 
         Main.getMain().quiz = new Quiz(pergunta,i);
-        ctx.reply("§aQuiz criado com sucesso! Agora use /quiz setresposta [resposta] para setar a resposta do quiz e iniciá-lo!");
+        ctx.reply("quiz.criar.success", CmdContext.CommandType.QUIZ);
     }
 }

@@ -10,11 +10,11 @@ public class ItemClearCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
-        ctx.reply("§7Limpando todos os itens dos players!");
+        ctx.reply("evento.clear", CmdContext.CommandType.EVENTO,"itens");
         evento.itemClear();
     }
 }

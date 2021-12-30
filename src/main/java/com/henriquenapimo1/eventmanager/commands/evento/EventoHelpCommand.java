@@ -12,7 +12,7 @@ public class EventoHelpCommand {
     public EventoHelpCommand(CmdContext ctx) {
 
         if(ctx.getArgs().length <= 1 || ctx.getArg(1).equals("1")) {
-            ComponentBuilder b = new ComponentBuilder(Utils.getPref() + " §6§lMenu de ajuda");
+            ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.EVENTO) + " §6§lMenu de ajuda");
             b.append("\n§a/evento help §7- §eMostra o menu de ajuda;");
             b.append("\n§a/evento entrar §7- §eEntra no evento;");
             b.append("\n§a/evento sair §7- §aSei do evento;");
@@ -34,7 +34,7 @@ public class EventoHelpCommand {
             ctx.getSender().spigot().sendMessage(b.create());
 
         } else if(ctx.getArg(1).equals("2") && ctx.getSender().hasPermission("eventmanager.admin")) {
-            ComponentBuilder b = new ComponentBuilder("§7Página 2 | " + Utils.getPref() + " §c§lComandos de Administração§7:");
+            ComponentBuilder b = new ComponentBuilder("§7Página 2 | " + Utils.getPref(CmdContext.CommandType.EVENTO) + " §c§lComandos de Administração§7:");
             b.append("\n§a/evento criar [nome] [prêmio] §7- §eCria um evento com o nome e prêmio definidos;");
             b.append("\n§a/evento flags §7- §eAbre o menu de flags do evento;");
             b.append("\n§a/evento trancar §7- §eTranca ou destranca o evento;");
@@ -50,7 +50,7 @@ public class EventoHelpCommand {
 
             ctx.getSender().spigot().sendMessage(b.create());
         } else if(ctx.getArg(1).equals("3") && ctx.getSender().hasPermission("eventmanager.admin"))  {
-            ComponentBuilder b = new ComponentBuilder("§7Página 3 | " + Utils.getPref() + " §c§lComandos de Administração§7:");
+            ComponentBuilder b = new ComponentBuilder("§7Página 3 | " + Utils.getPref(CmdContext.CommandType.EVENTO) + " §c§lComandos de Administração§7:");
             b.append("\n§a/evento gamemode [gamemode] §7- §eMuda o gamemode de todos os jogadores;");
             b.append("\n§a/evento itemclear §7- §eLimpa todos os itens dados aos jogadores;");
             b.append("\n§a/evento effectclear §7- §eLimpa todos os efeitos de poção dados aos jogadores;");
@@ -60,7 +60,7 @@ public class EventoHelpCommand {
 
             ctx.getSender().spigot().sendMessage(b.create());
         } else {
-            ctx.reply("§7Página não encontrada");
+            ctx.replyText("§7Página não encontrada", CmdContext.CommandType.EVENTO);
         }
     }
 }

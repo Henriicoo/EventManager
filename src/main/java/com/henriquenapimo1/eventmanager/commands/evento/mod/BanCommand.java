@@ -12,23 +12,23 @@ public class BanCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("§cErro! Você precisa especificar um player: §7/evento ban [nick]");
+            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento ban [nick]");
             return;
         }
 
         Player p = Bukkit.getPlayer(ctx.getArg(1));
         if(p == null) {
-            ctx.reply("§cErro! Este jogador não está online.");
+            ctx.reply("evento.ban.offline", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(p.hasPermission("eventmanager.mod") || p.hasPermission("eventmanager.admin")) {
-            ctx.reply("§cVocê não pode banir este jogador!");
+            ctx.reply("evento.ban.error", CmdContext.CommandType.EVENTO);
             return;
         }
 

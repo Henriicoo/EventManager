@@ -4,6 +4,7 @@ import com.henriquenapimo1.eventmanager.listeners.CommandListener;
 import com.henriquenapimo1.eventmanager.listeners.EventListener;
 import com.henriquenapimo1.eventmanager.listeners.MenuListener;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.objetos.*;
 import net.milkbowl.vault.economy.Economy;
@@ -38,6 +39,9 @@ public final class Main extends JavaPlugin {
             return;
         }
 
+        saveDefaultConfig();
+        CustomMessages.loadMessages();
+
         List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao","loteria");
 
         cmds.forEach(c -> {
@@ -55,8 +59,6 @@ public final class Main extends JavaPlugin {
             ChatEventManager.startBolaoScheduler();
         if(Utils.getBool("loteria-ativo"))
             ChatEventManager.startLoteriaScheduler();
-
-        saveDefaultConfig();
 
         log.info(String.format("[%s] Plugin iniciado com sucesso!",getDescription().getName()));
     }

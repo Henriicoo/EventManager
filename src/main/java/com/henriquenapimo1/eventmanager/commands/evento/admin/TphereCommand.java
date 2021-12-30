@@ -10,11 +10,11 @@ public class TphereCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         evento.teleportAll(ctx.getSender().getLocation());
-        ctx.reply("§aTodos os players foram teleportados para a sua localização atual!");
+        ctx.reply("evento.tphere", CmdContext.CommandType.EVENTO);
     }
 }

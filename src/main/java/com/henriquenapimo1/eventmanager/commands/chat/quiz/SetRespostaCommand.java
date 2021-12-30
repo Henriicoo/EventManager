@@ -10,12 +10,12 @@ public class SetRespostaCommand {
         Quiz quiz = Main.getMain().quiz;
 
         if(quiz == null) {
-            ctx.reply("§7Você precisa primeiro criar um quiz! /quiz criar [pergunta] [prêmio]");
+            ctx.reply("quiz.setresposta.error", CmdContext.CommandType.QUIZ);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§7Você precisa colocar uma resposta válida! §f/quiz setresposta [resposta]");
+            ctx.reply("args", CmdContext.CommandType.QUIZ,"/quiz setresposta [resposta]");
             return;
         }
 
@@ -23,7 +23,7 @@ public class SetRespostaCommand {
                 .replace("setresposta ","")
                 .replaceAll(".$", "");
 
-        ctx.reply("§aResposta configurada com sucesso! Iniciando o quiz...");
+        ctx.reply("quiz.setresposta.success", CmdContext.CommandType.QUIZ);
         quiz.start(resp);
     }
 }

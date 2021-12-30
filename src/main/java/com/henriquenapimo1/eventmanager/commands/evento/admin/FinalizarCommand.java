@@ -1,6 +1,7 @@
 package com.henriquenapimo1.eventmanager.commands.evento.admin;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.Utils;
@@ -18,12 +19,12 @@ public class FinalizarCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("§cErro! Você precisa especificar um ou mais players como vencedor: §n/evento finalizar [nick] [nick]...");
+            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento finalizar [nick] [nick]...");
             return;
         }
 
@@ -37,23 +38,27 @@ public class FinalizarCommand {
         }
 
         if(ganhadores.isEmpty()) {
-            ctx.reply("§cErro! Este(s) jogador(es) não está(ão) online.");
+            ctx.reply("evento.finalizar.error.offline", CmdContext.CommandType.EVENTO);
             return;
         }
 
         StringBuilder aviso = new StringBuilder();
         ganhadores.forEach(j -> {
             if(!evento.getPlayers().contains(j)) {
-                aviso.append("O jogador ").append(j.getName()).append(" não está participando do evento! ");
+                aviso.append(
+                        CustomMessages.getString("commands.evento.finalizar.error.not-playing").replace("{0}",j.getName())
+                );
                 ganhadores.remove(j);
             }
             if(j.hasPermission("eventmanager.staff") || j.hasPermission("eventmanager.mod") || j.hasPermission("eventmanager.admin")) {
-                aviso.append("O jogador ").append(j.getName()).append(" é staff e não pode ser o ganhador do evento! ");
+                aviso.append(
+                        CustomMessages.getString("commands.evento.finalizar.error.staff").replace("{0}",j.getName())
+                );
                 ganhadores.remove(j);
             }
         });
 
-        ctx.reply(aviso.toString());
+        ctx.replyText(aviso.toString(), CmdContext.CommandType.EVENTO);
 
         if(ganhadores.isEmpty()) {
             return;
@@ -61,18 +66,21 @@ public class FinalizarCommand {
 
         evento.getPlayers().forEach(p -> {
             if(ganhadores.contains(p)) {
-                p.sendTitle("§6Você ganhou o evento!", "§eParabéns, e obrigado por jogar!",5,30,5);
+                p.sendTitle(
+                        CustomMessages.getString("commands.evento.finalizar.ganhador.title"),
+                        CustomMessages.getString("commands.evento.finalizar.ganhador.subtitle"),5,30,5);
+                p.sendMessage(
+                        CustomMessages.getString("commands.evento.finalizar.ganhador.message")
+                                .replace("{0}",String.valueOf(evento.getPrize()))
+                );
                 Utils.spawnFirework(p,5);
 
                 Main.getEconomy().depositPlayer(p, evento.getPrize());
                 return;
             }
 
-            if(ganhadores.size() > 1) {
-                p.sendTitle("§6Obrigado por jogar!","",5,30,5);
-            } else {
-                p.sendTitle("§6Obrigado por jogar!","§eO ganhador(a) é:" + ganhadores.get(0).getName(),5,30,5);
-            }
+            p.sendTitle(CustomMessages.getString("commands.evento.finalizar.players.title"),
+                    CustomMessages.getString("commands.evento.finalizar.players.subtitle"),5,30,5);
 
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,10,1);
         });
@@ -82,9 +90,17 @@ public class FinalizarCommand {
 
         Bukkit.getOnlinePlayers().forEach(p -> {
             if(ganhadores.size() > 1) {
-                p.sendMessage(Utils.getPref() + " §aO evento foi finalizado! Os ganhadores são §e" + String.join("§a, §e",gNick) + "§a! Parabéns!");
+                p.sendMessage(
+                        CustomMessages.getString("prefix.evento") + " " +
+                                CustomMessages.getString("commands.finalizar.anuncio.more")
+                                        .replace("{0}",String.join("§a, §e",gNick))
+                );
             } else {
-                p.sendMessage(Utils.getPref() + " §aO evento foi finalizado! O ganhador(a) é §e" + ganhadores.get(0).getName() + "§a! Parabéns!");
+                p.sendMessage(
+                        CustomMessages.getString("prefix.evento") + " " +
+                                CustomMessages.getString("commands.finalizar.anuncio.one")
+                                        .replace("{0}",ganhadores.get(0).getName())
+                );
             }
         });
 

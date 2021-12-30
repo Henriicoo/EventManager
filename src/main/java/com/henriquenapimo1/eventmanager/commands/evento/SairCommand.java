@@ -10,19 +10,19 @@ public class SairCommand {
         Evento e = Main.getMain().evento;
 
         if(e == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento.");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(e.getPlayers().contains(ctx.getSender())) {
-            ctx.reply("§7Saindo do evento...");
+            ctx.reply("evento.sair.success", CmdContext.CommandType.EVENTO);
             e.removePlayer(ctx.getSender(),false);
 
         } else if(e.getSpectators().contains(ctx.getSender())) {
-            ctx.reply("§7Saindo do evento...");
+            ctx.reply("evento.sair.success", CmdContext.CommandType.EVENTO);
             e.removeSpectator(ctx.getSender());
         } else {
-            ctx.reply("§7Você não está no evento.");
+            ctx.reply("evento.sair.error", CmdContext.CommandType.EVENTO);
         }
     }
 }

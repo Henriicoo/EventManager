@@ -9,12 +9,12 @@ public class BolaoCriarCommand {
     public BolaoCriarCommand(CmdContext ctx) {
 
         if(Main.getMain().bolao != null) {
-            ctx.reply("§7Você não pode criar um bolão enquanto há outro acontecendo! Use /bolao finalizar caso você queira forçar o fim do bolão atual.");
+            ctx.reply("bolao.criar.error", CmdContext.CommandType.BOLAO);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§7Argumento inválido! Uso: /bolao criar [valorInicial]");
+            ctx.reply("args", CmdContext.CommandType.BOLAO,"/bolao criar [valorInicial]");
             return;
         }
 
@@ -23,11 +23,11 @@ public class BolaoCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um número como valor inicial.");
+            ctx.reply("not-number", CmdContext.CommandType.BOLAO,"valor inicial");
             return;
         }
 
         ChatEventManager.iniciarBolao(i);
-        ctx.reply("§aBolão iniciado com sucesso!");
+        ctx.reply("bolao.criar.success", CmdContext.CommandType.BOLAO);
     }
 }

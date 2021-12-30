@@ -12,12 +12,12 @@ public class SetPremioCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("§cErro! Argumento requerido: §7/evento setpremio [prêmio]");
+            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento setpremio [prêmio]");
             return;
         }
 
@@ -25,16 +25,16 @@ public class SetPremioCommand {
         try {
             i = Integer.parseInt(ctx.getArg(1));
         } catch (Exception e) {
-            ctx.reply("§cErro! Você precisa colocar um valor válido como prêmio.");
+            ctx.reply("not-number", CmdContext.CommandType.EVENTO,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio")) {
-            ctx.reply("§cErro! O prêmio excede o valor máximo ("+Utils.getInt("max-premio")+")");
+            ctx.reply("max-premio", CmdContext.CommandType.EVENTO,String.valueOf(Utils.getInt("max-premio")));
             return;
         }
 
         evento.prize = i;
-        ctx.reply("§aPrêmio configurado para R$" + i + " com sucesso!");
+        ctx.reply("evento.setpremio", CmdContext.CommandType.EVENTO,String.valueOf(i));
     }
 }

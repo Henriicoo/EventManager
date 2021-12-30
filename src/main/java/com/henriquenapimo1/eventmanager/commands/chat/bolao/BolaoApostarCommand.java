@@ -11,18 +11,18 @@ public class BolaoApostarCommand {
         Bolao b = Main.getMain().bolao;
 
         if(b == null) {
-            ctx.reply("§7Não há nenhum bolão acontecendo no momento!");
+            ctx.reply("bolao.no-bolao", CmdContext.CommandType.BOLAO);
             return;
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.bolao.apostar")) {
-            ctx.reply("§cVocê não tem permissão para apostar no bolão!");
+            ctx.reply("no-permission", CmdContext.CommandType.BOLAO,"eventmanager.bolao.apostar");
             return;
         }
 
         if(!Utils.getBool("staff-apostar")) {
             if(ctx.getSender().hasPermission("eventmanager.staff") || ctx.getSender().hasPermission("eventmanager.mod") || ctx.getSender().hasPermission("eventmanager.admin")) {
-                ctx.reply("§7Você é um staff, portanto, não pode apostar no bolão!");
+                ctx.reply("bolao.apostar.staff", CmdContext.CommandType.BOLAO);
                 return;
             }
         }

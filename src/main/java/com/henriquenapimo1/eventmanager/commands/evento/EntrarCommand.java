@@ -10,29 +10,29 @@ public class EntrarCommand {
     public EntrarCommand(CmdContext ctx) {
 
         if(!ctx.getSender().hasPermission("eventmanager.entrar")) {
-            ctx.reply("§cVocê não tem permissão!");
+            ctx.reply("no-permission", CmdContext.CommandType.EVENTO,"eventmanager.entrar");
             return;
         }
 
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento.");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(evento.isPlayerBanned(ctx.getSender())) {
-            ctx.reply("§CVocê está banido desse evento e portanto não poderá entrar!");
+            ctx.reply("evento.entrar.banned", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(evento.isLocked()) {
-            ctx.reply("§cO evento está trancado! Você não pode mais entrar.");
+            ctx.reply("evento.entrar.locked", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(evento.getPlayers().contains(ctx.getSender()) || evento.getSpectators().contains(ctx.getSender())) {
-            ctx.reply("§7Você já está no evento!");
+            ctx.reply("evento.entrar.in-game", CmdContext.CommandType.EVENTO);
             return;
         }
 

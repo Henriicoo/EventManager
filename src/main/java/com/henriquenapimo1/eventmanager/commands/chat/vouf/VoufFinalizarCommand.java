@@ -10,12 +10,12 @@ public class VoufFinalizarCommand {
         Vouf v = Main.getMain().vouf;
 
         if(v == null) {
-            ctx.reply("§7Não há nenhum VouF acontecendo no momento!");
+            ctx.reply("vouf.no-vouf", CmdContext.CommandType.VOUF);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§cErro! Use /vouf finalizar [true/false]");
+            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
             return;
         }
 
@@ -23,7 +23,7 @@ public class VoufFinalizarCommand {
             case "true": v.finalizar(true); break;
             case "false": v.finalizar(false); break;
             default: {
-                ctx.reply("§cErro! Use /vouf finalizar [true/false]");
+                ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
             } break;
         }
     }

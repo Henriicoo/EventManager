@@ -10,22 +10,22 @@ public class VoufRespostaCommand {
         Vouf v = Main.getMain().vouf;
 
         if(v == null) {
-            ctx.reply("§7Não há nenhum VouF acontecendo no momento!");
+            ctx.reply("vouf.no-vouf", CmdContext.CommandType.VOUF);
             return;
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.vouf.responder")) {
-            ctx.reply("§cVocê não tem permissão para participar do VouF!");
+            ctx.reply("no-permission", CmdContext.CommandType.VOUF,"eventmanager.vouf.responder");
             return;
         }
 
         if(ctx.getSender().hasPermission("eventmanager.staff") || ctx.getSender().hasPermission("eventmanager.mod") || ctx.getSender().hasPermission("eventmanager.admin")) {
-            ctx.reply("§7Você é um staff, portanto, não pode responder o VouF!");
+            ctx.reply("vouf.resposta.staff", CmdContext.CommandType.VOUF);
             return;
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("§cErro! Use /vouf resposta [true/false]");
+            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
             return;
         }
 
@@ -33,7 +33,7 @@ public class VoufRespostaCommand {
             case "true": v.addPlayer(ctx.getSender(),true);break;
             case "false": v.addPlayer(ctx.getSender(),false);break;
             default: {
-                ctx.reply("§cErro! Use /vouf resposta [true/false]");
+                ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
             } break;
         }
     }

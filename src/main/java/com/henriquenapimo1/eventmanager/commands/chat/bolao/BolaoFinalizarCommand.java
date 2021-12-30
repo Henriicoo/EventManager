@@ -7,11 +7,11 @@ public class BolaoFinalizarCommand {
 
     public BolaoFinalizarCommand(CmdContext ctx) {
         if(Main.getMain().bolao == null) {
-            ctx.reply("§7Não há nenhum bolão acontecendo no momento para finalizar!");
+            ctx.reply("bolao.no-bolao", CmdContext.CommandType.BOLAO);
             return;
         }
 
         Main.getMain().bolao.finalizar();
-        ctx.reply("§7Bolão finalizado com sucesso");
+        ctx.reply("bolao.finalizar", CmdContext.CommandType.BOLAO);
     }
 }

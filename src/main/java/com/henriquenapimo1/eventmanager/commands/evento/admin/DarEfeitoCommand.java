@@ -19,18 +19,18 @@ public class DarEfeitoCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         ItemStack item = ctx.getSender().getInventory().getItemInMainHand();
         if(item.getType().equals(Material.AIR)) {
-            ctx.reply("§7Não há nenhum item selecionado na sua mão principal!");
+            ctx.reply("evento.dar.no-item", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(!Arrays.asList(Material.POTION,Material.SPLASH_POTION,Material.LINGERING_POTION).contains(item.getType())) {
-            ctx.reply("§cSelecione uma poção válida na sua mão principal!");
+            ctx.reply("evento.dar.efeito.not-potion", CmdContext.CommandType.EVENTO);
             return;
         }
 
@@ -42,7 +42,7 @@ public class DarEfeitoCommand {
         PotionEffectType pType = meta.getBasePotionData().getType().getEffectType();
 
         if(pType == null) {
-            ctx.reply("§cOcorreu um erro ao tentar dar essa poção!");
+            ctx.reply("evento.dar.efeito.error", CmdContext.CommandType.EVENTO);
             return;
         }
 
@@ -51,6 +51,6 @@ public class DarEfeitoCommand {
 
         evento.darEfeito(effects);
 
-        ctx.reply("§7Efeitos dados com sucesso!");
+        ctx.reply("evento.dar.success", CmdContext.CommandType.EVENTO);
     }
 }

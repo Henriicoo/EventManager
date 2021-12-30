@@ -10,11 +10,11 @@ public class SetSpawnCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
-        ctx.reply("§7Spawn do evento setado para a sua localização atual!");
+        ctx.reply("evento.setspawn", CmdContext.CommandType.EVENTO);
         evento.setSpawn(ctx.getSender().getLocation());
     }
 }

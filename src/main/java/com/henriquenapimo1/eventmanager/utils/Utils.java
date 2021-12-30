@@ -23,9 +23,18 @@ public class Utils {
 
     private final static FileConfiguration config = Main.getMain().getConfig();
 
-    public static String getPref() {
-        //noinspection ConstantConditions
-        return ChatColor.translateAlternateColorCodes('&', config.getString("prefix"));
+    public static String getPref(CmdContext.CommandType type) {
+        String pref = "";
+        switch (type) {
+            case MAIN: pref = CustomMessages.getString("prefix.plugin");break;
+            case EVENTO: pref = CustomMessages.getString("prefix.evento"); break;
+            case QUIZ: pref = CustomMessages.getString("prefix.quiz"); break;
+            case VOUF: pref = CustomMessages.getString("prefix.vouf"); break;
+            case BOLAO: pref = CustomMessages.getString("prefix.bolao"); break;
+            case LOTERIA: pref = CustomMessages.getString("prefix.loteria"); break;
+        }
+
+        return pref;
     }
 
     public static String getString(String path) {
@@ -50,7 +59,7 @@ public class Utils {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("evento-mensagem")
                 .replace("{evento}",e.getName())
                 .replace("{prize}",String.valueOf(e.getPrize()))
-                .replace("{prefix}", Utils.getPref()));
+                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.EVENTO)));
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("evento-button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para entrar no evento")))
@@ -64,7 +73,7 @@ public class Utils {
     public static ComponentBuilder getAnuncio(Quiz q) {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("quiz-mensagem")
                 .replace("{prize}",String.valueOf(q.getPremio()))
-                .replace("{prefix}", Utils.getPref()));
+                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.QUIZ)));
 
         msg.append("\n§7"+q.getPergunta());
 
@@ -80,7 +89,7 @@ public class Utils {
     public static ComponentBuilder getAnuncio(Vouf v) {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("vouf-mensagem")
                 .replace("{prize}",String.valueOf(v.getPremio()))
-                .replace("{prefix}", Utils.getPref()));
+                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.VOUF)));
 
         msg.append("\n§7"+v.getPergunta());
 
@@ -100,7 +109,7 @@ public class Utils {
     public static ComponentBuilder getAnuncio(Bolao b) {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("bolao-mensagem")
                 .replace("{acumulado}",String.valueOf(b.getValorAcumulado()))
-                .replace("{prefix}", Utils.getPref()));
+                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.BOLAO)));
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("bolao-button")
                 .replace("{valor}",String.valueOf(b.getValorInicial())))
@@ -116,7 +125,7 @@ public class Utils {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getString("loteria-mensagem")
                 .replace("{prize}",String.valueOf(l.getPremio()))
                 .replace("{maxnumero}",String.valueOf(l.getMaxNumero()))
-                .replace("{prefix}", Utils.getPref()));
+                .replace("{prefix}", Utils.getPref(CmdContext.CommandType.LOTERIA)));
 
         msg.append(new ComponentBuilder("\n" + Utils.getString("loteria-button"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para fazer uma aposta")))

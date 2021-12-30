@@ -11,12 +11,12 @@ public class GamemodeCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("§cErro! Argumento requerido: §7/evento gamemode [gamemode]");
+            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento gamemode [gamemode]");
             return;
         }
 
@@ -47,12 +47,12 @@ public class GamemodeCommand {
                 gm = GameMode.SPECTATOR; break;
             }
             default: {
-                ctx.reply("§cErro! Gamemode inválido");
+                ctx.reply("evento.gamemode.error", CmdContext.CommandType.EVENTO);
                 return;
             }
         }
 
         evento.getFlags().setGamemode(gm);
-        ctx.reply("§aGamemode dos jogadores alterado com sucesso!");
+        ctx.reply("evento.gamemode.success", CmdContext.CommandType.EVENTO);
     }
 }

@@ -1,10 +1,13 @@
 package com.henriquenapimo1.eventmanager.commands.evento.admin;
 
 import com.henriquenapimo1.eventmanager.Main;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
 
 public class DarItemCommand {
 
@@ -12,22 +15,16 @@ public class DarItemCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
         ItemStack item = ctx.getSender().getInventory().getItemInMainHand();
         if(item.getType().equals(Material.AIR)) {
-            ctx.reply("§7Não há nenhum item selecionado na sua mão principal!");
+            ctx.reply("evento.dar.no-item", CmdContext.CommandType.EVENTO);
         } else {
-            String aviso = "";
-
-            if(item.getType().equals(Material.POTION)) {
-                aviso = "\n§eDica: §7aplique um efeito de poção em todos usando §f/evento darefeito§7 com a poção na mão!";
-            }
-
             evento.darItem(item);
-            ctx.reply("§7Item dado com sucesso!" + aviso);
+            ctx.reply("evento.dar.success", CmdContext.CommandType.EVENTO);
         }
     }
 }

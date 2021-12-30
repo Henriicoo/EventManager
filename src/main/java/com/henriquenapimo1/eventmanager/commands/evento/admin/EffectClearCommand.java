@@ -10,11 +10,11 @@ public class EffectClearCommand {
         Evento evento = Main.getMain().evento;
 
         if(evento == null) {
-            ctx.reply("§7Não há nenhum evento acontecendo no momento!");
+            ctx.reply("evento.no-evento", CmdContext.CommandType.EVENTO);
             return;
         }
 
-        ctx.reply("§7Limpando todos os efeitos de poção dos players!");
+        ctx.reply("evento.clear", CmdContext.CommandType.EVENTO,"efeitos de poção");
         evento.effectClear();
     }
 }
