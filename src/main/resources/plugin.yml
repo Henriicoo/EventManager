@@ -29,9 +29,16 @@ permissions:
     default: op
   eventmanager.mod:
     description: Dá as permissões de moderador do plugin à uma pessoa
+    children:
+      - eventmanager.quiz.criar
+      - eventmanager.vouf.criar
+      - eventmanager.bolao.criar
+      - eventmanager.loteria.ciar
     default: op
   eventmanager.admin:
     description: Dá as permissões de administrador do plugin à uma pessoa
+    children:
+      - eventmanager.mod
     default: op
   eventmanager.quiz.responder:
     description: Dá a permissão de responder quizzes à um jogador
