@@ -26,6 +26,7 @@ import com.henriquenapimo1.eventmanager.commands.evento.mod.AnunciarCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.mod.BanCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.mod.BroadcastCommand;
 import com.henriquenapimo1.eventmanager.commands.evento.mod.UnbanCommand;
+import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,7 +38,7 @@ public class CommandListener implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!(sender instanceof Player)) { sender.sendMessage("§cVocê precisa ser um jogador para poder executar esse comando!"); return false; }
+        if(!(sender instanceof Player)) { sender.sendMessage(CustomMessages.getString("commands.console")); return false; }
 
         CmdContext ctx = new CmdContext(sender, command, args);
         switch (command.getName().toLowerCase()) {
@@ -64,7 +65,7 @@ public class CommandListener implements CommandExecutor {
                     new ReloadCommand(ctx);
                     return;
                 }
-                ctx.getSender().sendMessage("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.admin §cpara poder fazer isso.");
+                ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
             } return;
             case "info": new InfoCommand(ctx);
         }
@@ -109,7 +110,7 @@ public class CommandListener implements CommandExecutor {
                 }
             }
         } else {
-            sender.sendMessage("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.mod §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.mod");
             return;
         }
 
@@ -160,7 +161,7 @@ public class CommandListener implements CommandExecutor {
                 }
             }
         } else {
-            sender.sendMessage("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.admin §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
         }
     }
 
@@ -186,7 +187,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.quiz.criar §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.quiz.criar");
         }
     }
 
@@ -211,7 +212,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.vouf.criar §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.vouf.criar");
         }
     }
 
@@ -236,7 +237,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.bolao.criar §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.bolao.criar");
         }
     }
 
@@ -256,7 +257,7 @@ public class CommandListener implements CommandExecutor {
                 new LoteriaCriarCommand(ctx);
             }
         } else {
-            ctx.reply("§cVocê não tem permissão! Você precisa da permissão §7eventmanager.loteria.criar §cpara poder fazer isso.");
+            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.loteria.criar");
         }
     }
 }
