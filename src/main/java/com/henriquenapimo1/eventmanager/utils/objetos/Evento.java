@@ -3,11 +3,9 @@ package com.henriquenapimo1.eventmanager.utils.objetos;
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
-import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 import com.henriquenapimo1.eventmanager.utils.gui.Itens;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -24,7 +22,7 @@ public class Evento {
 
     private final List<Player> players = new ArrayList<>();
     private final List<Player> spectators = new ArrayList<>();
-    private final HashMap<Player, Map.Entry<Inventory, Location>> playerOldSettings = new HashMap<>();
+    private final HashMap<Player, PlayerOld> playerOldSettings = new HashMap<>();
     private final List<UUID> bannedPlayers = new ArrayList<>();
 
     private final List<ItemStack> itens = new ArrayList<>();
@@ -81,7 +79,7 @@ public class Evento {
         p.teleport(spawn);
 
         // salva o inv
-        playerOldSettings.put(p, new AbstractMap.SimpleEntry<>(p.getInventory(),p.getLocation()));
+        playerOldSettings.put(p, new PlayerOld(p));
         p.getInventory().clear();
 
         // adiciona os itens especiais
@@ -117,13 +115,7 @@ public class Evento {
     public void removePlayer(Player p, boolean ban) {
         players.remove(p);
 
-        // restaura o inv e dá clear nos efeitos
-        p.getInventory().clear();
-        p.getInventory().setContents(playerOldSettings.get(p).getKey().getContents());
-        p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
-
-        p.teleport(playerOldSettings.get(p).getValue());
-
+        playerOldSettings.get(p).restaurar();
         playerOldSettings.remove(p);
 
         if(ban) {
@@ -199,7 +191,7 @@ public class Evento {
 
     public void addSpectator(Player p) {
         this.spectators.add(p);
-        this.playerOldSettings.put(p,new AbstractMap.SimpleEntry<>(null,p.getLocation()));
+        this.playerOldSettings.put(p,new PlayerOld(p));
 
         p.teleport(spawn);
         p.getInventory().setItem(8, Itens.getItem(Material.BARRIER,"§c§lSair do Evento","§7Clique direito para sair do evento"));
@@ -211,11 +203,7 @@ public class Evento {
     public void removeSpectator(Player p) {
         spectators.remove(p);
 
-        p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
-        p.teleport(playerOldSettings.get(p).getValue());
-
-        InventoryGUIs.clearHotbar(p);
-
+        playerOldSettings.get(p).restaurar();
         playerOldSettings.remove(p);
     }
 
@@ -232,16 +220,14 @@ public class Evento {
             if (!spectators.isEmpty()) {
                 AtomicInteger i = new AtomicInteger();
                 spectators.forEach(s -> {
-                    s.getInventory().clear();
-                    s.getActivePotionEffects().forEach(e -> s.removePotionEffect(e.getType()));
+                    i.getAndIncrement();
 
-                    s.teleport(playerOldSettings.get(s).getValue());
+                    playerOldSettings.get(s).restaurar();
+                    playerOldSettings.remove(s);
 
                     if (i.get() == spectators.size()) {
                         Main.getMain().evento = null;
-                        return;
                     }
-                    i.getAndIncrement();
                 });
             }
             Main.getMain().evento = null;
@@ -251,30 +237,24 @@ public class Evento {
         AtomicInteger i = new AtomicInteger();
 
         players.forEach(p -> {
-            p.getInventory().clear();
-            p.getInventory().setContents(playerOldSettings.get(p).getKey().getContents());
-            p.getActivePotionEffects().forEach(e -> p.removePotionEffect(e.getType()));
+            i.getAndIncrement();
 
-            p.teleport(playerOldSettings.get(p).getValue());
+            playerOldSettings.get(p).restaurar();
+            playerOldSettings.remove(p);
 
             if(i.get()==players.size()) {
                 i.set(0);
-
                 spectators.forEach(s -> {
-                    s.getInventory().clear();
-                    s.getActivePotionEffects().forEach(e -> s.removePotionEffect(e.getType()));
+                    i.getAndIncrement();
 
-                    s.teleport(playerOldSettings.get(s).getValue());
+                    playerOldSettings.get(s).restaurar();
+                    playerOldSettings.remove(s);
 
                     if(i.get()==spectators.size()) {
                         Main.getMain().evento = null;
-                        return;
                     }
-                    i.getAndIncrement();
                 });
-                return;
             }
-            i.getAndIncrement();
         });
     }
 
