@@ -17,7 +17,7 @@ public class UnbanCommand {
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento unban [nick]");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento unban [nick]");
             return;
         }
 

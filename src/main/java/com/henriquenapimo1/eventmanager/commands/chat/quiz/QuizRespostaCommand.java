@@ -16,7 +16,7 @@ public class QuizRespostaCommand {
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.quiz.responder")) {
-            ctx.reply("no-permission", CmdContext.CommandType.QUIZ,"eventmanager.quiz.responder");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.QUIZ,"eventmanager.quiz.responder");
             return;
         }
 
@@ -26,13 +26,12 @@ public class QuizRespostaCommand {
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("args", CmdContext.CommandType.QUIZ,"/quiz responder [resposta]");
+            ctx.reply("utils.args", CmdContext.CommandType.QUIZ,"/quiz responder [resposta]");
             return;
         }
 
         String resp = String.join(" ",ctx.getArgs())
-                .replace("resposta ","")
-                .replaceAll(".$", "");
+                .replace("resposta ","");
 
         if(resp.equalsIgnoreCase(q.getResposta())) {
             q.finalizar(ctx.getSender());

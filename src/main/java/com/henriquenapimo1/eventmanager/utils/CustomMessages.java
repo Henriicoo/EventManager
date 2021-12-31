@@ -8,9 +8,11 @@ import java.io.File;
 
 public class CustomMessages {
 
-    private static YamlConfiguration msg = null;
+    private static YamlConfiguration msg;
 
     public static void loadMessages() {
+        msg = null;
+
         File messageFile = new File(Main.getMain().getDataFolder(), "mensagens.yml");
 
        if(!messageFile.exists()) {

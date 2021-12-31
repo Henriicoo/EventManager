@@ -9,6 +9,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 public class Bolao {
@@ -85,8 +86,8 @@ public class Bolao {
         if(getApostadores().size() == 1) {
          ganhador = Bukkit.getOfflinePlayer(((UUID) getApostadores().toArray()[0]));
         } else {
-            ganhador = (Player) apostadores.toArray()
-                    [(int) Math.floor(Math.random()*(apostadores.size())+0)];
+            ganhador = Bukkit.getOfflinePlayer((UUID) apostadores.toArray()
+                    [(int) Math.floor(Math.random()*(apostadores.size())+0)]);
         }
 
         Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.BOLAO) + " " +

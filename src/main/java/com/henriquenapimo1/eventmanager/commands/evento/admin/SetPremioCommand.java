@@ -17,7 +17,7 @@ public class SetPremioCommand {
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento setpremio [prêmio]");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento setpremio [prêmio]");
             return;
         }
 
@@ -25,12 +25,12 @@ public class SetPremioCommand {
         try {
             i = Integer.parseInt(ctx.getArg(1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.EVENTO,"prêmio");
+            ctx.reply("utils.not-number", CmdContext.CommandType.EVENTO,"prêmio");
             return;
         }
 
-        if(i > Utils.getInt("max-premio")) {
-            ctx.reply("max-premio", CmdContext.CommandType.EVENTO,String.valueOf(Utils.getInt("max-premio")));
+        if(i > Utils.getInt("max-premio-evento")) {
+            ctx.reply("utils.max-premio", CmdContext.CommandType.EVENTO,String.valueOf(Utils.getInt("max-premio-evento")));
             return;
         }
 

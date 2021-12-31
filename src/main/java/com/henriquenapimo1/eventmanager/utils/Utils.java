@@ -108,7 +108,7 @@ public class Utils {
         ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.BOLAO) + " " +
                 CustomMessages.getString("events.bolao.anuncio",String.valueOf(b.getValorAcumulado())));
 
-        msg.append(new ComponentBuilder("\n" + CustomMessages.getString("events.bolao.button"))
+        msg.append(new ComponentBuilder("\n" + CustomMessages.getString("events.bolao.button",String.valueOf(b.getValorInicial())))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para apostar no bolão")))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/bolao apostar"))
                 .create());

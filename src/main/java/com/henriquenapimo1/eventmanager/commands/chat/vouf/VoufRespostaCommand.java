@@ -15,7 +15,7 @@ public class VoufRespostaCommand {
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.vouf.responder")) {
-            ctx.reply("no-permission", CmdContext.CommandType.VOUF,"eventmanager.vouf.responder");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.VOUF,"eventmanager.vouf.responder");
             return;
         }
 
@@ -25,7 +25,7 @@ public class VoufRespostaCommand {
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
+            ctx.reply("utils.args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
             return;
         }
 
@@ -33,7 +33,7 @@ public class VoufRespostaCommand {
             case "true": v.addPlayer(ctx.getSender(),true);break;
             case "false": v.addPlayer(ctx.getSender(),false);break;
             default: {
-                ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
+                ctx.reply("utils.args", CmdContext.CommandType.VOUF,"/vouf resposta [true/false]");
             } break;
         }
     }

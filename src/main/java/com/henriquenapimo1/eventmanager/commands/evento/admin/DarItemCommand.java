@@ -24,7 +24,7 @@ public class DarItemCommand {
             ctx.reply("evento.dar.no-item", CmdContext.CommandType.EVENTO);
         } else {
             evento.darItem(item);
-            ctx.reply("evento.dar.success", CmdContext.CommandType.EVENTO);
+            ctx.reply("evento.dar.success", CmdContext.CommandType.EVENTO,"item");
         }
     }
 }

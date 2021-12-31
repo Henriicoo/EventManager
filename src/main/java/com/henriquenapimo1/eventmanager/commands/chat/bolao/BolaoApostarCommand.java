@@ -16,7 +16,7 @@ public class BolaoApostarCommand {
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.bolao.apostar")) {
-            ctx.reply("no-permission", CmdContext.CommandType.BOLAO,"eventmanager.bolao.apostar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.BOLAO,"eventmanager.bolao.apostar");
             return;
         }
 

@@ -15,7 +15,7 @@ public class LoteriaApostarCommand {
         }
 
         if(!ctx.getSender().hasPermission("eventmanager.loteria.apostar")) {
-            ctx.reply("no-permission", CmdContext.CommandType.LOTERIA,"eventmanager.loteria.apostar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.LOTERIA,"eventmanager.loteria.apostar");
             return;
         }
 
@@ -25,7 +25,7 @@ public class LoteriaApostarCommand {
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("args", CmdContext.CommandType.LOTERIA,"/loteria apostar [número]");
+            ctx.reply("utils.args", CmdContext.CommandType.LOTERIA,"/loteria apostar [número]");
             return;
         }
 
@@ -34,7 +34,7 @@ public class LoteriaApostarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.LOTERIA,"aposta");
+            ctx.reply("utils.not-number", CmdContext.CommandType.LOTERIA,"aposta");
             return;
         }
 
@@ -44,7 +44,7 @@ public class LoteriaApostarCommand {
                 if(a == 0) {
                     ctx.reply("loteria.apostar.error.no-chances", CmdContext.CommandType.LOTERIA);
                 } else {
-                    ctx.reply("loteria.apostar.error.has-hances", CmdContext.CommandType.LOTERIA,String.valueOf(a));
+                    ctx.reply("loteria.apostar.error.has-chances", CmdContext.CommandType.LOTERIA,String.valueOf(a));
                 }
             } else {
                 ctx.reply("loteria.apostar.error.simple", CmdContext.CommandType.LOTERIA);

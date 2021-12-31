@@ -17,7 +17,7 @@ public class BanCommand {
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento ban [nick]");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento ban [nick]");
             return;
         }
 
@@ -27,8 +27,12 @@ public class BanCommand {
             return;
         }
 
+        if(evento.getPlayers().contains(p)) {
+            ctx.reply("evento.ban.error.not-playing", CmdContext.CommandType.EVENTO,p.getName());
+        }
+
         if(p.hasPermission("eventmanager.mod") || p.hasPermission("eventmanager.admin")) {
-            ctx.reply("evento.ban.error", CmdContext.CommandType.EVENTO);
+            ctx.reply("evento.ban.error.staff", CmdContext.CommandType.EVENTO);
             return;
         }
 

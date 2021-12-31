@@ -38,7 +38,7 @@ public class CommandListener implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!(sender instanceof Player)) { sender.sendMessage(CustomMessages.getString("commands.console")); return false; }
+        if(!(sender instanceof Player)) { sender.sendMessage(CustomMessages.getString("commands.utils.console")); return false; }
 
         CmdContext ctx = new CmdContext(sender, command, args);
         switch (command.getName().toLowerCase()) {
@@ -65,7 +65,7 @@ public class CommandListener implements CommandExecutor {
                     new ReloadCommand(ctx);
                     return;
                 }
-                ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
+                ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
             } return;
             case "info": new InfoCommand(ctx);
         }
@@ -110,7 +110,7 @@ public class CommandListener implements CommandExecutor {
                 }
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.mod");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.mod");
             return;
         }
 
@@ -161,7 +161,7 @@ public class CommandListener implements CommandExecutor {
                 }
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
         }
     }
 
@@ -187,7 +187,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.quiz.criar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.quiz.criar");
         }
     }
 
@@ -212,7 +212,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.vouf.criar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.vouf.criar");
         }
     }
 
@@ -237,7 +237,7 @@ public class CommandListener implements CommandExecutor {
                     break;
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.bolao.criar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.bolao.criar");
         }
     }
 
@@ -257,7 +257,7 @@ public class CommandListener implements CommandExecutor {
                 new LoteriaCriarCommand(ctx);
             }
         } else {
-            ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.loteria.criar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.loteria.criar");
         }
     }
 }

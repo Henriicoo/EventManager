@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.chat.bolao;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
+import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 
 public class BolaoCriarCommand {
@@ -14,7 +15,7 @@ public class BolaoCriarCommand {
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("args", CmdContext.CommandType.BOLAO,"/bolao criar [valorInicial]");
+            ctx.reply("utils.args", CmdContext.CommandType.BOLAO,"/bolao criar [valorInicial]");
             return;
         }
 
@@ -23,7 +24,12 @@ public class BolaoCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.BOLAO,"valor inicial");
+            ctx.reply("utils.not-number", CmdContext.CommandType.BOLAO,"valor inicial");
+            return;
+        }
+
+        if(i > Utils.getInt("max-premio-bolao")) {
+            ctx.reply("utils.max-premio", CmdContext.CommandType.BOLAO,String.valueOf(Utils.getInt("max-premio-bolao")));
             return;
         }
 

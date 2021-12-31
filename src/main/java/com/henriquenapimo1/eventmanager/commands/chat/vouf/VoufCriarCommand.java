@@ -9,7 +9,7 @@ public class VoufCriarCommand {
 
     public VoufCriarCommand(CmdContext ctx) {
         if(ctx.getArgs().length < 3) {
-            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf criar [pergunta] [prêmio]");
+            ctx.reply("utils.args", CmdContext.CommandType.VOUF,"/vouf criar [pergunta] [prêmio]");
             return;
         }
 
@@ -23,12 +23,12 @@ public class VoufCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.VOUF,"prêmio");
+            ctx.reply("utils.not-number", CmdContext.CommandType.VOUF,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio-vouf")) {
-            ctx.reply("max-premio", CmdContext.CommandType.VOUF,String.valueOf(Utils.getInt("max-premio-vouf")));
+            ctx.reply("utils.max-premio", CmdContext.CommandType.VOUF,String.valueOf(Utils.getInt("max-premio-vouf")));
             return;
         }
 

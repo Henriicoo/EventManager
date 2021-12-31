@@ -34,18 +34,19 @@ public class CmdContext {
         return a[i];
     }
 
-    public void reply(String msg,CommandType tipo,String... args) {
+    public void reply(String path,CommandType tipo,String... args) {
         String pref = Utils.getPref(tipo);
-        msg = CustomMessages.getString(msg);
+        path = CustomMessages.getString("commands."+path);
 
         if(args.length == 1) {
-            msg = msg.replace("{0}",args[0]);
+            path = path.replace("{0}",args[0]);
         } else if(args.length == 2) {
-            msg = msg.replace("{0}",args[0]).replace("{1}",args[1]);
+            path = path.replace("{0}",args[0]).replace("{1}",args[1]);
         }
 
-        s.sendMessage(pref+" §f"+msg);
+        s.sendMessage(pref+" §f"+path);
     }
+
     public void reply(String path,CommandType tipo) {
         String pref = Utils.getPref(tipo);
 

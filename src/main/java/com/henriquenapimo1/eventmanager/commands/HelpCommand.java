@@ -23,27 +23,27 @@ public class HelpCommand {
         if(ctx.getArgs().length <= 1) {
             ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §6Menu de Ajuda\n");
 
-            b.append(new ComponentBuilder("§e§l[Evento] ")
+            b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.EVENTO) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Eventos")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help evento"))
                     .create());
-            b.append(new ComponentBuilder("§6§l[Quiz] ")
+            b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.QUIZ) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Quizzes")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help quiz"))
                     .create());
-            b.append(new ComponentBuilder("§a§l[VouF] ")
+            b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.VOUF) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os VouFs")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help vouf"))
                     .create());
-            b.append(new ComponentBuilder("§e§l[Bolão] ")
+            b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.BOLAO) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Bolões")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help bolao"))
                     .create());
-            b.append(new ComponentBuilder("§e§l[Loteria] ")
+            b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.LOTERIA) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre a Loteria")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help loteria"))
                     .create());
-            b.append(new ComponentBuilder("§f§l[Perms]")
+            b.append(new ComponentBuilder("§8[§e§lPerms§§8]")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre as Permissões")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help perms"))
                     .create());
@@ -65,7 +65,7 @@ public class HelpCommand {
             case "loteria": new LoteriaHelpCommand(ctx2); break;
             case "perms": {
                 if(ctx.getSender().hasPermission("eventmanager.staff")) {
-                    ctx.reply("no-permission", CmdContext.CommandType.MAIN,"eventmanager.staff");
+                    ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.staff");
                     return;
                 }
                 List<String> lista = new ArrayList<>();

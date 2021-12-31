@@ -13,7 +13,7 @@ public class CriarCommand {
     public CriarCommand(CmdContext ctx) {
 
         if(ctx.getArgs().length < 3) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento criar [nome] [prêmio]");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento criar [nome] [prêmio]");
             return;
         }
 
@@ -27,12 +27,12 @@ public class CriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.EVENTO,"prêmio");
+            ctx.reply("utils.not-number", CmdContext.CommandType.EVENTO,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio-evento")) {
-            ctx.reply("max-premio", CmdContext.CommandType.EVENTO,String.valueOf(Utils.getInt("max-premio-evento")));
+            ctx.reply("utils.max-premio", CmdContext.CommandType.EVENTO,String.valueOf(Utils.getInt("max-premio-evento")));
             return;
         }
 

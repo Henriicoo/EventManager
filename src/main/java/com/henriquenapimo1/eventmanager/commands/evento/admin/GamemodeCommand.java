@@ -16,7 +16,7 @@ public class GamemodeCommand {
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento gamemode [gamemode]");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento gamemode [gamemode]");
             return;
         }
 

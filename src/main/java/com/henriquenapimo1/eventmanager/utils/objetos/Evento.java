@@ -46,9 +46,9 @@ public class Evento {
     public void broadcast(String msg) {
         players.forEach(player -> player.sendMessage(
                 CustomMessages.getString("events.evento.broadcast.players",
-                        Utils.getPref(CmdContext.CommandType.EVENTO), ChatColor.translateAlternateColorCodes('&',msg))));
+                        name, ChatColor.translateAlternateColorCodes('&',msg))));
         spectators.forEach(player -> player.sendMessage(CustomMessages.getString("events.evento.broadcast.players",
-                Utils.getPref(CmdContext.CommandType.EVENTO), ChatColor.translateAlternateColorCodes('&',msg))));
+                name, ChatColor.translateAlternateColorCodes('&',msg))));
 
         playsound(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
@@ -57,7 +57,7 @@ public class Evento {
         Bukkit.getOnlinePlayers().forEach(p -> {
             if(p.hasPermission("eventmanager.admin") || p.hasPermission("eventmanager.mod")) {
                 p.sendMessage(
-                        CustomMessages.getString("events.anuncio.broadcast.staff",Utils.getPref(CmdContext.CommandType.EVENTO),msg)
+                        CustomMessages.getString("events.evento.broadcast.staff",name,msg)
                 );}});
         playsoundStaff(Sound.BLOCK_NOTE_BLOCK_PLING);
     }
@@ -229,9 +229,7 @@ public class Evento {
         Bukkit.getScheduler().cancelTask(TaskId);
 
         if(players.isEmpty()) {
-            if(spectators.isEmpty()) {
-                Main.getMain().evento = null;
-            } else {
+            if (!spectators.isEmpty()) {
                 AtomicInteger i = new AtomicInteger();
                 spectators.forEach(s -> {
                     s.getInventory().clear();
@@ -239,13 +237,14 @@ public class Evento {
 
                     s.teleport(playerOldSettings.get(s).getValue());
 
-                    if(i.get()==spectators.size()) {
+                    if (i.get() == spectators.size()) {
                         Main.getMain().evento = null;
                         return;
                     }
                     i.getAndIncrement();
                 });
             }
+            Main.getMain().evento = null;
             return;
         }
 

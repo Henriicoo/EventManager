@@ -39,6 +39,8 @@ public class Flags {
             case ADVENTURE: gm = GameMode.SPECTATOR; break;
             case SPECTATOR: gm = GameMode.SURVIVAL; break;
         }
+
+        setGamemode(gm);
     }
 
     public boolean getPvp() {

@@ -97,6 +97,11 @@ public final class Main extends JavaPlugin {
                     }
                 }
             }
+            if(args[1].equalsIgnoreCase("finalizar")) {
+                List<String> st = new ArrayList<>();
+                evento.getPlayers().forEach(p -> st.add(p.getName()));
+                return st;
+            }
         }
 
         // Comando de Quiz

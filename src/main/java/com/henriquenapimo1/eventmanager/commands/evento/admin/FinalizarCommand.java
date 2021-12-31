@@ -24,7 +24,7 @@ public class FinalizarCommand {
         }
 
         if(ctx.getArgs().length < 2) {
-            ctx.reply("args", CmdContext.CommandType.EVENTO,"/evento finalizar [nick] [nick]...");
+            ctx.reply("utils.args", CmdContext.CommandType.EVENTO,"/evento finalizar [nick] [nick]...");
             return;
         }
 

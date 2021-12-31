@@ -9,7 +9,7 @@ public class QuizCriarCommand {
 
     public QuizCriarCommand(CmdContext ctx) {
         if(ctx.getArgs().length < 3) {
-            ctx.reply("args", CmdContext.CommandType.QUIZ,"/quiz criar [pergunta] [prêmio]");
+            ctx.reply("utils.args", CmdContext.CommandType.QUIZ,"/quiz criar [pergunta] [prêmio]");
             return;
         }
 
@@ -23,19 +23,18 @@ public class QuizCriarCommand {
         try {
             i = Integer.parseInt(ctx.getArg(ctx.getArgs().length-1));
         } catch (Exception e) {
-            ctx.reply("not-number", CmdContext.CommandType.QUIZ,"prêmio");
+            ctx.reply("utils.not-number", CmdContext.CommandType.QUIZ,"prêmio");
             return;
         }
 
         if(i > Utils.getInt("max-premio-quiz")) {
-            ctx.reply("max-premio", CmdContext.CommandType.QUIZ,String.valueOf(Utils.getInt("max-premio-quiz")));
+            ctx.reply("utils.max-premio", CmdContext.CommandType.QUIZ,String.valueOf(Utils.getInt("max-premio-quiz")));
             return;
         }
 
         String pergunta = String.join(" ",ctx.getArgs())
                 .replace(String.valueOf(i),"")
-                .replace("criar ","")
-                .replaceAll(".$", "");
+                .replace("criar ","");
 
         Main.getMain().quiz = new Quiz(pergunta,i);
         ctx.reply("quiz.criar.success", CmdContext.CommandType.QUIZ);

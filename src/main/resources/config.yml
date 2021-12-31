@@ -36,6 +36,8 @@ anunciar-bolao: 60
 bolao-anuncios: 5
 # Se staff pode ou não apostar no bolão
 staff-apostar: true
+# Valor máximo de dinheiro inicial em um bolão manual
+max-premio-bolao: 10000
 # Valores possíveis de serem o valor inicial de um bolão automático
 bolao-valores:
   - 500
@@ -56,6 +58,8 @@ loteria-max-numero: 60
 loteria-anuncios: 5
 # O número máximo de vezes que um jogador pode apostar (-1 para infinito)
 loteria-max-apostas: 5
+# Valor máximo de prêmio em uma loteria manual
+max-premio-loteria: 5000
 # Valores possíveis de serem o prêmio da loteria automática
 loteria-premios:
   - 500

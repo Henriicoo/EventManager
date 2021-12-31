@@ -17,11 +17,12 @@ prefix:
 
 # Todos os comandos e suas mensagens
 commands:
-  no-permission: '§cVocê não tem permissão! Você precisa da permissão &f{0} &cpara fazer isso.'
-  console: '§cVocê precisa ser um jogador para executar esse comando!'
-  args: '§cErro! Argumentos requeridos: {0}'
-  not-number: '§cErro! Você precisa colocar um número como {0}.'
-  max-premio: '§cErro! O prêmio excede o valor máximo de R${0}'
+  utils:
+    no-permission: '§cVocê não tem permissão! Você precisa da permissão &f{0} &cpara fazer isso.'
+    console: '§cVocê precisa ser um jogador para executar esse comando!'
+    args: '§cErro! Argumentos requeridos: {0}'
+    not-number: '§cErro! Você precisa colocar um número como {0}.'
+    max-premio: '§cErro! O prêmio excede o valor máximo de R${0}'
   evento:
     no-evento: '§7Não há nenhum evento acontecendo no momento.'
     entrar:
@@ -35,7 +36,9 @@ commands:
       locked: '§cVocê não pode anunciar um evento trancado!'
     ban:
       offline: '§cErro! Este jogador está offline.'
-      error: '§cErro! Você não pode banir esse jogador.'
+      error:
+        not-playing: '§cO jogador {0} não está participando do evento!'
+        staff: '§cErro! Você não pode banir esse jogador.'
     criar:
       error: '§cErro! Você não pode criar um evento enquanto já tem um acontecendo.'
       success: '§aEvento criado com sucesso! Use §f/evento anunciar §apara anunciar o evento à todos.'
@@ -110,7 +113,7 @@ commands:
       success: '§7Você apostou no bolão! Aguarde o resultado. Boa sorte!'
     criar:
       error: '§7Você não pode criar um bolão enquanto há outro acontecendo! Use /bolao finalizar caso você queira forçar o fim do bolão atual.'
-      success: '§aBolão iniciado com sucesso!'
+      success: '§aBolão iniciado com sucesso! &7Como esse é um bolão manual, você, ou outro administrador precisa usar o comando &f/bolao finalizar &7para terminá-lo.'
     finalizar: '§7Bolão finalizado com sucesso'
   loteria:
     no-loteria: '§7Não há nenhuma loteria acontecendo no momento!'
@@ -164,7 +167,7 @@ events:
     anuncio: '&7O Bolão está acumulado em R${0} Clique aqui para apostar:'
     button: '&a[Clique para apostar R${0}]'
     cancel: '§7Bolão cancelado! Não houve apostadores nesse bolão.'
-    ganhador: '§7O(a) ganhador(a) do bolão foi: §f{0}§7! Ele(a) ganhou a quantia total de §6R${0}§7!'
+    ganhador: '§7O(a) ganhador(a) do bolão foi: §f{0}§7! Ele(a) ganhou a quantia total de §6R${1}§7!'
     lost: '§cVocê perdeu o bolão e perdeu R${0}'
     win: '§aVocê ganhou o bolão e ganhou um total de R${0}'
   loteria:

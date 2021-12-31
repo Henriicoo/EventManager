@@ -10,7 +10,7 @@ public class EntrarCommand {
     public EntrarCommand(CmdContext ctx) {
 
         if(!ctx.getSender().hasPermission("eventmanager.entrar")) {
-            ctx.reply("no-permission", CmdContext.CommandType.EVENTO,"eventmanager.entrar");
+            ctx.reply("utils.no-permission", CmdContext.CommandType.EVENTO,"eventmanager.entrar");
             return;
         }
 

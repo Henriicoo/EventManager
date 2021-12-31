@@ -15,7 +15,7 @@ public class VoufFinalizarCommand {
         }
 
         if(ctx.getArgs().length == 1) {
-            ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
+            ctx.reply("utils.args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
             return;
         }
 
@@ -23,7 +23,7 @@ public class VoufFinalizarCommand {
             case "true": v.finalizar(true); break;
             case "false": v.finalizar(false); break;
             default: {
-                ctx.reply("args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
+                ctx.reply("utils.args", CmdContext.CommandType.VOUF,"/vouf finalizar [true/false]");
             } break;
         }
     }

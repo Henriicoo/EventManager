@@ -99,7 +99,11 @@ public class MenuListener implements Listener {
             event.getWhoClicked().closeInventory();
             event.getWhoClicked().sendMessage(Utils.getPref(CmdContext.CommandType.MAIN)+" §7Teletransportado à " + p.getName() + " com sucesso.");
         } else if(event.getClick().isRightClick()) {
-            Main.getMain().evento.banPlayer(p);
+            if (event.getWhoClicked().hasPermission("eventmanager.mod")) {
+                Main.getMain().evento.banPlayer(p);
+            } else {
+                event.getWhoClicked().sendMessage(Utils.getPref(CmdContext.CommandType.EVENTO) + " §cVocê não tem permissão!");
+            }
             event.getWhoClicked().closeInventory();
         }
     }
