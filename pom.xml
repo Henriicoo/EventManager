@@ -6,7 +6,7 @@
 
     <groupId>com.henriquenapimo1</groupId>
     <artifactId>EventManager</artifactId>
-    <version>1.2</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>EventManager</name>
