@@ -134,19 +134,28 @@ public final class Main extends JavaPlugin {
                 List<String> tab = new ArrayList<>(Collections.singletonList("info"));
 
                 if (sender.hasPermission("eventmanager.staff"))
-                    tab.addAll(Arrays.asList("help","reload"));
+                    tab.addAll(Arrays.asList("help","reload","config"));
 
                 return tab;
             }
-            if(args.length <= 2) {
+            if(args.length <= 2 && sender.hasPermission("eventmanager.admin")) {
                 switch (args[0]) {
                     case "reload": {
-                        if (sender.hasPermission("eventmanager.staff"))
-                            return Collections.singletonList("confirm");
+                        return Collections.singletonList("confirm");
                     }
                     case "help": {
-                        if (sender.hasPermission("eventmanager.staff"))
-                            return Arrays.asList("evento","quiz","vouf","perms");
+                        return Arrays.asList("evento","quiz","vouf","perms");
+                    }
+                    case "config": {
+                        return Arrays.asList("help","set","info","list");
+                    }
+                }
+            }
+            if(args.length <= 3 && sender.hasPermission("eventmanager.admin")) {
+                switch (args[1]) {
+                    case "set":
+                    case "info": {
+                        return new ArrayList<>(Utils.getConfiguration().keySet());
                     }
                 }
             }

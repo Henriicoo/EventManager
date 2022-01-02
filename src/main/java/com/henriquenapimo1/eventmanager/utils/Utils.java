@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -224,5 +225,33 @@ public class Utils {
         }
 
         return c;
+    }
+
+    public static HashMap<String,String> getConfiguration() {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("max-premio-evento","Valor máximo de dinheiro para o vencedor");
+        map.put("auto-anunciar","Se o plugin irá anunciar o evento automaticamente");
+        map.put("anunciar-evento","Tempo de intervalo entre os anúncios (em segundos)");
+        map.put("max-premio-quiz","Valor máximo de dinheiro para o vencedor");
+        map.put("anunciar-quiz","Tempo de intervalo entre os anúncios (em segundos)");
+        map.put("max-premio-vouf","Valor máximo de dinheiro para o vencedor");
+        map.put("anunciar-vouf","Tempo de intervalo entre os anúncios (em segundos)");
+        map.put("bolao-ativo","Se o bolão vai ser ativo automaticamente no servidor");
+        map.put("bolao-intervalo","De quanto em quanto tempo ocorrerá um bolão (em minutos)");
+        map.put("anunciar-bolao","Tempo de intervalo entre anúncios de um bolão já criado (em segundos)");
+        map.put("bolao-anuncios","Quantidade de vezes que o bolão será anunciado antes de finalizar");
+        map.put("staff-apostar","Se staff pode ou não apostar no bolão");
+        map.put("max-premio-bolao","Valor máximo de dinheiro inicial em um bolão manual");
+        map.put("bolao-valores","Valores possíveis de serem o valor inicial de um bolão automático"); // será?
+        map.put("loteria-ativo","Se a loteria vai ser ativa automaticamente no servidor");
+        map.put("loteria-intervalo","De quanto em quanto tempo ocorrerá uma loteria (em minutos)");
+        map.put("loteria-anunciar","Tempo de intervalo entre anúncios de uma loteria já criada (em segundos)");
+        map.put("loteria-max-numero","O número máximo que a loteria pode sortear");
+        map.put("loteria-anuncios","O número máximo de vezes de anúncios da loteria automática (em segundos)");
+        map.put("loteria-max-apostas","O número máximo de vezes que um jogador pode apostar (-1 para infinito)");
+        map.put("max-premio-loteria","Valor máximo de prêmio em uma loteria manual");
+        map.put("loteria-premios","Valores possíveis de serem o prêmio da loteria automática"); // ??
+
+        return map;
     }
 }

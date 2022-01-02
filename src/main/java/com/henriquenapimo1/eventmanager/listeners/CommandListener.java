@@ -1,5 +1,6 @@
 package com.henriquenapimo1.eventmanager.listeners;
 
+import com.henriquenapimo1.eventmanager.commands.ConfigCommand;
 import com.henriquenapimo1.eventmanager.commands.HelpCommand;
 import com.henriquenapimo1.eventmanager.commands.InfoCommand;
 import com.henriquenapimo1.eventmanager.commands.ReloadCommand;
@@ -60,14 +61,20 @@ public class CommandListener implements CommandExecutor {
         }
         switch (ctx.getArg(0)) {
             case "help": new HelpCommand(ctx); return;
-            case "reload": {
-                if(ctx.getSender().hasPermission("eventmanager.admin")) {
-                    new ReloadCommand(ctx);
-                    return;
+            case "info": new InfoCommand(ctx); break;
+        }
+
+        if(ctx.getSender().hasPermission("eventmanager.admin")) {
+            switch (ctx.getArg(0)) {
+                case "reload": {
+                    new ReloadCommand(ctx); return;
                 }
-                ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
-            } return;
-            case "info": new InfoCommand(ctx);
+                case "config": {
+                    new ConfigCommand(ctx); break;
+                }
+            }
+        } else {
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.admin");
         }
     }
 

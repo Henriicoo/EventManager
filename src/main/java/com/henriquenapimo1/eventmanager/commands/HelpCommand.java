@@ -22,6 +22,13 @@ public class HelpCommand {
     public HelpCommand(CmdContext ctx) {
         if(ctx.getArgs().length <= 1) {
             ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §6Menu de Ajuda\n");
+            b.append("§a/eventmanager help §7- §eMostra o menu de ajuda;\n");
+            b.append("§a/eventmanager info §7- §eMostra a versão do plugin;\n");
+            b.append("§a/eventmanager config help §7- §eComando para alterar ou ver informações sobre alguma configuração;\n");
+            b.append("§a/eventmanager reload §7- §ePara recarregar o plugin e suas configurações;\n");
+
+            b.append("§7▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n");
+            b.append("§7Clique em um nome para ver o menu de ajuda\n");
 
             b.append(new ComponentBuilder(Utils.getPref(CmdContext.CommandType.EVENTO) + " ")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre os Eventos")))
@@ -43,7 +50,7 @@ public class HelpCommand {
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre a Loteria")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help loteria"))
                     .create());
-            b.append(new ComponentBuilder("§8[§e§lPerms§§8]")
+            b.append(new ComponentBuilder("§8[§e§lPerms§8]")
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para ver ajuda sobre as Permissões")))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/eventmanager help perms"))
                     .create());
@@ -68,11 +75,19 @@ public class HelpCommand {
                     ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.staff");
                     return;
                 }
-                List<String> lista = new ArrayList<>();
-                Main.getMain().getDescription().getPermissions().forEach(p ->
-                    lista.add(String.format("§8- §7%s §f| §f%s;\n",p.getName(),p.getDescription())));
+                ComponentBuilder cb = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §6§lLista de permissões");
 
-                ctx.replyText("§6§lLista de Permissões:\n"+String.join("",lista), CmdContext.CommandType.MAIN);
+                Main.getMain().getDescription().getPermissions().forEach(p ->
+                        cb.append(String.format("§8- §7%s §f| §f%s;\n",p.getName(),p.getDescription())));
+
+                cb.append("§7Para ter mais informações, ");
+                cb.append(new ComponentBuilder("§a[Clique aqui]")
+                        .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new Text("§7Clique para abrir a wiki do plugin")))
+                        .event(new ClickEvent(ClickEvent.Action.OPEN_URL,
+                                "https://github.com/HenriqueNapimo1/EventManager/wiki/Lista-de-Comandos-e-Permissões"))
+                        .create());
+
+                ctx.getSender().spigot().sendMessage(cb.create());
             } break;
             default: ctx.replyText("§7Argumento inválido!", CmdContext.CommandType.MAIN); break;
         }
