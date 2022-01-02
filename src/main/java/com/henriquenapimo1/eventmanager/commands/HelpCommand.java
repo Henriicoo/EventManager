@@ -71,7 +71,7 @@ public class HelpCommand {
             case "bolao": new BolaoHelpCommand(ctx2); break;
             case "loteria": new LoteriaHelpCommand(ctx2); break;
             case "perms": {
-                if(ctx.getSender().hasPermission("eventmanager.staff")) {
+                if(!ctx.getSender().hasPermission("eventmanager.staff")) {
                     ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.staff");
                     return;
                 }
