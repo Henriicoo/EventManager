@@ -14,6 +14,7 @@ public class LoteriaHelpCommand {
         if(ctx.getSender().hasPermission("eventmanager.loteria.criar")) {
             b.append("\n§a§lComandos de Criação§7:");
             b.append("\n§a/loteria criar [prêmio] [número/random] §7- §eCria uma Loteria customizado com o prêmio inserido e o número premiado inserido, ou aleatório (caso random);");
+            b.append("\n§a/loteria finalizar §7- §eCancela a loteria atual, sem nenhum ganhador;");
         }
 
         ctx.getSender().spigot().sendMessage(b.create());

@@ -44,6 +44,12 @@ public class Quiz {
 
     public void finalizar(Player ganhador) {
         Bukkit.getScheduler().cancelTask(taskId);
+
+        if(ganhador == null) {
+            Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.QUIZ) + " " +
+                    CustomMessages.getString("events.quiz.cancel",resposta)));
+            return;
+        }
         Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(Utils.getPref(CmdContext.CommandType.QUIZ) + " " +
                         CustomMessages.getString("events.quiz.ganhador",ganhador.getName(),resposta)));
 

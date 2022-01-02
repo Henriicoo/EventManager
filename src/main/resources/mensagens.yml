@@ -94,6 +94,7 @@ commands:
     setresposta:
       error: '§7Você precisa primeiro criar um quiz! /quiz criar [pergunta] [prêmio]'
       success: '§aResposta configurada com sucesso! Iniciando o quiz...'
+    cancel: '§7Quiz cancelado com sucesso.'
   vouf:
     no-vouf: '§7Não há nenhum VouF acontecendo no momento!'
     resposta:
@@ -117,6 +118,7 @@ commands:
     finalizar: '§7Bolão finalizado com sucesso'
   loteria:
     no-loteria: '§7Não há nenhuma loteria acontecendo no momento!'
+    cancel: '§aLoteria cancelada com sucesso!'
     apostar:
       staff: '§7Você é um staff, portanto, não pode apostar na loteria!'
       error:
@@ -156,6 +158,7 @@ events:
   quiz:
     anuncio: '&8Quiz iniciado! Valendo &7R${0}&8:'
     button: '&a[Clique para responder]'
+    cancel: '§7O Quiz foi cancelado! Ninguém acertou a resposta, que era §f{0}'
     ganhador: '§7O(a) ganhador(a) do quiz foi: §f{0}§7! A resposta era: §f{1}'
   vouf:
     anuncio: '&8Vouf iniciado! Valendo &7R${0}&8:'

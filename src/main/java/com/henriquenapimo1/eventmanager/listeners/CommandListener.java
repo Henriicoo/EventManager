@@ -10,11 +10,9 @@ import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoFinalizarComman
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoHelpCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaApostarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaCriarCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaFinalizarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaHelpCommand;
-import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizCriarCommand;
-import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizHelpCommand;
-import com.henriquenapimo1.eventmanager.commands.chat.quiz.QuizRespostaCommand;
-import com.henriquenapimo1.eventmanager.commands.chat.quiz.SetRespostaCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.quiz.*;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufFinalizarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.vouf.VoufHelpCommand;
@@ -192,6 +190,9 @@ public class CommandListener implements CommandExecutor {
                 case "setresposta":
                     new SetRespostaCommand(ctx);
                     break;
+                case "finalizar":
+                    new QuizFinalizarCommand(ctx);
+                    break;
             }
         } else {
             ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.quiz.criar");
@@ -260,8 +261,9 @@ public class CommandListener implements CommandExecutor {
         }
 
         if(ctx.getSender().hasPermission("eventmanager.loteria.criar")) {
-            if ("criar".equalsIgnoreCase(ctx.getArg(0))) {
-                new LoteriaCriarCommand(ctx);
+            switch (ctx.getArg(0)) {
+                case "criar": new LoteriaCriarCommand(ctx); return;
+                case "finalizar": new LoteriaFinalizarCommand(ctx); break;
             }
         } else {
             ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.loteria.criar");

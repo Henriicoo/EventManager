@@ -110,7 +110,7 @@ public final class Main extends JavaPlugin {
                 List<String> tab = new ArrayList<>(Arrays.asList("help", "resposta"));
 
                 if (sender.hasPermission("eventmanager.quiz.criar"))
-                    tab.addAll(Arrays.asList("criar", "setresposta"));
+                    tab.addAll(Arrays.asList("criar", "setresposta","finalizar"));
 
                 return tab;
             }
@@ -179,7 +179,7 @@ public final class Main extends JavaPlugin {
                 List<String> tab = new ArrayList<>(Arrays.asList("help", "apostar"));
 
                 if (sender.hasPermission("eventmanager.loteria.criar"))
-                    tab.addAll(Collections.singletonList("criar"));
+                    tab.addAll(Arrays.asList("criar","finalizar"));
 
                 return tab;
             }
