@@ -18,7 +18,7 @@ public class ConfigCommand {
     public ConfigCommand(CmdContext ctx) {
         this.ctx = ctx;
         if(ctx.getArgs().length < 2) {
-            // help
+            help();
             return;
         }
 
@@ -33,9 +33,19 @@ public class ConfigCommand {
                 set();
             } break;
             default: {
-                // help
+                help();
             } break;
         }
+    }
+
+    private void help() {
+        ComponentBuilder b = new ComponentBuilder(Utils.getPref(CmdContext.CommandType.MAIN) + " §6Menu de Ajuda - Config\n");
+        b.append("§a/eventmanager config help §7- §eMostra o menu de ajuda;\n");
+        b.append("§a/eventmanager config list §7- §eMostra uma lista com todas as configurações;\n");
+        b.append("§a/eventmanager config info [config] §7- §eVer informações sobre alguma configuração;\n");
+        b.append("§a/eventmanager config set [convig] [valor] §7- §eAlterar o valor de uma configuração dentro do jogo;\n");
+
+        ctx.getSender().spigot().sendMessage(b.create());
     }
 
     private void list() {
