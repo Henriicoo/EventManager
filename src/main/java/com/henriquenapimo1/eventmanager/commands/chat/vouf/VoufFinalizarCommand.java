@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.chat.vouf;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
-import com.henriquenapimo1.eventmanager.utils.objetos.Vouf;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Vouf;
 
 public class VoufFinalizarCommand {
 

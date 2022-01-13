@@ -1,7 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.gui;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Evento;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

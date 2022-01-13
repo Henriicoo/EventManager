@@ -1,13 +1,10 @@
 package com.henriquenapimo1.eventmanager.commands.evento.admin;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.CustomMessages;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
 
 public class DarItemCommand {
 

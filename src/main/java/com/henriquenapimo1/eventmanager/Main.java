@@ -6,7 +6,7 @@ import com.henriquenapimo1.eventmanager.listeners.MenuListener;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
-import com.henriquenapimo1.eventmanager.utils.objetos.*;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -28,6 +28,7 @@ public final class Main extends JavaPlugin {
     public Vouf vouf;
     public Bolao bolao;
     public Loteria loteria;
+    public Enquete enquete;
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
 
@@ -58,7 +59,8 @@ public final class Main extends JavaPlugin {
         if(Utils.getBool("bolao-ativo"))
             ChatEventManager.startBolaoScheduler();
         if(Utils.getBool("loteria-ativo"))
-            ChatEventManager.startLoteriaScheduler();
+        Bukkit.getScheduler().runTaskLater(this, ChatEventManager::startLoteriaScheduler,
+                (Utils.getInt("bolao-intervalo")/2)*60*20L);
 
         log.info(String.format("[%s] Plugin iniciado com sucesso!",getDescription().getName()));
     }

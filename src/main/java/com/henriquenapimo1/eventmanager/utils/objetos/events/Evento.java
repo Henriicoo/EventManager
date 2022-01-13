@@ -1,9 +1,11 @@
-package com.henriquenapimo1.eventmanager.utils.objetos;
+package com.henriquenapimo1.eventmanager.utils.objetos.events;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 import com.henriquenapimo1.eventmanager.utils.gui.Itens;
+import com.henriquenapimo1.eventmanager.utils.objetos.Flags;
+import com.henriquenapimo1.eventmanager.utils.objetos.PlayerOld;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -207,7 +209,7 @@ public class Evento {
         playerOldSettings.remove(p);
     }
 
-    void setGamemode(GameMode gm) {
+    public void setGamemode(GameMode gm) {
         players.forEach(p -> p.setGameMode(gm));
         broadcast(CustomMessages.getString("events.evento.gamemode"));
         playsound(Sound.BLOCK_NOTE_BLOCK_BIT);

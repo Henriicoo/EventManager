@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.evento;
 
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Evento;
 import com.henriquenapimo1.eventmanager.utils.gui.InventoryGUIs;
 
 public class EntrarCommand {

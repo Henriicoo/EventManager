@@ -1,9 +1,10 @@
-package com.henriquenapimo1.eventmanager.utils.objetos;
+package com.henriquenapimo1.eventmanager.utils.objetos.events;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
+import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;

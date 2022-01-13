@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.listeners;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.Utils;
-import com.henriquenapimo1.eventmanager.utils.objetos.*;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

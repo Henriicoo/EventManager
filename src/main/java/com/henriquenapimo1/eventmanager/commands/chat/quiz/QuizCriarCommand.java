@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.chat.quiz;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
-import com.henriquenapimo1.eventmanager.utils.objetos.Quiz;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Quiz;
 import com.henriquenapimo1.eventmanager.utils.Utils;
 
 public class QuizCriarCommand {

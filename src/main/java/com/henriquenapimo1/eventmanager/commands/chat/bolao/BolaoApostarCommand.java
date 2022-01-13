@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.chat.bolao;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.Utils;
-import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Bolao;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 
 public class BolaoApostarCommand {

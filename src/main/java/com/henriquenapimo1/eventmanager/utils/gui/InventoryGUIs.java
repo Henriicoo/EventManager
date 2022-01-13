@@ -1,7 +1,7 @@
 package com.henriquenapimo1.eventmanager.utils.gui;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.objetos.Evento;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Evento;
 import com.henriquenapimo1.eventmanager.utils.objetos.Flags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,7 +10,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class InventoryGUIs {

@@ -1,5 +1,6 @@
 package com.henriquenapimo1.eventmanager.utils.objetos;
 
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Evento;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 

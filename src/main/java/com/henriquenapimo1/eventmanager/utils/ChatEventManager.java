@@ -1,8 +1,8 @@
 package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
-import com.henriquenapimo1.eventmanager.utils.objetos.Bolao;
-import com.henriquenapimo1.eventmanager.utils.objetos.Loteria;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Bolao;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Loteria;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -81,7 +81,7 @@ public class ChatEventManager {
     }
 
     public static void startLoteriaScheduler() {
-        long intervalo = (Utils.getInt("bolao-intervalo")*60*20L)/2+(Utils.getInt("loteria-intervalo")*60*20L);
+        long intervalo = Utils.getInt("loteria-intervalo")*60*20L;
         loteriaTaskId = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getMain(), () -> {
             if(Main.getMain().loteria != null) {
                 restartLoteria(false);

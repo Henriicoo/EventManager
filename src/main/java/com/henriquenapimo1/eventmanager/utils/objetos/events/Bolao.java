@@ -1,9 +1,10 @@
-package com.henriquenapimo1.eventmanager.utils.objetos;
+package com.henriquenapimo1.eventmanager.utils.objetos.events;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
+import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

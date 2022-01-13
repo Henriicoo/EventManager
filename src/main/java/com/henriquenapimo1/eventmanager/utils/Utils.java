@@ -2,6 +2,7 @@ package com.henriquenapimo1.eventmanager.utils;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.objetos.*;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -33,6 +34,7 @@ public class Utils {
             case VOUF: pref = CustomMessages.getString("prefix.vouf"); break;
             case BOLAO: pref = CustomMessages.getString("prefix.bolao"); break;
             case LOTERIA: pref = CustomMessages.getString("prefix.loteria"); break;
+            case ENQUETE: pref = CustomMessages.getString("prefix.enquete"); break;
         }
 
         return pref;

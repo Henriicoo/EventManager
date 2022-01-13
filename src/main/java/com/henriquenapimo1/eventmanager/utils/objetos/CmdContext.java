@@ -61,6 +61,6 @@ public class CmdContext {
     }
 
     public enum CommandType {
-        MAIN, EVENTO, QUIZ, VOUF, BOLAO, LOTERIA
+        MAIN, EVENTO, QUIZ, VOUF, BOLAO, LOTERIA, ENQUETE
     }
 }

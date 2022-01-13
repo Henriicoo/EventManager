@@ -2,7 +2,7 @@ package com.henriquenapimo1.eventmanager.commands.chat.loteria;
 
 import com.henriquenapimo1.eventmanager.Main;
 import com.henriquenapimo1.eventmanager.utils.objetos.CmdContext;
-import com.henriquenapimo1.eventmanager.utils.objetos.Loteria;
+import com.henriquenapimo1.eventmanager.utils.objetos.events.Loteria;
 
 public class LoteriaApostarCommand {
 
