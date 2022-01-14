@@ -8,6 +8,7 @@ import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoApostarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoFinalizarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.bolao.BolaoHelpCommand;
+import com.henriquenapimo1.eventmanager.commands.chat.enquete.*;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaApostarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaCriarCommand;
 import com.henriquenapimo1.eventmanager.commands.chat.loteria.LoteriaFinalizarCommand;
@@ -47,6 +48,7 @@ public class CommandListener implements CommandExecutor {
             case "eventmanager": eventManagerCommands(ctx); return true;
             case "bolao": bolaoCommands(ctx); return true;
             case "loteria": loteriaCommands(ctx); return true;
+            case "enquete": enqueteCommands(ctx); return true;
         }
 
         return false;
@@ -267,6 +269,29 @@ public class CommandListener implements CommandExecutor {
             }
         } else {
             ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.loteria.criar");
+        }
+    }
+
+    private void enqueteCommands(CmdContext ctx) {
+        if(ctx.getArgs().length == 0) {
+            new EnqueteHelpCommand(ctx);
+            return;
+        }
+
+        switch (ctx.getArg(0).toLowerCase()) {
+            case "help": new EnqueteHelpCommand(ctx); return;
+            case "votar": new EnqueteVotarCommand(ctx); return;
+        }
+
+        if(ctx.getSender().hasPermission("eventmanager.enquete.criar")) {
+            switch (ctx.getArg(0)) {
+                case "criar": new EnqueteCriarCommand(ctx); return;
+                case "add": new EnqueteAddCommand(ctx); return;
+                case "iniciar": new EnqueteIniciarCommand(ctx); return;
+                case "finalizar": new EnqueteFinalizarCommand(ctx); break;
+            }
+        } else {
+            ctx.reply("utils.no-permission", CmdContext.CommandType.MAIN,"eventmanager.enquete.criar");
         }
     }
 }

@@ -19,6 +19,8 @@ commands:
     description: Comando de criação de Bolões
   loteria:
     description: Comando de criação de Loteria
+  enquete:
+    description: Comando para a criação de enquetes
 
 permissions:
   eventmanager.entrar:
@@ -34,6 +36,7 @@ permissions:
       - eventmanager.vouf.criar
       - eventmanager.bolao.criar
       - eventmanager.loteria.ciar
+      - eventmanager.enquete.criar
     default: op
   eventmanager.admin:
     description: Dá as permissões de administrador do plugin à uma pessoa
@@ -63,4 +66,7 @@ permissions:
     default: true
   eventmanager.loteria.criar:
     description: Permissão para criar uma Loteria
+    default: op
+  eventmanager.enquete.criar:
+    description: Permissão para criar uma Enquete
     default: op

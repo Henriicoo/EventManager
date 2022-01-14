@@ -3,6 +3,7 @@ package com.henriquenapimo1.eventmanager;
 import com.henriquenapimo1.eventmanager.listeners.CommandListener;
 import com.henriquenapimo1.eventmanager.listeners.EventListener;
 import com.henriquenapimo1.eventmanager.listeners.MenuListener;
+import com.henriquenapimo1.eventmanager.utils.AutoUpdater;
 import com.henriquenapimo1.eventmanager.utils.ChatEventManager;
 import com.henriquenapimo1.eventmanager.utils.CustomMessages;
 import com.henriquenapimo1.eventmanager.utils.Utils;
@@ -40,10 +41,11 @@ public final class Main extends JavaPlugin {
             return;
         }
 
-        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
         CustomMessages.loadMessages();
+        new AutoUpdater(this);
 
-        List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao","loteria");
+        List<String> cmds = Arrays.asList("eventmanager","evento","quiz","vouf","bolao","loteria","enquete");
 
         cmds.forEach(c -> {
             PluginCommand cmd = getCommand(c);
@@ -58,6 +60,7 @@ public final class Main extends JavaPlugin {
 
         if(Utils.getBool("bolao-ativo"))
             ChatEventManager.startBolaoScheduler();
+
         if(Utils.getBool("loteria-ativo"))
         Bukkit.getScheduler().runTaskLater(this, ChatEventManager::startLoteriaScheduler,
                 (Utils.getInt("bolao-intervalo")/2)*60*20L);
@@ -197,6 +200,25 @@ public final class Main extends JavaPlugin {
             }
         }
 
+        // Comando Enquete
+        if(command.getName().equalsIgnoreCase("enquete")) {
+            if(args.length <= 1) {
+                List<String> tab = new ArrayList<>(Arrays.asList("help", "votar"));
+
+                if (sender.hasPermission("eventmanager.loteria.criar"))
+                    tab.addAll(Arrays.asList("criar","add","finalizar","iniciar"));
+
+                return tab;
+            }
+
+            if(args.length == 2 && args[0].equalsIgnoreCase("finalizar")) {
+                return Collections.singletonList("-s");
+            }
+            if(args.length == 2 && args[0].equalsIgnoreCase("votar") && enquete != null) {
+                return enquete.getAlternativas();
+            }
+        }
+
         return Collections.emptyList();
     }
 
@@ -212,6 +234,7 @@ public final class Main extends JavaPlugin {
         vouf = null;
         bolao = null;
         loteria = null;
+        enquete = null;
 
         log.info(String.format("[%s] Desabilitando o plugin.",getDescription().getName()));
     }

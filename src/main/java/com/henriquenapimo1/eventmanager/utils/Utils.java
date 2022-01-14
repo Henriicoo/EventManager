@@ -132,6 +132,21 @@ public class Utils {
         return msg;
     }
 
+    public static ComponentBuilder getAnuncio(Enquete e) {
+        ComponentBuilder msg = new ComponentBuilder("§7 \n" + Utils.getPref(CmdContext.CommandType.ENQUETE) + " " +
+                CustomMessages.getString("events.enquete.anuncio",e.getPergunta()));
+
+        e.getOpcoes().forEach((key, value) -> msg.append(new ComponentBuilder("\n" +
+                CustomMessages.getString("events.enquete.opcao",key.toUpperCase(), value))
+
+                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§7Clique para votar nessa opção")))
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/enquete votar "+key))
+                .create()));
+
+        msg.append("\n§7 ");
+        return msg;
+    }
+
     // https://bukkit.org/threads/spawn-firework.118019/
     public static void spawnFirework(Player p, int quanto) {
         new BukkitRunnable() {

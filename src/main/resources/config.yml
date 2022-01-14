@@ -1,5 +1,5 @@
 # Não mexa! Isso serve para funções internas do plugin
-config-version: 1.0.0
+config-version: 1.1.0
 
 # EVENTO
 
@@ -66,3 +66,7 @@ loteria-premios:
   - 1000
   - 2000
   - 3000
+
+# ENQUETE
+
+anunciar-enquete: 60
