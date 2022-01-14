@@ -5,15 +5,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class CustomMessages {
 
     private static YamlConfiguration msg;
+    private static File messageFile;
 
     public static void loadMessages() {
         msg = null;
 
-        File messageFile = new File(Main.getMain().getDataFolder(), "mensagens.yml");
+        messageFile = new File(Main.getMain().getDataFolder(), "mensagens.yml");
 
        if(!messageFile.exists()) {
            Main.getMain().saveResource("mensagens.yml",false);
@@ -36,5 +40,25 @@ public class CustomMessages {
             path = path.replace("{0}",args[0]).replace("{1}",args[1]);
         }
         return path;
+    }
+
+    public static void messageUpdate() throws IOException {
+        //noinspection ConstantConditions
+        Reader targetReader = new InputStreamReader(Main.getMain().getResource("mensagens.yml"));
+
+        YamlConfiguration c = YamlConfiguration.loadConfiguration(targetReader);
+        targetReader.close();
+
+        boolean change = false;
+        for (String defaultKey : c.getKeys(true)) {
+            if (!msg.contains(defaultKey)) {
+                msg.set(defaultKey, c.get(defaultKey));
+                msg.save(messageFile);
+                change = true;
+            }
+        }
+
+        if (change) msg.save(messageFile);
+        loadMessages();
     }
 }
