@@ -21,6 +21,8 @@ public class PlayerOld {
         this.fly = p.isFlying();
         this.content = p.getInventory().getContents();
         this.armor = p.getInventory().getArmorContents();
+
+        player.getInventory().clear();
     }
 
     public void restaurar() {
