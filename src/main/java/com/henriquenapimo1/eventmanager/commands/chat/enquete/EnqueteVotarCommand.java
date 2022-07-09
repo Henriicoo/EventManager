@@ -14,6 +14,11 @@ public class EnqueteVotarCommand {
             return;
         }
 
+        if(!ctx.getSender().hasPermission("eventmanager.enquete.votar")) {
+            ctx.reply("utils.no-permission", CmdContext.CommandType.ENQUETE,"eventmanager.enquete.votar");
+            return;
+        }
+
         if(ctx.getArgs().length != 2 || ctx.getArg(1).toCharArray().length > 1) {
             ctx.reply("utils.args", CmdContext.CommandType.ENQUETE,"/enquete votar [a/b/c/d]");
             return;

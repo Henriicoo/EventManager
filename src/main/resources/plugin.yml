@@ -70,3 +70,6 @@ permissions:
   eventmanager.enquete.criar:
     description: Permissão para criar uma Enquete
     default: op
+  eventmanager.enquete.votar:
+    description: Permissão para votar na enquete
+    default: true
