@@ -42,8 +42,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     public boolean runCommand(CmdContext ctx) {
         ICommand cmd = getMatch(ctx.getCommand().getName());
 
-        if(cmd == null && ctx.getArgs().length >=1) {
-            cmd = getMatch(ctx.getCommand().getName()+"."+ctx.getArg(0));
+        if(ctx.getArgs().length >=1) {
+            ICommand cmdArg = getMatch(ctx.getCommand().getName()+"."+ctx.getArg(0));
+            if(cmdArg != null) cmd = cmdArg;
         }
 
         if(cmd == null) return false;
@@ -81,7 +82,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return null;
+        return TabComplete.complete(sender, command, args);
     }
 
 }

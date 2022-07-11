@@ -5,11 +5,11 @@ import java.util.HashSet;
 public class CommandSet {
 
     public static HashSet<ICommand> getSet() {
-        HashSet<ICommand> cmds = new HashSet<>();
+        HashSet<ICommand> cmdSet = new HashSet<>();
 
         // add commands...
 
-        return cmds;
+        return cmdSet;
     }
 }
 
